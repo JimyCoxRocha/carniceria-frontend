@@ -5,7 +5,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./modules/home/home-module.module').then(m => m.HomeModuleModule),
-    pathMatch: 'full'
+    pathMatch: 'full',
+    outlet: 'sidebar'
   },
   {
     path: '**',
