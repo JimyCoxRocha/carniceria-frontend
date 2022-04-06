@@ -1,5 +1,47 @@
-<p>home works!</p>
-<button mat-raised-button color="primary"
-    matBadge="8" matBadgePosition="before" matBadgeColor="accent">
-    Action
-</button>
+<section class="container mt-5">
+    <h1 class="text-center">{{"Disfruta de tus comidas en familia" | uppercase}}</h1>
+    <p>
+        Sabor y suavidad natural, sin conservadores ni inyección de agua. La mejor calidad en carne fresca de res, cerdo, ternera y pollo directamente hasta tu hogar.
+    </p>
+    <!-- <button mat-raised-button color="primary"
+        matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+        Action
+    </button> -->
+</section>
+<section class="container mt-5">
+    <h1 class="text-center">{{"Productos" | uppercase}}</h1>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">home</mat-icon>
+          </div>
+          <div class="col">
+            <h2 class="mb-1">Frescura</h2>
+            <p>Nuestras carnes son 100% frescas y recién cortadas.</p>
+          </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <h2 class="mb-1">Cortada a mano</h2>
+                <p>Nuestros carniceros cortan la carne el día que se surte el pedido.</p>
+            </div>
+            <div class="col">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">local_dining</mat-icon>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">military_tech</mat-icon>
+            </div>
+            <div class="col">
+              <h2 class="mb-1">Calidad de carne</h2>
+              <p>Nuestros proveedores nos brindan las mejores carnes.</p>
+            </div>
+          </div>
+    </div>
+</section>
+<app-image-card
+    title="Categorias"
+    titleBtn="Verificar"
+    [url]="url"
+></app-image-card>
