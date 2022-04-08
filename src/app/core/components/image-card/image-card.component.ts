@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ImageCardComponent implements OnInit {
   @Input("title") title: string = "";
-  @Input("titleBtn") titleBtn: string = "";
+  @Input("titleBtn") titleBtn?: string = "";
   @Input("url") url: string = "";
   
   constructor(private router: Router) {

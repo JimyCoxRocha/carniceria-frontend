@@ -8,40 +8,77 @@
         Action
     </button> -->
 </section>
-<section class="container mt-5">
-    <h1 class="text-center">{{"Productos" | uppercase}}</h1>
-    <div class="container">
-        <div class="row">
-          <div class="col">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">home</mat-icon>
-          </div>
-          <div class="col">
-            <h2 class="mb-1">Frescura</h2>
-            <p>Nuestras carnes son 100% frescas y recién cortadas.</p>
-          </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col">
-                <h2 class="mb-1">Cortada a mano</h2>
-                <p>Nuestros carniceros cortan la carne el día que se surte el pedido.</p>
-            </div>
-            <div class="col">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">local_dining</mat-icon>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">military_tech</mat-icon>
-            </div>
-            <div class="col">
-              <h2 class="mb-1">Calidad de carne</h2>
-              <p>Nuestros proveedores nos brindan las mejores carnes.</p>
-            </div>
-          </div>
-    </div>
-</section>
 <app-image-card
-    title="Categorias"
-    titleBtn="Verificar"
-    [url]="url"
+    title="La mejor carne"
 ></app-image-card>
+<section class="mt-5">
+    <h1 class="text-center">{{"Categorias" | uppercase}}</h1>
+        <div class="row d-flex justify-content-between">
+          <div class="col-12 col-sm-6 mb-5">
+            <app-image-card
+                title="Preferidos"
+                titleBtn="Ver Productos"
+                [url]="url"
+            ></app-image-card>
+          </div>
+          <div class="col-12 col-sm-6">
+            <app-image-card
+                title="Preferidos"
+                titleBtn="Ver Productos"
+                [url]="url"
+            ></app-image-card>
+          </div>
+          <div class="col-12 col-sm-6">
+            <app-image-card
+                title="Preferidos"
+                titleBtn="Ver Productos"
+                [url]="url"
+            ></app-image-card>
+          </div>
+        </div>
+</section>
+
+<section class="container mt-5">
+  <h1 class="text-center">{{"Recomendaciones" | uppercase}}</h1>
+  <div class="row d-flex justify-content-between">
+    <div class="col-12 col-sm-6 mb-5">
+      <app-product-card></app-product-card>
+    </div>
+    <div class="col-12 col-sm-6 mb-5">
+      <app-product-card></app-product-card>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-5">
+  <h1 class="text-center">{{"Confianza" | uppercase}}</h1>
+  <div class="container">
+      <div class="row">
+        <div class="col">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">home</mat-icon>
+        </div>
+        <div class="col">
+          <h2 class="mb-1">Frescura</h2>
+          <p>Nuestras carnes son 100% frescas y recién cortadas.</p>
+        </div>
+      </div>
+      <div class="row mt-4">
+          <div class="col">
+              <h2 class="mb-1">Cortada a mano</h2>
+              <p>Nuestros carniceros cortan la carne el día que se surte el pedido.</p>
+          </div>
+          <div class="col">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">local_dining</mat-icon>
+          </div>
+      </div>
+      <div class="row mt-4">
+          <div class="col">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">military_tech</mat-icon>
+          </div>
+          <div class="col">
+            <h2 class="mb-1">Calidad de carne</h2>
+            <p>Nuestros proveedores nos brindan las mejores carnes.</p>
+          </div>
+        </div>
+  </div>
+</section>

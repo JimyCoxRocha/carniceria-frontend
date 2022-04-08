@@ -1,9 +1,10 @@
-<div class="card position-relative mb-5 mt-5">
+<div class="card position-relative">
     <img src="assets/images/carne.png" class="card-img-top" alt="Imagen">
     <div class="card-body position-absolute top-50 start-50 translate-middle">
         <h1 class="text-light text-center mb-1">{{title | uppercase}}</h1>
         <div class="text-center">
             <button 
+            *ngIf="titleBtn"
                 mat-raised-button 
                 color="primary" 
                 class="fs-4 px-5 py-2"
@@ -13,7 +14,4 @@
             </button>
         </div>
     </div>
-</div>
-<div class="mb-5 pb-5">
-
 </div>
