@@ -15,6 +15,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { ErrorPageComponent } from '../../components/error-page/error-page.component';
 import { MainLayoutComponent } from './page/main-layout.component';
 import { MatButtonModule } from '@angular/material/button';
+import { FooterComponent } from './components/footer.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     HeaderComponent,
     SidenavComponent,
     MainLayoutComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
