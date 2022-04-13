@@ -8,27 +8,30 @@
         Action
     </button> -->
 </section>
-<app-image-card
+<div style="">
+  <app-fixed-image
     title="La mejor carne"
-></app-image-card>
-<section class="mt-5">
+    url="assets/images/carne.png"
+  ></app-fixed-image>
+</div>
+<section class="mt-5 container">
     <h1 class="text-center">{{"Categorias" | uppercase}}</h1>
         <div class="row d-flex justify-content-between">
-          <div class="col-12 col-sm-6 mb-5">
+          <div class="col-12 col-sm-6 col-lg-3 mb-5">
             <app-image-card
                 title="Preferidos"
                 titleBtn="Ver Productos"
                 [url]="url"
             ></app-image-card>
           </div>
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-6 col-lg-3 ">
             <app-image-card
                 title="Preferidos"
                 titleBtn="Ver Productos"
                 [url]="url"
             ></app-image-card>
           </div>
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-6 col-lg-3 ">
             <app-image-card
                 title="Preferidos"
                 titleBtn="Ver Productos"
@@ -41,10 +44,19 @@
 <section class="container mt-5">
   <h1 class="text-center">{{"Recomendaciones" | uppercase}}</h1>
   <div class="row d-flex justify-content-between">
-    <div class="col-12 col-sm-6 mb-5">
+    <div class="col-12 col-sm-6 col-md-3 mb-5">
       <app-product-card></app-product-card>
     </div>
-    <div class="col-12 col-sm-6 mb-5">
+    <div class="col-12 col-sm-6 col-md-3 mb-5">
+      <app-product-card></app-product-card>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 mb-5">
+      <app-product-card></app-product-card>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 mb-5">
+      <app-product-card></app-product-card>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 mb-5">
       <app-product-card></app-product-card>
     </div>
   </div>
@@ -52,33 +64,42 @@
 
 <section class="container mt-5">
   <h1 class="text-center">{{"Confianza" | uppercase}}</h1>
-  <div class="container">
-      <div class="row">
-        <div class="col">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">home</mat-icon>
-        </div>
-        <div class="col">
-          <h2 class="mb-1">Frescura</h2>
-          <p>Nuestras carnes son 100% frescas y recién cortadas.</p>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+      <div class="col mb-3">
+        <div class="row d-flex justify-content-evenly align-items-center">
+          <div class="col-3">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6rem;">home</mat-icon>
+          </div>
+          <div class="col-8">
+            <h2 class="mb-1">Frescura</h2>
+            <p>Nuestras carnes son 100% frescas y recién cortadas.</p>
+          </div>
         </div>
       </div>
-      <div class="row mt-4">
-          <div class="col">
-              <h2 class="mb-1">Cortada a mano</h2>
-              <p>Nuestros carniceros cortan la carne el día que se surte el pedido.</p>
+
+      <div class="col mb-3">
+        <div class="row d-flex justify-content-evenly align-items-center">
+          <div class="col-3">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6rem;">local_dining</mat-icon>
           </div>
-          <div class="col">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">local_dining</mat-icon>
+          <div class="col-8">
+            <h2 class="mb-1">Cortada a mano</h2>
+            <p>Nuestros carniceros cortan la carne el día que se surte el pedido.</p>
           </div>
+        </div>
       </div>
-      <div class="row mt-4">
-          <div class="col">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6.5rem;">military_tech</mat-icon>
+
+      <div class="col mb-3">
+        <div class="row d-flex justify-content-evenly align-items-center">
+          <div class="col-3">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 6rem;">military_tech</mat-icon>
           </div>
-          <div class="col">
+          <div class="col-8">
             <h2 class="mb-1">Calidad de carne</h2>
             <p>Nuestros proveedores nos brindan las mejores carnes.</p>
           </div>
         </div>
+      </div>
+
   </div>
 </section>
