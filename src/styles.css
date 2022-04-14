@@ -11,3 +11,24 @@ h1 {
     color: #780000;
     font-weight: 500!important;
 }
+
+.carousel .carousel-indicators li{
+    margin: 0rem 0.5rem;
+    width: 1rem!important;
+    height: 1rem!important;
+    background: rgba(255, 255, 255, 0.363);
+}
+
+.carousel-indicators .active{
+    opacity: 1;
+    background: #fff!important;
+}
+
+.sr-only{
+    display: none!important;
+}
+
+.carousel-control-next-icon:hover,
+.carousel-control-prev-icon:hover{
+    cursor: pointer;
+}

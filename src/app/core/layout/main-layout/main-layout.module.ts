@@ -15,8 +15,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { ErrorPageComponent } from '../../components/error-page/error-page.component';
 import { MainLayoutComponent } from './page/main-layout.component';
 import { MatButtonModule } from '@angular/material/button';
-import { FooterComponent } from './components/footer.component';
-
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +36,8 @@ import { FooterComponent } from './components/footer.component';
     MatListModule,
     MatCardModule,
     MatButtonModule,
-    MainLayoutRoutingModule
-  ],
+    MainLayoutRoutingModule,
+    ],
   exports: [
     HeaderComponent,
     SidenavComponent,
