@@ -7,19 +7,23 @@ import {MatCardModule} from '@angular/material/card';
 import { FixedImageComponent } from './components/fixed-image/fixed-image.component';
 import { CarouselModule, WavesModule  } from 'angular-bootstrap-md';
 import { CarouselSlideComponent } from './components/carousel/carousel-slide.component';
+import { ModalComponent } from './components/modal/modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     ImageCardComponent,
     ProductCardComponent,
     FixedImageComponent,
-    CarouselSlideComponent
+    CarouselSlideComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatCardModule,
     CarouselModule, 
-    WavesModule
+    WavesModule,
+    MatDialogModule
   ],
   exports: [
     ImageCardComponent,

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Category } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +14,7 @@ export class FooterComponent implements OnInit {
       icon: "facebook_outlined"
     }
   ]
-  @Input("categories") categories = ["hola", "Todos", "Chau"];
+  @Input("categories") categories: Category[]  = [];
 
   constructor() { }
 

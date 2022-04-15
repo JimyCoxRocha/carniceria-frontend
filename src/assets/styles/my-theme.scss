@@ -113,3 +113,7 @@ $my-theme : mat-light-theme((
 ));
 
 @include angular-material-theme($my-theme);
+
+.custom-container .mat-dialog-container{
+    border-radius: 20px!important;
+}
