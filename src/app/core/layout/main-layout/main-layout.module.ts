@@ -10,12 +10,15 @@ import { RouterModule } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 
 import { MainLayoutRoutingModule } from './main-layout-routing.module';
-import { HeaderComponent } from '../../components/header/header.component';
-import { SidenavComponent } from '../../components/sidenav/sidenav.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ErrorPageComponent } from '../../components/error-page/error-page.component';
 import { MainLayoutComponent } from './page/main-layout.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from './components/footer/footer.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
+import { CoreModule } from '../../core.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MainLayoutComponent,
     ErrorPageComponent,
     FooterComponent,
+    ExpansionPanelComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +41,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MatCardModule,
     MatButtonModule,
     MainLayoutRoutingModule,
+    MatExpansionModule,
+    CoreModule
     ],
   exports: [
     HeaderComponent,

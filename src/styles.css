@@ -1,5 +1,6 @@
 :root{
     --primary-color: #541313;
+    --primary-color-light: #541313be;
     --black-color: #000;
     --white-color: #fff;
 }
@@ -31,4 +32,10 @@ h1 {
 .carousel-control-next-icon:hover,
 .carousel-control-prev-icon:hover{
     cursor: pointer;
+}
+
+.cursor-pointer:hover{
+    cursor: pointer;
+    background-color: var(--primary-color-light);
+    color: var(--white-color);
 }

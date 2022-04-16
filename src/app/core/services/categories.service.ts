@@ -12,6 +12,8 @@ import { StorageService } from './storage.service';
 })
 export class CategoriesService {
   _categories: Category[] = [];
+  _isLoading: boolean = false;
+
   apiUrl = environment.API_URL;
   constructor( 
     private http: HttpClient,
@@ -46,6 +48,9 @@ export class CategoriesService {
   } */
 
   categories(){
+    if(this._isLoading) return;
+
+    this._isLoading = true;
     this.http.get<ApiResponse<Category[]>>
     (`${this.apiUrl}Categoria`)
     .pipe(
@@ -55,7 +60,8 @@ export class CategoriesService {
         return of({} as ApiResponse<Category[]>)
       })
     ) .subscribe(data => {
-      this._categories = data.data
+      this._categories = data.data;
+      console.log(data.data);
     });
     
   }

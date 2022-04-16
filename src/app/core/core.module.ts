@@ -9,13 +9,17 @@ import { CarouselModule, WavesModule  } from 'angular-bootstrap-md';
 import { CarouselSlideComponent } from './components/carousel/carousel-slide.component';
 import { ModalComponent } from './components/modal/modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NavLinkComponent } from './components/nav-link/nav-link.component';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     ImageCardComponent,
     ProductCardComponent,
     FixedImageComponent,
     CarouselSlideComponent,
-    ModalComponent
+    ModalComponent,
+    NavLinkComponent
   ],
   imports: [
     CommonModule,
@@ -23,13 +27,15 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCardModule,
     CarouselModule, 
     WavesModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   exports: [
     ImageCardComponent,
     ProductCardComponent,
     FixedImageComponent,
-    CarouselSlideComponent
+    CarouselSlideComponent,
+    NavLinkComponent
   ]
 })
 export class CoreModule { }

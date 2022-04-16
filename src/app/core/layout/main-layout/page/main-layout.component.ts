@@ -1,6 +1,9 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/core/services/categories.service';
+import { ExpansionPanelInterface } from '../components/expansion-panel/expansion-panel.component';
+import { Category } from '../../../interfaces/common/Categories';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
@@ -18,7 +21,8 @@ export class MainLayoutComponent implements OnInit {
   constructor(
       changeDetectorRef: ChangeDetectorRef, 
       media: MediaMatcher,
-      private categoriesService: CategoriesService
+      private categoriesService: CategoriesService,
+      private router: Router
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -38,5 +42,18 @@ export class MainLayoutComponent implements OnInit {
   get categories() {
     return this.categoriesService._categories;
   }
+  SubCategoriesFormat( category: Category ){
+    const subItem: ExpansionPanelInterface[] = 
+    category.subCategoria.map(resp => ({
+        id: resp.idSubcategoria,
+        title: resp.titulo,
+        description: ""
+      })
+    )
+    return subItem;
+  }
 
+  navPromotion(){
+    this.router.navigate(['/', 'promociones']);
+  }
 }
