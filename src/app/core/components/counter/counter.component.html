@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-start">
+  <div class="form-check-inline m-0">
+    <button 
+    style="background-color: var(--primary-color);"
+    [disabled]="isOne"
+    class="btn btn-primary p-0 d-flex align-items-center"
+    (click) = "subtractValue()">
+        <mat-icon>remove</mat-icon>
+    </button>
+  </div>
+  <form [formGroup]="myForm" class="form-check-inline m-0">
+    <input 
+      type="text" 
+      class="form-control px-1 py-0"
+      value="0"
+      formControlName="counter"
+      >
+  </form>
+  <div class="form-check-inline m-0">
+    <button 
+      style="background-color: var(--primary-color);"
+      [disabled]="isMaximun"
+      (click) = "addValue()"
+      class="btn btn-primary p-0 d-flex align-items-center">
+        <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

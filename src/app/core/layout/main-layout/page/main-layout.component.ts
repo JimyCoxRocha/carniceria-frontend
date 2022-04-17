@@ -36,7 +36,6 @@ export class MainLayoutComponent implements OnInit {
   shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 
   ngOnInit(): void {
-    console.log("iniciado");
     this.categoriesService.categories();
   }
   get categories() {

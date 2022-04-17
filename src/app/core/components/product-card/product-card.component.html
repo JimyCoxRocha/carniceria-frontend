@@ -2,17 +2,25 @@
     <img 
         style="max-width: 17rem;" 
         class="px-3 mb-2"
-        mat-card-image src="assets/images/carne.png" 
-        alt="imagen"
+        mat-card-image [src]="imgUrl" 
+        [alt]="title"
     >
-    <mat-card-title>Titulo del producto</mat-card-title>
-    <mat-card-subtitle><p >Titulo del producto</p></mat-card-subtitle>
-    <mat-card-actions class="">
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-subtitle><p >{{description}}</p></mat-card-subtitle>
+    <div class="d-flex justify-content-between">
+        <p class="m-0"><span class="fw-bolder">Stock: </span>{{stock}}</p>
+        <p class="m-0"><span class="fw-bolder">Mínimo: </span>{{minimaUnidad}} <span class="fw-bolder">{{unidadMedida}}</span></p>
+    </div>
+    <div class="d-flex w-50">
+        <app-counter></app-counter>
+    </div>
+    <mat-card-actions class="d-flex">
         <button
         mat-raised-button
         color="primary" 
         class="px-4 py-1">
             Añadir al carrito
         </button>
+        
     </mat-card-actions>
 </mat-card>

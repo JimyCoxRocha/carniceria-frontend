@@ -25,7 +25,7 @@
         <app-expansion-panel
           *ngFor = "let item of categories"
         [title]="item.titulo"
-        imageUrl="https://saboryestilo.com.mx/wp-content/uploads/2019/03/sazona-tu-carne-para-cocinar-a-la-parrilla-1200x720.jpg"
+        [imageUrl]="item.urlImage"
         [subItem] = "SubCategoriesFormat(item)"
         ></app-expansion-panel>
       </mat-accordion>

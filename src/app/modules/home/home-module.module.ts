@@ -7,11 +7,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { CoreModule } from '../../core/core.module';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeModuleRoutingModule } from './home-module-routing.module';
-
+import { CarouselSlideComponent } from './components/carousel/carousel-slide.component';
+import { CarouselModule, WavesModule  } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
     HomeComponent,
+    CarouselSlideComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,9 @@ import { HomeModuleRoutingModule } from './home-module-routing.module';
     MatButtonModule,
     CoreModule,
     MatIconModule,
-    HomeModuleRoutingModule
+    HomeModuleRoutingModule,
+    CarouselModule, WavesModule,
+    
   ],
   exports:[
     HomeComponent

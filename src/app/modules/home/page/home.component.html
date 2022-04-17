@@ -1,15 +1,14 @@
 <div class="container-md p-0">
-  <app-carousel-slide></app-carousel-slide>
+  <app-carousel-slide
+    [communications]="communications"
+  ></app-carousel-slide>
 </div>
 <section class="container mt-5">
     <h1 class="text-center">{{"Disfruta de tus comidas en familia" | uppercase}}</h1>
     <p>
         Sabor y suavidad natural, sin conservadores ni inyección de agua. La mejor calidad en carne fresca de res, cerdo, ternera y pollo directamente hasta tu hogar.
     </p>
-    <!-- <button mat-raised-button color="primary"
-        matBadge="8" matBadgePosition="before" matBadgeColor="accent">
-        Action
-    </button> -->
+
 </section>
 <div style="">
   <app-fixed-image
@@ -19,26 +18,15 @@
 </div>
 <section class="mt-5 container">
     <h1 class="text-center">{{"Categorias" | uppercase}}</h1>
-        <div class="row d-flex justify-content-between">
-          <div class="col-12 col-sm-6 col-lg-3 mb-5">
+        <div class="row d-flex justify-content-start">
+          <div 
+            *ngFor="let element of categories"
+            class="col-12 col-sm-6 col-lg-3 mb-5">
             <app-image-card
-                title="Preferidos"
+                [title]="element.titulo"
                 titleBtn="Ver Productos"
-                [url]="url"
-            ></app-image-card>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3 ">
-            <app-image-card
-                title="Preferidos"
-                titleBtn="Ver Productos"
-                [url]="url"
-            ></app-image-card>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3 ">
-            <app-image-card
-                title="Preferidos"
-                titleBtn="Ver Productos"
-                [url]="url"
+                [url]="url+element.idCategoria"
+                [urlImage]="element.urlImage"
             ></app-image-card>
           </div>
         </div>
@@ -46,26 +34,24 @@
 
 <section class="container mt-5">
   <h1 class="text-center">{{"Recomendaciones" | uppercase}}</h1>
-  <div class="row d-flex justify-content-between">
-    <div class="col-12 col-sm-6 col-md-3 mb-5">
-      <app-product-card></app-product-card>
-    </div>
-    <div class="col-12 col-sm-6 col-md-3 mb-5">
-      <app-product-card></app-product-card>
-    </div>
-    <div class="col-12 col-sm-6 col-md-3 mb-5">
-      <app-product-card></app-product-card>
-    </div>
-    <div class="col-12 col-sm-6 col-md-3 mb-5">
-      <app-product-card></app-product-card>
-    </div>
-    <div class="col-12 col-sm-6 col-md-3 mb-5">
-      <app-product-card></app-product-card>
+  <div class="row d-flex justify-content-start">
+    <div 
+      *ngFor= "let item of allProducts"
+      class="col-12 col-sm-6 col-lg-3 mb-5"
+    >
+      <app-product-card
+        [imgUrl] = "item.product.imgUrl"
+        [title] = "item.product.titulo"
+        [description] = "item.product.descripcion"
+        [stock] = "item.product.stock"
+        [unidadMedida] = "item.unidadMedida.unidad"
+        [minimaUnidad] = "item.product.minimaUnidad"
+      ></app-product-card>
     </div>
   </div>
 </section>
 
-<section class="container mt-5">
+<section class="container mt-5 mb-5">
   <h1 class="text-center">{{"Confianza" | uppercase}}</h1>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
       <div class="col mb-3">

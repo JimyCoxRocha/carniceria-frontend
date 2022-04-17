@@ -11,6 +11,8 @@ export class ImageCardComponent implements OnInit {
   @Input("titleBtn") titleBtn?: string = "";
   @Input("url") url: string = "";
   
+  @Input() urlImage: string = "";
+  
   constructor(private router: Router) {
 
    }
@@ -19,7 +21,6 @@ export class ImageCardComponent implements OnInit {
   }
 
   handleUrl(){
-    console.log("sf");
-    this.router.navigateByUrl("/team/33/user/11");
+    this.router.navigateByUrl(this.url);
   }
 }

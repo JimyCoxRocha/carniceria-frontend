@@ -3,6 +3,7 @@ export interface Category{
     titulo: string,
     descripcion: string,
     status: number,
+    urlImage: string,
     subCategoria: SubCategory[],
 }
 
@@ -10,5 +11,6 @@ export interface SubCategory{
     idSubcategoria: number,
     titulo: string,
     descripcion: string,
-    status: string
+    status: string,
+    urlImage: string
 }
