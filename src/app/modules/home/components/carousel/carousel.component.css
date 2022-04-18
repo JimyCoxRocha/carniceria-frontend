@@ -6,3 +6,26 @@
     -moz-box-shadow: -1px 2px 41px 4px rgba(0,0,0,1);
     border-radius: 25px;
 }
+
+.carouselImage {
+    width: 100%;
+    height: 20rem;
+    background: black;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (min-width: 576px) {
+    .carouselImage {
+      width: 100%;
+      height: 20rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .carouselImage {
+      width: 90%;
+      height: 27rem;
+    }
+}
