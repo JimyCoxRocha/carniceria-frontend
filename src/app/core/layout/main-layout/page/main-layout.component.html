@@ -14,7 +14,7 @@
 <mat-sidenav-container fullscreen class="example-sidenav-container"
                         [style.marginTop.px]="56">
   <mat-sidenav #snav [mode]="'over'"
-                [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                [fixedInViewport]="'max-width: 600px'" fixedTopGap="56">
     <mat-nav-list>
       <div class="card">
         <div class="card-header" style="background-color: var(--primary-color);">
@@ -23,17 +23,18 @@
       </div>
       <mat-accordion>
         <app-expansion-panel
-          *ngFor = "let item of categories"
-        [title]="item.titulo"
-        [imageUrl]="item.urlImage"
-        [subItem] = "SubCategoriesFormat(item)"
+          *ngFor = "let item of categoriesAccordion"
+        [title]="item.category.titulo"
+        [imageUrl]="item.category.urlImage"
+        [subItem] = "item.subItem"
+        url = "subcategoria"
         ></app-expansion-panel>
       </mat-accordion>
 
       <div class="card mt-5" style="width: 18rem;">
         <div 
           class="card-header d-flex justify-content-between align-items-center cursor-pointer"
-          (click)="navPromotion()"
+          routerLink="promociones"
           >
           <p class="fs-5 m-0 p-2">Promociones</p>
           <mat-icon>navigate_next</mat-icon>
@@ -41,11 +42,11 @@
         <div class="list-group list-group-flush">
           <app-nav-link
             title="Nosotros"
-            urlNav="nav1"
+            urlNav="nosotros"
           ></app-nav-link>
           <app-nav-link
             title="Localidad"
-            urlNav="nav2"
+            urlNav="localidad"
           ></app-nav-link>
         </div>
       </div>

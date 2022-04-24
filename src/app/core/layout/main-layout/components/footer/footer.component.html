@@ -1,51 +1,51 @@
 <footer style="background-color: var(--black-color);">
-    <div class="container pt-5">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-            <div class="col mb-3">
-                <h3 style="color: var(--white-color)" class="text-center text-sm-start">Redes Sociales</h3>
-                <ul class="p-0 d-flex justify-content-center justify-content-sm-start">
-                    <li class="d-flex align-items-center" *ngFor="let item of socialNetworks" [routerLink]="item.url">
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: var(--white-color)">
-                            {{item.icon}}
-                        </mat-icon>
-                        <p style="color: var(--white-color)" class="ms-2 mb-0">{{item.title}}</p>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col mb-3">
-                <h3 style="color: var(--white-color)" class="text-center text-sm-start">Categorias</h3>
-                <ul class="p-0 ">
-                    <li class="d-flex justify-content-center justify-content-sm-start" *ngFor="let item of categories">
-                        <a style="color: var(--white-color)" class="ms-2 mb-0">{{item.titulo}}</a>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col mb-3">
-                <h3 style="color: var(--white-color)" class="text-center text-sm-start">Contáctanos</h3>
-                <ul class="p-0">
-                    <li class="d-flex justify-content-center justify-content-sm-start" *ngFor="let item of socialNetworks" [routerLink]="item.url">
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: var(--white-color)">
-                            {{item.icon}}
-                        </mat-icon>
-                        <p style="color: var(--white-color)" class="ms-2 mb-0">{{item.title}}</p>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col mb-3">
-                <h3 style="color: var(--white-color)" class="text-center text-sm-start">Contacto</h3>
-                <ul class="p-0" style="color: var(--white-color)">
-                    <p class="text-center text-sm-start">Pitágoras #616, Narvarte Poniente,
-                        Benito Juárez, CDMX, 03020
-                        ventas@carnesideal.tienda
-                        55 5536 0785</p>
-                </ul>
-            </div>
-            
-        </div>
-        
-        <p class="m-0 mt-3 text-center" style="color: var(--white-color)">Carnicería Zamrano | Todos los derechos reservados 2022</p>
+  <div class="container pt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+      <div class="col mb-3">
+        <h3 style="color: var(--white-color)" class="text-center text-sm-start">Redes Sociales</h3>
+        <ul class="p-0 d-flex justify-content-center justify-content-sm-start">
+          <li class="d-flex align-items-center" *ngFor="let item of socialNetworks" [routerLink]="item.url">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: var(--white-color)">
+              {{item.icon}}
+            </mat-icon>
+            <p style="color: var(--white-color)" class="ms-2 mb-0">{{item.title}}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col mb-3">
+        <h3 style="color: var(--white-color)" class="text-center text-sm-start">Categorias</h3>
+        <mat-chip-list aria-label="Categories" class="categories-footer">
+          <mat-chip color="primary" selected *ngFor="let item of categories" (click)="handleCategoryClick(item)">{{item.titulo}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="col mb-3">
+        <h3 style="color: var(--white-color)" class="text-center text-sm-start">Contáctanos</h3>
+        <ul class="p-0">
+          <li class="d-flex justify-content-center justify-content-sm-start" *ngFor="let item of socialNetworks"
+            [routerLink]="item.url">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: var(--white-color)">
+              {{item.icon}}
+            </mat-icon>
+            <p style="color: var(--white-color)" class="ms-2 mb-0">{{item.title}}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col mb-3">
+        <h3 style="color: var(--white-color)" class="text-center text-sm-start">Contacto</h3>
+        <ul class="p-0" style="color: var(--white-color)">
+          <p class="text-center text-sm-start">Pitágoras #616, Narvarte Poniente,
+            Benito Juárez, CDMX, 03020
+            ventas@carnesideal.tienda
+            55 5536 0785</p>
+        </ul>
+      </div>
+
     </div>
+
+    <p class="m-0 mt-3 text-center" style="color: var(--white-color)">Carnicería Zamrano | Todos los derechos reservados
+      2022</p>
+  </div>
 </footer>

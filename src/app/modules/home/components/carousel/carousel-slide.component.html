@@ -2,8 +2,6 @@
     <mdb-carousel-item *ngFor="let item of communications">
       <div class="view w-100 carouselImage"
         [style.background-image] = "'url('+item.urlImage+')'">
-        <!-- <img class="d-block w-100" [src]="item.urlImage" [alt]="item.titulo"> -->
-        <!-- <div class="mask rgba-black-light waves-light" mdbWavesEffect></div> -->
       </div>
       <div class="carousel-caption">
         <div class="mb-sm-6 mb-md-5">
@@ -12,7 +10,9 @@
         <button *ngIf="item.tituloBoton"
         mat-raised-button
         color="primary" 
-        class="px-4 py-1">
+        class="px-4 py-1"
+        (click)="handleClickBtn(item.idTipoComunicacion, item.idComunicacion)"
+        >
             {{item.tituloBoton}}
         </button>
       </div>

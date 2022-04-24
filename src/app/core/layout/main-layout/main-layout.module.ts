@@ -19,6 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { CoreModule } from '../../core.module';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CoreModule } from '../../core.module';
     MatButtonModule,
     MainLayoutRoutingModule,
     MatExpansionModule,
-    CoreModule
+    CoreModule,
+    MatChipsModule
     ],
   exports: [
     HeaderComponent,

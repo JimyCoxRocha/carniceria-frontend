@@ -26,5 +26,7 @@ export class ExpansionPanelComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  clickk(){
+    console.log("sf");
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LocalStorage } from '../AppConstants/StorageConstants';
+import { IProductsCar } from './products.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,9 @@ export class StorageService {
   getLocalStorage( key: string ){
     return localStorage.getItem(key);
   }
-  setUser( user: string  ){
-    return localStorage.setItem('user', user)
-  }
 
-  setProduct( idProduct: number[] ){
-    return localStorage.setItem(
-      LocalStorage.product_list, 
-      JSON.stringify(idProduct)
+  setStorage( { element, keyStorage }: { element: IProductsCar[] | string, keyStorage: string }){
+    return localStorage.setItem(keyStorage, JSON.stringify(element)
     );
   }
 }

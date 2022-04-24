@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoResponseEntity } from 'src/app/core/interfaces/common/ProductEntity';
 import { CategoriesService } from 'src/app/core/services/categories.service';
-import { ProductsService } from '../../../core/services/products.service';
+import { IProductsCar, ProductsService } from '../../../core/services/products.service';
 import { CommunicationService } from '../services/communication.service';
+import { Category } from '../../../core/interfaces/common/Categories';
 
 @Component({
   selector: 'app-home',
@@ -10,22 +11,30 @@ import { CommunicationService } from '../services/communication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  url: string = "categories/";
+  url: string = "categoria/";
+  categories : Category[] = [];
   constructor(
     private categoriesService: CategoriesService,
     private productsService: ProductsService,
-    private communicationService: CommunicationService
+    private communicationService: CommunicationService,
   ) { }
-
+  
   ngOnInit(): void {
-    this.categoriesService.categories();
+    this.categoriesService.categories().subscribe(x => {this.categories = x;});
     this.productsService.getProducts();
     this.communicationService.getCommunications();
   }
 
-  get categories() {
-    return this.categoriesService._categories;
+  handleAmountProductCar(productCar :IProductsCar){
+    console.log("add Productos: ", productCar);
+    this.productsService.setProductStorage(productCar);
   }
+  
+  removeProductCar(idProduct: number){
+    console.log("RM Productos: ", idProduct);
+    /* this.productsService.rmProductStorage(e, this.productList); */
+  }
+
   get allProducts(): ProductoResponseEntity[] {
     return this.productsService._products;
   }

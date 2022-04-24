@@ -1,4 +1,6 @@
+import { NumberSymbol } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommunicationEntity } from '../../interfaces';
 
 @Component({
@@ -9,10 +11,15 @@ import { CommunicationEntity } from '../../interfaces';
 export class CarouselSlideComponent implements OnInit {
   @Input() communications: CommunicationEntity[]= [];
 
-  
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  handleClickBtn(idTypeCommunication: Number, idCommunication: number){
+    if(idTypeCommunication == 1)
+      this.router.navigate(['productos', idCommunication]);
+    else
+      this.router.navigate(['promociones', idCommunication]);
   }
 
 }

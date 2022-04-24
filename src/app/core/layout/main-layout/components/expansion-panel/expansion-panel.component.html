@@ -1,4 +1,4 @@
-<mat-expansion-panel >
+<mat-expansion-panel>
     <mat-expansion-panel-header style="height: 5rem;">
         <mat-panel-title class="fs-5">
             <img
@@ -13,5 +13,5 @@
         <mat-icon>{{icon}}</mat-icon>
         </mat-panel-description>
     </mat-expansion-panel-header>
-    <a mat-list-item [routerLink]="nav.id.toString()" *ngFor="let nav of subItem" class="ps-0 fs-6">{{nav.title}}</a>
+    <a mat-list-item [routerLink]="url + '/' + nav.id.toString()" *ngFor="let nav of subItem" class="ps-0 fs-6">{{nav.title}}</a>
 </mat-expansion-panel>

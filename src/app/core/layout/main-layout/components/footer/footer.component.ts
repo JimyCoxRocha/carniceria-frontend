@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/core/interfaces';
 
 @Component({
@@ -16,9 +17,12 @@ export class FooterComponent implements OnInit {
   ]
   @Input("categories") categories: Category[]  = [];
 
-  constructor() { }
+  constructor(private route: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
+  handleCategoryClick(category: Category){
+    this.route.navigate(['categoria', category.idCategoria])
+  }
 }

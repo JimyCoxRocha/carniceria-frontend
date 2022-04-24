@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CounterComponent implements OnInit {
   myForm!: FormGroup;
   @Input() maxNumber: number = 2;
+  @Output() counter = new EventEmitter<number>();;
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -21,20 +23,26 @@ export class CounterComponent implements OnInit {
     });
     this.myForm.get("counter")?.valueChanges.subscribe(x => {
       var numberPattern = /\d+/g;
-      console.log(x);
       this.myForm.get("counter")?.
         setValue(
           (x.match( numberPattern ) || ['1'])
           .join(''), { emitEvent: false }
         );
 
-      (parseInt(x) <= 0)
-        && this.myForm.get("counter")?.
+      if(this.myForm.get("counter")?.value == '1')
+        this.counter.emit(1);
+        
+      if(parseInt(x) <= 0){
+        this.myForm.get("counter")?.
         setValue("1", { emitEvent: false });
+        this.counter.emit(1);
+      }
 
-      (parseInt(x) > this.maxNumber)
-        && this.myForm.get("counter")?.
+      if(parseInt(x) > this.maxNumber){
+        this.myForm.get("counter")?.
         setValue(`${this.maxNumber}`, { emitEvent: false });
+        this.counter.emit(this.maxNumber);
+      }
     })
   }
 
@@ -52,6 +60,7 @@ export class CounterComponent implements OnInit {
       `${(parseInt(this.myForm.get("counter")?.value) - 1)}`,
       { emitEvent: false }
     );
+    this.counter.emit(this.myForm.get("counter")?.value);
   }
   
   addValue(){
@@ -60,5 +69,6 @@ export class CounterComponent implements OnInit {
       `${(parseInt(this.myForm.get("counter")?.value) + 1)}`,
       { emitEvent: false }
     );
+    this.counter.emit(this.myForm.get("counter")?.value);
   }
 }

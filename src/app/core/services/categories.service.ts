@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiResponse, ErrorApiResponse } from '../interfaces/api-response/ApiResponse';
 import { Category } from '../interfaces/common/Categories';
@@ -20,6 +20,8 @@ export class CategoriesService {
     private storage: StorageService,
     private core: CoreService
   ) { }
+
+
 /*
    setProductStorage( idProducto: number, prodList: Productos[] ){
     const listStorage = JSON.parse(this.storage.getLocalStorage(LocalStorage.product_list) || '[]') as number[];
@@ -47,23 +49,20 @@ export class CategoriesService {
     this.storage.setProduct(reset)
   } */
 
-  categories(){
-    if(this._isLoading) return;
+  categories(): Observable<Category[]>{
 
-    this._isLoading = true;
-    this.http.get<ApiResponse<Category[]>>
+    return this.http.get<ApiResponse<Category[]>>
     (`${this.apiUrl}Categoria`)
     .pipe(
+      map((x: ApiResponse<Category[]>) => {
+        return x.data
+      }),
       catchError((err: ErrorApiResponse) => {
         console.log(err);
         this.core.showErrorModal("Error inesperado", err.error.message[0])
-        return of({} as ApiResponse<Category[]>)
+        return of({} as Category[])
       })
-    ) .subscribe(data => {
-      this._categories = data.data;
-      console.log(data.data);
-    });
-    
+    );
   }
 /* 
   get productosCart(): Observable<ApiProductos>{

@@ -1,2 +1,1 @@
-export * from "./StorageConstants";
-export * from "./CardConstants";
+export * from "./AppConstants";

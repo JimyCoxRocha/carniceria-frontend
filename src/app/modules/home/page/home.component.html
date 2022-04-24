@@ -40,12 +40,16 @@
       class="col-12 col-sm-6 col-lg-3 mb-5"
     >
       <app-product-card
+        [id] = "item.product.idProducto"
         [imgUrl] = "item.product.imgUrl"
         [title] = "item.product.titulo"
         [description] = "item.product.descripcion"
         [stock] = "item.product.stock"
         [unidadMedida] = "item.unidadMedida.unidad"
         [minimaUnidad] = "item.product.minimaUnidad"
+        [price] = "item.product.precio"
+        (handleAmountProductCar) = "handleAmountProductCar($event)"
+        (removeProductCar) = "removeProductCar($event)"
       ></app-product-card>
     </div>
   </div>
