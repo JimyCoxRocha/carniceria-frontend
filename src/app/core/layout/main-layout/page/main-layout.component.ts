@@ -1,9 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { ExpansionPanelInterface } from '../components/expansion-panel/expansion-panel.component';
 import { Category, SubCategory } from '../../../interfaces/common/Categories';
 import { Router } from '@angular/router';
+import { ProductsService } from 'src/app/core/services/products.service';
 
 interface categoryFormat{
   category: Category,
@@ -14,13 +15,14 @@ interface categoryFormat{
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css']
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent implements OnInit, AfterViewChecked {
   categoriesAccordion: categoryFormat[] = [];
   categories: Category[] = [];
 
   constructor(
       private categoriesService: CategoriesService,
-      private router: Router
+      private productsService: ProductsService,
+      private cdRef : ChangeDetectorRef
     ) {
   }
 
@@ -38,6 +40,15 @@ export class MainLayoutComponent implements OnInit {
       })
     });
 
+  }
+
+  ngAfterViewChecked()
+  {
+    this.cdRef.detectChanges();
+  }
+
+  get productsInCar(){
+    return this.productsService._productsCar.length || 0;
   }
 
   SubCategoriesFormat( category: Category ){

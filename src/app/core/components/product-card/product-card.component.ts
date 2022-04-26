@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { IProductsCar } from '../../services/products.service';
+import { IProductsCar, ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,36 +17,45 @@ export class ProductCardComponent implements OnInit {
 
   @Input() minimaUnidad: string = "";
   @Input() unidadMedida: string = "";
- 
-  @Output() handleAmountProductCar = new EventEmitter<IProductsCar>();
-  @Output() removeProductCar = new EventEmitter<number>();
 
   isCarItem: boolean = false;
   counter: number = 1;
+  initialAmount: number = 1;
   totalPriceCard: number = 0;
-  constructor() { 
-  }
+  constructor(
+    private productsService: ProductsService,
+  ) { }
 
   ngOnInit(): void {
     this.totalPriceCard = this.price;
+    const productStorage = this.productsService.findProductStorage(this.id);
+    if(productStorage){
+      
+      this.isCarItem = true;
+      this.initialAmount = productStorage.amount;
+    }
   }
 
   counterResult(counter: number){
+    console.log("asdf");
     this.totalPriceCard = counter * this.price;
     this.counter = counter;
     this.isCarItem && this.amountProduct(counter);
   }
 
   amountProduct(amount: number){
-    this.handleAmountProductCar.emit(
-      {amount,id : this.id}
-    )
-  }
-  removeSelectedProduct(){
+    this.productsService.setProductStorage({
+      amount,
+      id: this.id
+    });
 
   }
+  removeSelectedProduct(){
+    this.productsService.removeProductStorage(this.id);
+  }
+
   handleAddToCar(){
     this.isCarItem = !this.isCarItem;
-    this.isCarItem ? this.amountProduct(this.counter) : console.log("remover");
+    this.isCarItem ? this.amountProduct(this.counter) : this.removeSelectedProduct();
   }
 }

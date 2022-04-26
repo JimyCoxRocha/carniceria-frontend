@@ -15,6 +15,7 @@
         <app-counter
             [maxNumber] = "stock"
             (counter) = "counterResult($event)"
+            [initialAmount] = "initialAmount"
         ></app-counter>
     </div>
     <mat-card-actions class="d-flex justify-content-between">

@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./core/layout/main-layout/main-layout.module').then(m => m.MainLayoutModule),
-    pathMatch: 'full',
+    /* pathMatch: 'full' */
   },
   {
     path: '**',

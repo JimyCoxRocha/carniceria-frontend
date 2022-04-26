@@ -7,6 +7,12 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      /* Colocar login acà */
+      {
+        path: 'carrito',
+        loadChildren: () => import('../../../modules/carStore/car.module')
+                            .then(m => m.CarModule)
+      },
       {
         path: '',
         loadChildren: () => import('../../../modules/home/home-module.module')

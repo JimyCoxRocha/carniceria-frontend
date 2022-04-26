@@ -7,10 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HomeModuleModule } from './modules/home/home-module.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CarModule } from './modules/carStore/car.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CoreModule,
     HomeModuleModule,
+    CarModule,
     HttpClientModule,
   ],
   providers: [],

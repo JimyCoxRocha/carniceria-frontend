@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AppConstants } from '../AppConstants';
-import { ApiResponse, ErrorApiResponse } from '../interfaces/api-response/ApiResponse';
-import { ProductoResponseEntity } from '../interfaces/common/ProductEntity';
-import { CoreService } from './core.service';
+import { ProductEntity, ProductoResponseEntity } from '../interfaces/common/ProductEntity';
+import { HttpProcessService } from './http-process.service';
 import { StorageService } from './storage.service';
 
 export interface IProductsCar {
   id: number, 
+  amount: number
+}
+
+export interface IProductCarStore extends ProductEntity {
   amount: number
 }
 
@@ -19,64 +19,85 @@ export interface IProductsCar {
 export class ProductsService {
   _products: ProductoResponseEntity[] = [];
   _isLoading: boolean = false;
-  
-  apiUrl = environment.API_URL;
+  _productsCar: IProductsCar[] = [];
+  _productsInCar: IProductCarStore[] = [];
   
   constructor(
-    private http: HttpClient,
-    private core: CoreService,
-    private storage: StorageService
+    private storage: StorageService,
+    private http: HttpProcessService
   ) { }
 
-  setProductStorage( { id, amount }: IProductsCar ){
-    const products = JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
+  getProductInCar(){
+    if (this._products.length > 0) return;
 
-    const index = products.findIndex(x => x.id == id);
-    (index >= 0) 
-    ? (products[index].amount = amount)
-    : products.push({id, amount});
+    this.http.requestProducts<ProductoResponseEntity[]>("Producto")
+      .subscribe(product => {
 
-    this.storage.setStorage(
-      {element: products,keyStorage: AppConstants.LocalStorage.product_list}
-    );
+        this.getProductStorage().forEach(x => {
+          product.forEach(y => {
+            (x.id = y.product.idProducto)
+            && this._productsInCar.push({...(y.product), amount: x.amount});
+          })
+        })
+    });
+      
   }
 
   getProductStorage(){
     return JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
   }
 
-  /* rmProductStorage( idProducto: number, prodList: Productos[] ){
-    const listStorage = JSON.parse(this.storage.getLocalStorage(LocalStorage.product_list) || '[]') as number[];
-    const index = listStorage.indexOf(idProducto);
-    listStorage.splice(index, 1);
-    this.storage.setProduct(listStorage);
-    prodList.forEach( m => {
-      if (m.id_producto == idProducto)
-        m.isSelected = false
+  setProductStorage( { id, amount }: IProductsCar ){
+    const products = this.getProductStorage();
+
+    const index = products.findIndex(x => x.id == id);
+    (index >= 0) 
+    ? (products[index].amount = amount)
+    : products.push({id, amount});
+
+    this._productsCar = products;
+    this.storage.setStorage(
+      {element: products,keyStorage: AppConstants.LocalStorage.product_list}
+    );
+  }
+
+  removeProductStorage( idProducto: number ){
+    const products = this.getProductStorage();
+    this._productsCar = products.filter(product => product.id != idProducto);
+    this.storage.setStorage(
+      {
+        element: this._productsCar,
+        keyStorage: AppConstants.LocalStorage.product_list
+      }
+    );
+  }
+
+  removeAllProductStorage( ){
+    this._productsCar = [];
+    this.storage.setStorage(
+      {
+        element: [],
+        keyStorage: AppConstants.LocalStorage.product_list
+      }
+    );
+  }
+
+  findProductStorage(idProduct: number){
+    console.log(idProduct);
+    return this.getProductStorage().find(x => x.id == idProduct);
+  }
+
+
+  getProducts(){
+    if(this._isLoading || this._products.length > 0) return;
+    this._isLoading = true;
+    
+    this.http.requestProducts<ProductoResponseEntity[]>("Producto")
+    .subscribe(x => {
+      this._products = x;
+      this._isLoading = false;
     })
   }
 
-  rmAllProductStorage(  ){
-    const reset: number[] = [];
-    this.storage.setProduct(reset)
-  } */
-
-  getProducts(){
-    if(this._isLoading) return;
-
-    this._isLoading = true;
-    this.http.get<ApiResponse<ProductoResponseEntity[]>>
-    (`${this.apiUrl}Producto`)
-    .pipe(
-      catchError((err: ErrorApiResponse) => {
-        console.log(err);
-        this.core.showErrorModal("Error inesperado", err.error.message[0])
-        return of({} as ApiResponse<ProductoResponseEntity[]>)
-      })
-    ) .subscribe(data => {
-      this._products = data.data;
-    });
-    
-  }
-
+  
 }

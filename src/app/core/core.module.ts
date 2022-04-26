@@ -36,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ImageCardComponent,
     ProductCardComponent,
     FixedImageComponent,
-    NavLinkComponent
+    NavLinkComponent,
+    CounterComponent
   ]
 })
 export class CoreModule { }

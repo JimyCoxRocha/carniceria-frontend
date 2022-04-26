@@ -25,15 +25,6 @@ export class HomeComponent implements OnInit {
     this.communicationService.getCommunications();
   }
 
-  handleAmountProductCar(productCar :IProductsCar){
-    console.log("add Productos: ", productCar);
-    this.productsService.setProductStorage(productCar);
-  }
-  
-  removeProductCar(idProduct: number){
-    console.log("RM Productos: ", idProduct);
-    /* this.productsService.rmProductStorage(e, this.productList); */
-  }
 
   get allProducts(): ProductoResponseEntity[] {
     return this.productsService._products;

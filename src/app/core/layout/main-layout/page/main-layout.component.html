@@ -6,8 +6,8 @@
     
     <span>Carniceria</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon matBadge="15" matBadgeColor="warn">shopping_cart</mat-icon>
+    <button routerLink="carrito" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon [matBadgeHidden]="productsInCar == 0" [matBadge]="productsInCar" matBadgeColor="warn">shopping_cart</mat-icon>
     </button>
 </mat-toolbar>
   

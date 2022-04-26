@@ -1,0 +1,33 @@
+<td class="d-none d-md-block">
+  <figure class="media">
+    <div class="img-wrap"><img [src]="product.imgUrl" class="img-thumbnail img-sm"></div>
+    <figcaption class="media-body">
+      <h6 class="title text-truncate">{{product.titulo}}</h6>
+      <dl class="param param-inline small">
+        <dt>Descripción: </dt>
+        <dd>{{product.descripcion}}</dd>
+      </dl>
+    </figcaption>
+  </figure>
+</td>
+<td><p class="m-0 d-md-none"><span class="fw-bolder">Producto:</span> {{product.titulo}}</p></td>
+<td class="d-flex justify-content-between d-md-table-cell">
+    <p class="d-md-none m-0 d-flex align-items-center fw-bolder">Cantidad:</p>
+    <div class="d-md-block" style="max-width: 8rem;">
+        <app-counter [maxNumber]="product.stock" (counter)="counterResult($event)" [initialAmount]="product.amount">
+        </app-counter>
+        <p class="m-0"><span class="fw-bolder">Max:</span>{{product.stock}}</p>
+    </div>
+</td>
+<td class="d-flex justify-content-between d-md-table-cell">
+  <p class="d-md-none m-0 fw-bolder">Precio:</p>
+  <div class="price-wrap">
+    <p class="m-0 price text-center fw-bolder">{{(counter * product.precio ) | currency}}</p>
+  </div>
+</td>
+<td class="d-flex justify-content-between d-md-table-cell p-0">
+  <button mat-icon-button class="d-md-block" style="margin: 0 auto;">
+    <mat-icon color="warn">delete</mat-icon>
+  </button>
+</td>
+<div class="w-100 h-50 d-md-none" style="background-color: var(--primary-color);"></div>
