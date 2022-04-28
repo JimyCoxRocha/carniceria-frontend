@@ -2,10 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse } from '../interfaces/api-response/ApiResponse';
-import { Category } from '../interfaces/common/Categories';
-import { CoreService } from './core.service';
-import { StorageService } from './storage.service';
+import { ApiResponse, ErrorApiResponse, Category } from '../interfaces';
+import { CoreService, StorageService } from '.';
 
 @Injectable({
   providedIn: 'root'

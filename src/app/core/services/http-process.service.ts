@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse } from '../interfaces/api-response/ApiResponse';
+import { ApiResponse, ErrorApiResponse } from '../interfaces';
 import { CoreService } from './core.service';
 
 @Injectable({

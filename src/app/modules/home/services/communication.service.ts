@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, of } from 'rxjs';
-import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces/api-response/ApiResponse';
+import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces/api-response/api-response.interface';
 import { CoreService } from 'src/app/core/services/core.service';
 import { environment } from 'src/environments/environment';
-import { CommunicationEntity } from '../interfaces';
+import { Communication } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationService {
-  _comm: CommunicationEntity[] = [];
+  _comm: Communication[] = [];
   _isLoading: boolean = false;
   
   apiUrl = environment.API_URL;
@@ -24,13 +24,13 @@ export class CommunicationService {
     if(this._isLoading) return;
 
     this._isLoading = true;
-    this.http.get<ApiResponse<CommunicationEntity[]>>
+    this.http.get<ApiResponse<Communication[]>>
     (`${this.apiUrl}Communication`)
     .pipe(
       catchError((err: ErrorApiResponse) => {
         console.log(err);
         this.core.showErrorModal("Error inesperado", err.error.message[0])
-        return of({} as ApiResponse<CommunicationEntity[]>)
+        return of({} as ApiResponse<Communication[]>)
       })
     ) .subscribe(data => {
       this._comm = data.data;

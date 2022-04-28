@@ -1,7 +1,7 @@
 import { NumberSymbol } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommunicationEntity } from '../../interfaces';
+import { Communication } from '../../interfaces';
 
 @Component({
   selector: 'app-carousel-slide',
@@ -9,7 +9,7 @@ import { CommunicationEntity } from '../../interfaces';
   styleUrls: ['./carousel.component.css']
 })
 export class CarouselSlideComponent implements OnInit {
-  @Input() communications: CommunicationEntity[]= [];
+  @Input() communications: Communication[]= [];
 
   constructor(private router: Router) { }
 

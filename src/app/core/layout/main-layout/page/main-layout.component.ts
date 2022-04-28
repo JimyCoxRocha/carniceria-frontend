@@ -1,10 +1,7 @@
-import { MediaMatcher } from '@angular/cdk/layout';
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CategoriesService } from 'src/app/core/services/categories.service';
 import { ExpansionPanelInterface } from '../components/expansion-panel/expansion-panel.component';
-import { Category, SubCategory } from '../../../interfaces/common/Categories';
-import { Router } from '@angular/router';
-import { ProductsService } from 'src/app/core/services/products.service';
+import { Category } from '../../../interfaces';
+import { ProductsService, CategoriesService } from 'src/app/core/services';
 
 interface categoryFormat{
   category: Category,

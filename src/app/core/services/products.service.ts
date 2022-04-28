@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AppConstants } from '../AppConstants';
-import { ProductEntity, ProductoResponseEntity } from '../interfaces/common/ProductEntity';
-import { HttpProcessService } from './http-process.service';
-import { StorageService } from './storage.service';
+import { AppConstants } from '../constants';
+import { Product, ProductoResponse } from '../interfaces';
+import { StorageService, HttpProcessService } from '.';
 
 export interface IProductsCar {
   id: number, 
   amount: number
 }
 
-export interface IProductCarStore extends ProductEntity {
+export interface IProductCarStore extends Product {
   amount: number
 }
 
@@ -17,7 +16,7 @@ export interface IProductCarStore extends ProductEntity {
   providedIn: 'root'
 })
 export class ProductsService {
-  _products: ProductoResponseEntity[] = [];
+  _products: ProductoResponse[] = [];
   _isLoading: boolean = false;
   _productsCar: IProductsCar[] = [];
   _productsInCar: IProductCarStore[] = [];
@@ -30,7 +29,7 @@ export class ProductsService {
   getProductInCar(){
     if (this._products.length > 0) return;
 
-    this.http.requestProducts<ProductoResponseEntity[]>("Producto")
+    this.http.requestProducts<ProductoResponse[]>("Producto")
       .subscribe(product => {
 
         this.getProductStorage().forEach(x => {
@@ -92,7 +91,7 @@ export class ProductsService {
     if(this._isLoading || this._products.length > 0) return;
     this._isLoading = true;
     
-    this.http.requestProducts<ProductoResponseEntity[]>("Producto")
+    this.http.requestProducts<ProductoResponse[]>("Producto")
     .subscribe(x => {
       this._products = x;
       this._isLoading = false;

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoResponseEntity } from 'src/app/core/interfaces/common/ProductEntity';
-import { CategoriesService } from 'src/app/core/services/categories.service';
-import { IProductsCar, ProductsService } from '../../../core/services/products.service';
+import { ProductoResponse, Category } from 'src/app/core/interfaces';
+import { CategoriesService, ProductsService } from 'src/app/core/services';
 import { CommunicationService } from '../services/communication.service';
-import { Category } from '../../../core/interfaces/common/Categories';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  get allProducts(): ProductoResponseEntity[] {
+  get allProducts(): ProductoResponse[] {
     return this.productsService._products;
   }
   get communications() {

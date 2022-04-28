@@ -1,4 +1,4 @@
-export interface CommunicationEntity{
+export interface Communication{
     idComunicacion: number,
     tituloBoton: string,
     titulo: string,
