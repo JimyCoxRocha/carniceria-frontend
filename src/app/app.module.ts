@@ -18,8 +18,6 @@ import { CarModule } from './modules/carStore/car.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    HomeModuleModule,
-    CarModule,
     HttpClientModule,
   ],
   providers: [],
