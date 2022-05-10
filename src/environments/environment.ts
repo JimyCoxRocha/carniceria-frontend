@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:9095/api/'
+  API_URL: 'https://carniceria-back.azurewebsites.net/api/'
 };
 
 /*
