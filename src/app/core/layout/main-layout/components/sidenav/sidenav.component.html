@@ -1,16 +1,37 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
-      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
+<mat-nav-list>
+  <div class="card">
+    <div class="card-header" style="background-color: var(--primary-color);">
+      <p style="color: var(--white-color);" class="m-0 fs-5 py-2">Categorias</p>
     </div>
-  
-</mat-drawer-container>
+  </div>
+  <mat-accordion>
+    <app-expansion-panel
+      *ngFor = "let item of categoriesAccordion"
+    [title]="item.category.titulo"
+    [imageUrl]="item.category.urlImage"
+    [subItem] = "item.subItem"
+    url = "subcategoria"
+    ></app-expansion-panel>
+  </mat-accordion>
+
+  <div class="card mt-5" style="width: 18rem;">
+    <div 
+      class="card-header d-flex justify-content-between align-items-center cursor-pointer"
+      routerLink="promociones"
+      >
+      <p class="fs-5 m-0 p-2">Promociones</p>
+      <mat-icon>navigate_next</mat-icon>
+    </div>
+    <div class="list-group list-group-flush">
+      <app-nav-link
+        title="Nosotros"
+        urlNav="nosotros"
+      ></app-nav-link>
+      <app-nav-link
+        title="Localidad"
+        urlNav="localidad"
+      ></app-nav-link>
+    </div>
+  </div>
+
+</mat-nav-list>

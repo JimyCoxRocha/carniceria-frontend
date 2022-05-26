@@ -1,5 +1,5 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { categoryFormat } from '../../interfaces/layout.interfaces';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,6 +7,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
+  @Input() categoriesAccordion: categoryFormat[] = [];
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

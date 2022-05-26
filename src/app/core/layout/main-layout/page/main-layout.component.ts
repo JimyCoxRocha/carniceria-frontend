@@ -2,11 +2,8 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular
 import { ExpansionPanelInterface } from '../components/expansion-panel/expansion-panel.component';
 import { Category } from '../../../interfaces';
 import { ProductsService, CategoriesService } from 'src/app/core/services';
+import { categoryFormat } from '../interfaces/layout.interfaces';
 
-interface categoryFormat{
-  category: Category,
-  subItem: ExpansionPanelInterface[]
-}
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',

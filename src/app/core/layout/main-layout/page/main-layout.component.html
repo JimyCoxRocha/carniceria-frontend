@@ -15,43 +15,10 @@
                         [style.marginTop.px]="56">
   <mat-sidenav #snav [mode]="'over'"
                 [fixedInViewport]="'max-width: 600px'" fixedTopGap="56">
-    <mat-nav-list>
-      <div class="card">
-        <div class="card-header" style="background-color: var(--primary-color);">
-          <p style="color: var(--white-color);" class="m-0 fs-5 py-2">Categorias</p>
-        </div>
-      </div>
-      <mat-accordion>
-        <app-expansion-panel
-          *ngFor = "let item of categoriesAccordion"
-        [title]="item.category.titulo"
-        [imageUrl]="item.category.urlImage"
-        [subItem] = "item.subItem"
-        url = "subcategoria"
-        ></app-expansion-panel>
-      </mat-accordion>
-
-      <div class="card mt-5" style="width: 18rem;">
-        <div 
-          class="card-header d-flex justify-content-between align-items-center cursor-pointer"
-          routerLink="promociones"
-          >
-          <p class="fs-5 m-0 p-2">Promociones</p>
-          <mat-icon>navigate_next</mat-icon>
-        </div>
-        <div class="list-group list-group-flush">
-          <app-nav-link
-            title="Nosotros"
-            urlNav="nosotros"
-          ></app-nav-link>
-          <app-nav-link
-            title="Localidad"
-            urlNav="localidad"
-          ></app-nav-link>
-        </div>
-      </div>
-
-    </mat-nav-list>
+    <app-sidenav 
+      [categoriesAccordion]="categoriesAccordion"
+    ></app-sidenav>
+    
   </mat-sidenav>
 
   <mat-sidenav-content>
