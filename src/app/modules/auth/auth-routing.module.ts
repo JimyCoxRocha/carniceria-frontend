@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponentComponent } from './page/login-component.component';
+import { RegisterComponentComponent } from './subviews/register-component.component';
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: LoginComponentComponent
+    component: RegisterComponentComponent
   },
   {
     path: '**',

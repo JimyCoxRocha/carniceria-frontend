@@ -1,0 +1,110 @@
+<section class="mb-5">
+    <div class="container h-100">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                <div class="text-center my-5">
+                    <img src="assets/images/vertical-logo.png" alt="logo" width="80%">
+                    <h1 class="animate__animated animate__bounceInRight mt-4 mb-0">
+                        <strong>Lo Mejor en Carnes</strong>
+                    </h1>
+                </div>
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4">Registrarme</h1>
+                        <form 
+                            method="POST" 
+                            class="needs-validation" 
+                            novalidate="" 
+                            autocomplete="off"
+                            [formGroup]="myForm"
+                            (submit)="registro()"
+                        >
+                        <h3 class="m-0 text-center">Datos Finales</h3>
+                        <mat-divider></mat-divider>
+                            <mat-form-field class="w-100" >
+                                <mat-label>Nombre</mat-label>
+                                <input type="text" matInput formControlName="name">
+                                <mat-error *ngIf="fieldIsValid('name')">
+                                    Por favor, ingrese el nombre
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100" >
+                                <mat-label>Apellido</mat-label>
+                                <input type="text" matInput formControlName="apellido">
+                                <mat-error *ngIf="fieldIsValid('apellido')">
+                                    Por favor, ingrese el apellido
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100" >
+                                <mat-label>Cédula</mat-label>
+                                <input type="number" matInput formControlName="cedula">
+                                <mat-error *ngIf="fieldIsValid('cedula')">
+                                    Por favor, ingrese la cédula
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100" >
+                                <mat-label>Email</mat-label>
+                                <input type="email" matInput formControlName="email">
+                                <mat-error *ngIf="fieldIsValid('email')">
+                                    Por favor, ingrese un email válido
+                                </mat-error>
+                            </mat-form-field>
+                            
+                        <h3 class="m-0 text-center">Información de Sesión</h3>
+                        <mat-divider></mat-divider>
+
+                            <mat-form-field class="w-100" >
+                                <mat-label>Usuario</mat-label>
+                                <input type="text" matInput formControlName="user">
+                                <mat-error *ngIf="fieldIsValid('user')">
+                                Por favor, ingrese un usuario válido
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100" >
+                                <mat-label>Contraseña</mat-label>
+                                <input [type]="showPassword ? 'text' : 'password'" matInput formControlName="password">
+                                <button type="button" matSuffix mat-icon-button aria-label="Clear" (click)="handlePassword()">
+                                    <mat-icon>{{showPassword ?  "visibility_off" : "visibility"}}</mat-icon>
+                                </button>
+
+                                <mat-error *ngIf="fieldIsValid('password')">
+                                    Por favor, ingrese una contraseña válida
+                                </mat-error>
+                            </mat-form-field>
+                            
+                            <mat-form-field class="w-100" >
+                                <mat-label>Confirmar Contraseña</mat-label>
+                                <input [type]="showPassword ? 'text' : 'password'" matInput formControlName="confirmPassword">
+                                <button type="button" matSuffix mat-icon-button aria-label="Clear" (click)="handlePassword()">
+                                    <mat-icon>{{showPassword ?  "visibility_off" : "visibility"}}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="fieldIsValid('confirmPassword')">
+                                    Las contraseñas no coinciden
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-checkbox color="primary" class="example-margin mt-3">Recibir Promociones</mat-checkbox>
+
+                            
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex align-items-center">
+                                    <button type="submit" mat-flat-button color="primary" class="fs-7 px-4 py-2">
+                                        Registrarme
+                                    </button>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" routerLink="/auth/login"  mat-flat-button color="accent" class="fs-7 px-4 py-2">
+                                        Ir a Login
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
