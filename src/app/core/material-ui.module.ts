@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    MatBadgeModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
+    MatChipsModule
+  ],
+  exports: [
+    MatTabsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    MatBadgeModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
+    MatChipsModule
+  ]
+})
+export class MaterialUIModule { }
