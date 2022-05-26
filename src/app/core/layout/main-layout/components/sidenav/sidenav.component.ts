@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { categoryFormat } from '../../interfaces/layout.interfaces';
 
 @Component({
@@ -8,9 +8,20 @@ import { categoryFormat } from '../../interfaces/layout.interfaces';
 })
 export class SidenavComponent implements OnInit {
   @Input() categoriesAccordion: categoryFormat[] = [];
+  @Output() close = new EventEmitter<Boolean>();
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.close.emit(false);
   }
+
+  closeSideNav(event:any){
+    if(event){
+      console.log("===========");
+      console.log("Se acab{o de hacer click");
+      this.close.emit(true);
+    }
+
+  }
+
   showFiller = false;
 }
