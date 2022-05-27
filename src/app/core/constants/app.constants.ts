@@ -4,6 +4,8 @@ export const AppConstants = {
         list: 'list'
     },
     LocalStorage: {
-        product_list : 'LIST_PRODUCT'
+        product_list : 'LIST_PRODUCT',
+        auth: 'AUTH',
+        username: 'USER_NAME'
     }
 }

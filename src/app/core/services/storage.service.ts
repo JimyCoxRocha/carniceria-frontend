@@ -13,8 +13,8 @@ export class StorageService {
     return localStorage.getItem(key);
   }
 
-  setStorage( { element, keyStorage }: { element: IProductsCar[] | string, keyStorage: string }){
-    return localStorage.setItem(keyStorage, JSON.stringify(element)
+  setStorage( { element, keyStorage }: { element: any, keyStorage: string }){
+    return localStorage.setItem(keyStorage, element
     );
   }
 }

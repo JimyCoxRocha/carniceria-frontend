@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login-component',
@@ -10,7 +11,8 @@ export class LoginComponentComponent implements OnInit {
   showPassword: Boolean = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private auth: AuthService
   ) { }
 
   myForm: FormGroup = this.fb.group({
@@ -25,9 +27,12 @@ export class LoginComponentComponent implements OnInit {
   }
 
   login(){
-    const user = this.myForm.get('user');
-    const password = this.myForm.get('password');
-
+    const user = this.myForm.get('user')?.value;
+    const password = this.myForm.get('password')?.value;
+    this.auth.login({
+      username: user,
+      password: password
+    });
   }
 
   fieldIsValid(field: string){

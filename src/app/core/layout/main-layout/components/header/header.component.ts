@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
   handleUrl(){
-    console.log("clci");
     this.router.navigateByUrl("carrito");
   }
 }

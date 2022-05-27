@@ -16,8 +16,6 @@ export class SidenavComponent implements OnInit {
 
   closeSideNav(event:any){
     if(event){
-      console.log("===========");
-      console.log("Se acab{o de hacer click");
       this.close.emit(true);
     }
 

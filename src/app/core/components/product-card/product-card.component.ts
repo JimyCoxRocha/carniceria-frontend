@@ -37,7 +37,6 @@ export class ProductCardComponent implements OnInit {
   }
 
   counterResult(counter: number){
-    console.log("asdf");
     this.totalPriceCard = counter * this.price;
     this.counter = counter;
     this.isCarItem && this.amountProduct(counter);
