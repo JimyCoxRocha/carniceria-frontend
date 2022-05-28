@@ -1,6 +1,6 @@
 <mat-toolbar>
-    <button mat-icon-button>
-      <mat-icon (click)="snav.toggle()">menu</mat-icon>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
     </button>
     <span class="example-spacer"></span>
     
@@ -20,7 +20,7 @@
     ></app-sidenav>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content style="width: 100vw!important;overflow-x: hidden">
     <router-outlet></router-outlet>
     <app-footer [categories]="categories"></app-footer>
   </mat-sidenav-content>

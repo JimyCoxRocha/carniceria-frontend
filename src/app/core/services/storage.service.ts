@@ -9,6 +9,10 @@ export class StorageService {
 
   constructor() { }
 
+  removeKeyStorage( key: string ){
+    localStorage.removeItem(key);
+  }
+
   getLocalStorage( key: string ){
     return localStorage.getItem(key);
   }

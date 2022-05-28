@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { categoryFormat } from '../../interfaces/layout.interfaces';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+  selector: 'admin-sidenav',
+  templateUrl: './adm-sidenav.component.html',
+  styleUrls: ['./adm-sidenav.component.css']
 })
-export class SidenavComponent implements OnInit {
-  @Input() categoriesAccordion: categoryFormat[] = [];
+export class AdmSidenavComponent implements OnInit {
   @Output() close = new EventEmitter<Boolean>();
 
   constructor(

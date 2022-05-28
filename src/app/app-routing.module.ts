@@ -6,7 +6,9 @@ import { AdminGuard } from './core/guards/admin.guard';
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: () => import('./core/layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+    loadChildren: () => import('./core/layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+    canActivate: [ AdminGuard ],
+    canLoad: [ AdminGuard ]
   },
   {
     path: '',

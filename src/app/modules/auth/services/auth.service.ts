@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { AppConstants } from 'src/app/core/constants';
 import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces';
@@ -28,6 +29,7 @@ export class AuthService {
     private core: CoreService,
     private crypt: EncryptService,
     private storage: StorageService,
+    private router: Router
   ) { }
 
   login( user: ILogin ){
@@ -45,6 +47,7 @@ export class AuthService {
       this.handleStorage(data.data);
       this._isLoading = false;
       this.userLogin = data.data;
+      this.router.navigate(['/']);
     });
   }
   
@@ -58,4 +61,39 @@ export class AuthService {
       keyStorage: AppConstants.LocalStorage.username
     })
   }
+
+  isAdminUser(){
+    const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
+    if(!authUser) return false;
+    try{
+      const user: IUserLogin = this.crypt.decrypt(authUser);
+      console.log(user);
+
+      if(user.isAdminUser) return true;
+    }catch(err){}
+    
+    return false;
+  }
+
+  //NOTA: colocar otro metodo para verificar si el usuario es administrador, verificando el token obviamente
+  isAuthUser(){
+    const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
+    if(!authUser) return false;
+    try{
+      const user: IUserLogin = this.crypt.decrypt(authUser);
+      console.log(user);
+
+      if(user.token) return true;
+    }catch(err){}
+    
+    return false;
+  }
+
+  closeSession(){
+    try{
+      this.storage.removeKeyStorage(AppConstants.LocalStorage.auth);
+      this.storage.removeKeyStorage(AppConstants.LocalStorage.username);
+    }catch(err){}
+  }
+
 }

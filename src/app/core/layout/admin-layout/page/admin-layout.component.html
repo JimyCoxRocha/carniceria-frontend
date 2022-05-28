@@ -1,5 +1,81 @@
-<div>
+<mat-drawer-container fullscreen class="example-sidenav-container" autosize>
+  <mat-toolbar>
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    
+    <span>Carniceria</span>
+    <span class="example-spacer"></span>
+    <button routerLink="carrito" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      
+    </button>
+  </mat-toolbar>
+
+  
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+  </mat-drawer>
+  
+  <mat-sidenav-container fullscreen class="example-sidenav-container"
+  [style.marginTop.px]="56">
+  <mat-sidenav-content style="width: 100vw!important;overflow-x: hidden">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+    
+  </mat-sidenav-container>
+
+
+</mat-drawer-container>
+
+<!-- <mat-toolbar>
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    
+    <span>Carniceria</span>
+    <span class="example-spacer"></span>
+    <button routerLink="carrito" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      
+    </button>
+</mat-toolbar>
+  
+<mat-sidenav-container class="example-sidenav-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+  </mat-drawer>
+
+  <mat-sidenav-content style="width: 100vw!important;overflow-x: hidden">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+
+<!-- <mat-toolbar>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    
+    <span>Carniceria</span>
+    <span class="example-spacer"></span>
+    <button routerLink="carrito" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+</mat-toolbar>
+-->
+<!-- <div>
     <h1>Holaaa</h1>
         <router-outlet></router-outlet>
     <h1>Chao</h1>
-</div>
+</div> -->
+

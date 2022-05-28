@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-admin-layout',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
+  showFiller = false;
 
-  constructor() { }
+  constructor(){}
 
   ngOnInit(): void {
   }

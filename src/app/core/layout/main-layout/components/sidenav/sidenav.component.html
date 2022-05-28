@@ -63,7 +63,7 @@
         <strong>Cuenta</strong>
       </ng-template>
 
-      <div class="card mt-2">
+      <div class="card mt-2" *ngIf="!isAuthUser; else userDetail">
         <div class="list-group list-group-flush">
           <app-nav-link
             (isClick)="closeSideNav($event)"
@@ -80,6 +80,38 @@
           <mat-icon>navigate_next</mat-icon>
         </div>
       </div>
+
+      <ng-template #userDetail>
+          <mat-card class="example-card mt-4 d-flex" 
+            routerLink="auth/register"
+            (click)="closeSideNav(true)"
+          >
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"
+                style="background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');"
+              ></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+            <span class="example-spacer"></span>
+            <div class="d-flex align-items-center">
+              <mat-icon>build_icon</mat-icon>
+            </div>
+          </mat-card>
+          <mat-divider></mat-divider>
+          <div class="espacer-hight"></div>
+
+          <div class="list-group list-group-flush">
+            <mat-divider></mat-divider>
+            <div 
+                class="list-group-item d-flex justify-content-between align-items-center cursor-pointer"
+                (click)="sessionClose()">
+                <p class="fs-5 m-0 p-2">Cerrar Sesión</p>
+                <mat-icon>meeting_room</mat-icon>
+            </div>
+            <mat-divider></mat-divider>
+          </div>
+      </ng-template>
     </mat-tab>
 
 </mat-tab-group>

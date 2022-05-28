@@ -6,14 +6,13 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate, CanLoad {
-
+export class AuthGuard implements CanActivate, CanLoad {
   constructor( private auth: AuthService, private router: Router ){}
-  
+
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(!this.auth.isAdminUser()){
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      if(this.auth.isAuthUser()){
         this.router.navigate(['/']);
         return false
       }
@@ -22,8 +21,8 @@ export class AdminGuard implements CanActivate, CanLoad {
   }
   canLoad(
     route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(!this.auth.isAdminUser()){
+    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+      if(this.auth.isAuthUser()){
         this.router.navigate(['/']);
         return false
       }
