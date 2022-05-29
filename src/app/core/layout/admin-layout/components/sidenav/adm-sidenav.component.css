@@ -27,3 +27,60 @@
 .espacer-hight{
   height: 3rem;
 }
+.mat-expansion-panel{
+  box-shadow: none!important;
+}
+
+.header-expansion{
+  border-radius: 10px;
+}
+
+.espacer-hight{
+  height: 1.5rem!important;
+}
+.espacer-hight-panels{
+  height: 0.5rem!important;
+}
+.mat-expansion-panel-body.ng-tns-c149-1{
+  padding: 0px!important;
+}
+.onlyItem{
+  padding: 12px 16px!important;
+  transition: all ease;
+  border-radius: 10px;
+}
+.hoverElement:hover{
+  background-color: rgba(0, 0, 0, 0.025);
+  cursor: pointer;
+}
+
+.onlyItem span{
+  padding-left: 12px!important;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.moduleSelected{
+  background-color: var(--primary-color)!important;
+  transition: background-color 0.2s cubic-bezier(.22,1.01,.71,.58);
+}
+.moduleSelected .whiteTheme{
+  color: white!important;
+}
+
+.option:hover{
+  background-color: rgba(0, 0, 0, 0.014);
+  cursor: pointer;
+}
+
+.optionSelected,
+.optionSelected:hover{
+  background-color: rgba(0, 0, 0, 0.12)!important;
+  transition: background-color 0.2s cubic-bezier(.22,1.01,.71,.58);
+}
+
+::ng-deep .whiteTheme > .mat-expansion-indicator:after {
+  color: white;
+}

@@ -13,12 +13,10 @@
   </mat-toolbar>
 
   
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
+  <mat-drawer #drawer class="example-sidenav p-0" mode="side" style="max-width: 17rem;">
+    <admin-sidenav
+      (close) = "$event && drawer.toggle()"
+    ></admin-sidenav>
   </mat-drawer>
   
   <mat-sidenav-container fullscreen class="example-sidenav-container"

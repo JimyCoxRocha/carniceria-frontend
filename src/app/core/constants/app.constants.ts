@@ -6,6 +6,7 @@ export const AppConstants = {
     LocalStorage: {
         product_list : 'LIST_PRODUCT',
         auth: 'AUTH',
+        menu: 'MENU',
         username: 'USER_NAME'
     }
 }

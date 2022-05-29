@@ -47,10 +47,15 @@ export class AuthService {
       this.handleStorage(data.data);
       this._isLoading = false;
       this.userLogin = data.data;
-      this.router.navigate(['/']);
+
+      if(data.data.isAdminUser)
+        this.router.navigate(['/admin']);
+      else
+        this.router.navigate(['/']);
     });
   }
-  
+
+
   handleStorage(data: IUserLogin){
     this.storage.setStorage({
       element: this.crypt.encrypt(JSON.stringify(data)),
@@ -67,7 +72,6 @@ export class AuthService {
     if(!authUser) return false;
     try{
       const user: IUserLogin = this.crypt.decrypt(authUser);
-      console.log(user);
 
       if(user.isAdminUser) return true;
     }catch(err){}
@@ -81,12 +85,25 @@ export class AuthService {
     if(!authUser) return false;
     try{
       const user: IUserLogin = this.crypt.decrypt(authUser);
-      console.log(user);
 
       if(user.token) return true;
     }catch(err){}
     
     return false;
+  }
+
+  getMenu(){
+    const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
+    if(!authUser) return [];
+    try{
+      const user: IUserLogin = this.crypt.decrypt(authUser);
+      if(!user.isAdminUser) return [];
+
+      return user.menu;
+
+    }catch(err){}
+    
+    return [];
   }
 
   closeSession(){
