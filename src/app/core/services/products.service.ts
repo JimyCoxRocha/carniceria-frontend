@@ -82,7 +82,6 @@ export class ProductsService {
   }
 
   findProductStorage(idProduct: number){
-    console.log(idProduct);
     return this.getProductStorage().find(x => x.id == idProduct);
   }
 

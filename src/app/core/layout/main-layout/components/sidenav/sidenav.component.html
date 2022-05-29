@@ -103,6 +103,13 @@
 
           <div class="list-group list-group-flush">
             <mat-divider></mat-divider>
+            <div *ngIf="isAdminUser"
+                class="list-group-item d-flex justify-content-between align-items-center cursor-pointer"
+                routerLink="/admin">
+                <p class="fs-5 m-0 p-2">Administración</p>
+                <mat-icon>admin_panel_settings</mat-icon>
+            </div>
+            <mat-divider></mat-divider>
             <div 
                 class="list-group-item d-flex justify-content-between align-items-center cursor-pointer"
                 (click)="sessionClose()">

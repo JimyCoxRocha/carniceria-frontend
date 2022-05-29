@@ -44,4 +44,9 @@ export class LoginComponentComponent implements OnInit {
   handlePassword(){
     this.showPassword = !this.showPassword;
   }
+
+  get isLoading(){
+    console.log(this.auth._isLoading);
+    return this.auth._isLoading;
+  }
 }

@@ -2,55 +2,63 @@
   <img class="img-fluid" style="max-width: 80%;" src="assets/images/zamorano.png" alt="">
 </div>
 <div class="p-2">
-    <mat-accordion >
-      <ng-container *ngFor="let item of menu">
-        <mat-divider></mat-divider>
-        <ng-container *ngIf="item.items.length > 0; else onlyItem">
-          <mat-expansion-panel class="mat-expansion-panel">
-            <mat-expansion-panel-header 
-                [class]="(moduleSelected == item.id ? 'whiteTheme ps-3 moduleSelected header-expansion' : 'ps-3 header-expansion')"
-            >
-              <mat-panel-title>
-                <mat-icon class="whiteTheme">{{item.icon}}</mat-icon>
-              </mat-panel-title>
-              <mat-panel-description class="whiteTheme">
-                {{item.module}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-    
-            <mat-list>
-              <mat-list-item *ngFor="let option of item.items"
-                [class]="(optionSelected == (item.id + '' + option.id) ? 'option ps-0 optionSelected' : 'option ps-0')">
-                <div class="d-flex align-items-center" (click)="handleMenuOptionClick(item.id, option.id)">
-                  <mat-icon class="pe-5 whiteTheme">{{option.icon}}</mat-icon>
-                  <span class="whiteTheme">
-                    {{option.option}}
-                  </span>
-                  <mat-icon>navigate_next</mat-icon>
-                </div>
-                <mat-divider></mat-divider>
-              </mat-list-item>
-            </mat-list>
-    
-          </mat-expansion-panel>
-        </ng-container>
-    
-        <ng-template #onlyItem>
-          <div
-            [class]="(moduleSelected == item.id ? 'd-flex align-items-center onlyItem hoverElement ps-3 moduleSelected' : 'd-flex align-items-center onlyItem hoverElement ps-3')"
-            (click)="handleMenuModuleClick(item.id)">
-            <mat-icon class="pe-5 whiteTheme">{{item.icon}}</mat-icon>
-            <span class="whiteTheme">
+  <mat-accordion>
+    <ng-container *ngFor="let item of menu">
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="item.items.length > 0; else onlyItem">
+        <mat-expansion-panel class="mat-expansion-panel">
+          <mat-expansion-panel-header
+            [class]="(moduleSelected == item.id ? 'whiteTheme ps-3 moduleSelected header-expansion' : 'ps-3 header-expansion')">
+            <mat-panel-title>
+              <mat-icon class="whiteTheme">{{item.icon}}</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description class="whiteTheme">
               {{item.module}}
-            </span>
-            <div class="example-spacer"></div>
-            <mat-icon class="whiteTheme">navigate_next</mat-icon>
-          </div>
-          <mat-divider></mat-divider>
-        </ng-template>
-        <mat-divider></mat-divider>
-        <div class="espacer-hight-panels"></div>
-      </ng-container>
-    </mat-accordion>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
+          <mat-list>
+            <mat-list-item *ngFor="let option of item.items"
+              [class]="(optionSelected == (item.id + '' + option.id) ? 'option ps-0 optionSelected' : 'option ps-0')">
+              <div class="d-flex align-items-center" (click)="handleMenuOptionClick(item.id, option.id)">
+                <mat-icon class="pe-5 whiteTheme">{{option.icon}}</mat-icon>
+                <span class="whiteTheme">
+                  {{option.option}}
+                </span>
+                <mat-icon>navigate_next</mat-icon>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+
+        </mat-expansion-panel>
+      </ng-container>
+
+      <ng-template #onlyItem>
+        <div
+          [class]="(moduleSelected == item.id ? 'd-flex align-items-center onlyItem hoverElement ps-3 moduleSelected' : 'd-flex align-items-center onlyItem hoverElement ps-3')"
+          (click)="handleMenuModuleClick(item.id)">
+          <mat-icon class="pe-5 whiteTheme">{{item.icon}}</mat-icon>
+          <span class="whiteTheme">
+            {{item.module}}
+          </span>
+          <div class="example-spacer"></div>
+          <mat-icon class="whiteTheme">navigate_next</mat-icon>
+        </div>
+        <mat-divider></mat-divider>
+      </ng-template>
+      <mat-divider></mat-divider>
+      <div class="espacer-hight-panels"></div>
+    </ng-container>
+  </mat-accordion>
+
+  <div class="d-flex align-items-center onlyItem hoverElement ps-3" routerLink="/">
+    <mat-icon class="pe-5 whiteTheme">home</mat-icon>
+    <span class="whiteTheme">
+      Ir a home
+    </span>
+    <div class="example-spacer"></div>
+    <mat-icon class="whiteTheme">navigate_next</mat-icon>
+  </div>
+  <mat-divider></mat-divider>
 </div>

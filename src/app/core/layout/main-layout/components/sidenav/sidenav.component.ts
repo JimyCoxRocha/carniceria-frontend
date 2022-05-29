@@ -28,6 +28,10 @@ export class SidenavComponent implements OnInit {
   get isAuthUser(){
     return this.auth.isAuthUser();
   }
+
+  get isAdminUser(){
+    return this.auth.isAdminUser();
+  }
   
   sessionClose(){
     this.closeSideNav(true);
