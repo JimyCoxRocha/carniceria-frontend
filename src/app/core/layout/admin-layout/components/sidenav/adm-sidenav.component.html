@@ -18,15 +18,14 @@
           </mat-expansion-panel-header>
 
           <mat-list>
-            <mat-list-item *ngFor="let option of item.items"
-              [class]="(optionSelected == (item.id + '' + option.id) ? 'option ps-0 optionSelected' : 'option ps-0')">
-              <div class="d-flex align-items-center" (click)="handleMenuOptionClick(item.id, option.id)">
-                <mat-icon class="pe-5 whiteTheme">{{option.icon}}</mat-icon>
-                <span class="whiteTheme">
-                  {{option.option}}
-                </span>
+            <mat-list-item class="item admOption" *ngFor="let option of item.items"
+              [class]="(optionSelected == (item.id + '' + option.id) ? 'option ps-0 optionSelected d-flex w-100 justify-content-between' : 'option ps-0 d-flex w-100 justify-content-between')">
+                <div class="d-flex align-items-center justify-content-between w-100" (click)="handleMenuOptionClick(item.id, option.id)">
+                  <mat-icon class="pe-5 whiteTheme">{{option.icon}}</mat-icon>
+                  <span class="whiteTheme" style="width: 100%;"> {{option.option}} </span>
+                </div>
+                
                 <mat-icon>navigate_next</mat-icon>
-              </div>
               <mat-divider></mat-divider>
             </mat-list-item>
           </mat-list>

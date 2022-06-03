@@ -84,3 +84,11 @@
 ::ng-deep .whiteTheme > .mat-expansion-indicator:after {
   color: white;
 }
+
+.mat-list-item-content{
+  width: 100%!important;
+}
+
+/* .mat-list-base .mat-list-item .mat-list-item-content {
+  width: 100%!important;
+} */

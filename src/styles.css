@@ -58,3 +58,7 @@ h1 {
 .x-scroll-disabled {
 	overflow-x: hidden;
 }
+
+.admOption .mat-list-item-content{
+    width: 100%!important;
+}
