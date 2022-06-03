@@ -40,7 +40,7 @@ export class AuthService {
     .pipe(
       catchError((err: ErrorApiResponse) => {
         this._isLoading = false;
-        this.core.showErrorModal("Error Ocurrido", err.error.message[0])
+        this.core.showErrorModal("No inició sesión", err.error.message[0])
         return of({} as ApiResponse<IUserLogin>)
       })
     ).subscribe(data => {

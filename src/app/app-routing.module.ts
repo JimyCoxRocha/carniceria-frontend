@@ -15,11 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./core/layout/main-layout/main-layout.module').then(m => m.MainLayoutModule),
     /* pathMatch: 'full' */
   },
-  /* {
-    path: 'admin',
-    canLoad: [ AdminGuard ]
-    //loadChildren: () => import('./core/layout/main-layout/main-layout.module').then(m => m.MainLayoutModule),
-  }, */
   {
     path: '**',
     component: ErrorPageComponent,

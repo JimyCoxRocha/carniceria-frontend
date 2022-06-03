@@ -15,7 +15,6 @@ export class ModalComponent implements OnInit {
 
   contentHtml: string = this.data.contentHtml ? this.data.contentHtml : "";
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

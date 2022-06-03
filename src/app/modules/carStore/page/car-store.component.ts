@@ -8,8 +8,7 @@ import { ProductsService } from 'src/app/core/services';
   styleUrls: ['./car-store.component.css']
 })
 export class CarStoreComponent implements OnInit {
-  constructor(private productsService: ProductsService) { 
-    console.log(this.productsService._products);
+  constructor(private productsService: ProductsService) {
     this.productsService.getProductInCar();
   }
 

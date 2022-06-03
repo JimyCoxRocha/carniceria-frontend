@@ -1,12 +1,12 @@
 <div>
     <div *ngIf="hasTitle">
-        <h1 mat-dialog-title class="text-primary">{{this.data.title}}</h1>
+        <h1 mat-dialog-title class="text-center" color="primary">{{this.data.title}}</h1>
     </div>
     <div mat-dialog-content>
         <div [innerHtml] = "contentHtml"></div>
     </div>
     <mat-dialog-actions align="center" *ngIf="hasButtonPrimary || hasButtonSecundary">
-        <button *ngIf="hasButtonSecundary" mat-button mat-dialog-close>{{this.data.secundaryButton?.name}}</button>
-        <button *ngIf="hasButtonSecundary" mat-rised-button color="primary" mat-button cdkFocusInitial mat-dialog-close>{{this.data.primaryButton?.name}}</button>
+        <button mat-raised-button *ngIf="hasButtonSecundary" mat-button mat-dialog-close>{{this.data.secundaryButton?.name}}</button>
+        <button mat-raised-button *ngIf="hasButtonPrimary" mat-rised-button color="primary" mat-button cdkFocusInitial mat-dialog-close>{{this.data.primaryButton?.text}}</button>
     </mat-dialog-actions>
 </div>

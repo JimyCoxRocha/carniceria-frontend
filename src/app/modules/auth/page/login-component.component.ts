@@ -46,7 +46,6 @@ export class LoginComponentComponent implements OnInit {
   }
 
   get isLoading(){
-    console.log(this.auth._isLoading);
     return this.auth._isLoading;
   }
 }
