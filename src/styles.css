@@ -59,6 +59,13 @@ h1 {
 	overflow-x: hidden;
 }
 
+
+
+/* Para el layout de administración */
 .admOption .mat-list-item-content{
     width: 100%!important;
+}
+
+.layoutAdm mat-drawer-content{
+    overflow-x: hidden!important;
 }
