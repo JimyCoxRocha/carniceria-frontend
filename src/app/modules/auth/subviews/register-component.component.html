@@ -37,7 +37,9 @@
                             </mat-form-field>
                             <mat-form-field class="w-100" >
                                 <mat-label>Cédula</mat-label>
-                                <input type="number" matInput formControlName="cedula">
+                                <input type="text" maxlength="10" matInput formControlName="cedula"
+                                    (keypress)="isNumber($event)"
+                                >
                                 <mat-error *ngIf="fieldIsValid('cedula')">
                                     Por favor, ingrese la cédula
                                 </mat-error>
@@ -87,9 +89,9 @@
                             <mat-checkbox color="primary" class="example-margin mt-3">Recibir Promociones</mat-checkbox>
 
                             
-                            <div class="d-flex justify-content-between mt-3">
+                            <div class="d-flex justify-content-between mt-3" *ngIf="!isLoading; else progress;">
                                 <div class="d-flex align-items-center">
-                                    <button type="submit" mat-flat-button color="primary" class="fs-7 px-4 py-2">
+                                    <button type="submit" [disabled]="!this.myForm.valid" mat-flat-button color="primary" class="fs-7 px-4 py-2">
                                         Registrarme
                                     </button>
                                 </div>
@@ -99,6 +101,9 @@
                                     </button>
                                 </div>
                             </div>
+                            <ng-template #progress>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </ng-template>
                         </form>
                     </div>
                     

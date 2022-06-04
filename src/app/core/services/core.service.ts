@@ -35,10 +35,10 @@ export class CoreService {
     this.dialog.open(ModalComponent, {data: this._modalError, panelClass: "custom-container"})
   }
 
-  showMessageModal(title: string, message: string, textButton: string, nameButton: string, widthModal: string = ''){
+  showMessageModal(title: string, message: string, textButton: string, nameButton: string, widthModal?: string){
     this._modalError.title = title;
     this._modalError.contentHtml = message;
     this._modalError.primaryButton = { text: textButton, name: nameButton };
-    this.dialog.open(ModalComponent, {data: this._modalError, width: widthModal, panelClass: "custom-container"})
+    this.dialog.open(ModalComponent, {data: this._modalError, width: (widthModal ? widthModal : ''), panelClass: "custom-container"})
   }
 }

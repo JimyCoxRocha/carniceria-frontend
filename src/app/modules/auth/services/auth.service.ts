@@ -1,25 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, of } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 import { AppConstants } from 'src/app/core/constants';
 import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces';
 import { CoreService, StorageService } from 'src/app/core/services';
 import { EncryptService } from 'src/app/core/services/encrypt.service';
 import { environment } from 'src/environments/environment';
-import { IUserLogin } from '../interfaces/auth.interface';
+import { ILogin, IRegistration, IUserLoggedIn } from '../interfaces/auth.interface';
 
-
-interface ILogin {
-  username: string,
-  password: string
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  userLogin: IUserLogin | null = null;
+  userLogin: IUserLoggedIn | null = null;
   _isLoading: boolean = false;
   
   apiUrl = environment.API_URL;
@@ -35,13 +30,13 @@ export class AuthService {
   login( user: ILogin ){
     if(this._isLoading) return; this._isLoading = true;
 
-    this.http.post<ApiResponse<IUserLogin>>
+    this.http.post<ApiResponse<IUserLoggedIn>>
     (`${this.apiUrl}Autenticacion/login`, user)
     .pipe(
       catchError((err: ErrorApiResponse) => {
         this._isLoading = false;
         this.core.showErrorModal("No inició sesión", err.error.message[0])
-        return of({} as ApiResponse<IUserLogin>)
+        throw err;
       })
     ).subscribe(data => {
       this.handleStorage(data.data);
@@ -55,14 +50,42 @@ export class AuthService {
     });
   }
 
+  register( user: IRegistration ){
+    if(this._isLoading) return; this._isLoading = true;
 
-  handleStorage(data: IUserLogin){
+    console.log(user);
+    this.http.post<ApiResponse<IUserLoggedIn>>
+    (`${this.apiUrl}Autenticacion/register`, user)
+    .pipe(
+      catchError((err: ErrorApiResponse) => {
+        this._isLoading = false;
+        this.core.showErrorModal("No se registró", err.error.message[0])
+        throw err;
+      })
+    ).subscribe(data => {
+      console.log('data', data)
+      this.handleStorage(data.data);
+      this._isLoading = false;
+      this.userLogin = data.data;
+
+        this.core.showMessageModal(
+          "Felicidades!", 
+          "Usuario Creado Correctamente. ¡Bienvenido!",
+          "Ok", "btnAceptar"
+        )
+        this.router.navigate(['/']);
+    });
+  }
+
+
+  handleStorage(data: IUserLoggedIn){
+    
     this.storage.setStorage({
       element: this.crypt.encrypt(JSON.stringify(data)),
       keyStorage: AppConstants.LocalStorage.auth
     })
     this.storage.setStorage({
-      element: data.username,
+      element: data?.username,
       keyStorage: AppConstants.LocalStorage.username
     })
   }
@@ -71,7 +94,7 @@ export class AuthService {
     const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
     if(!authUser) return false;
     try{
-      const user: IUserLogin = this.crypt.decrypt(authUser);
+      const user: IUserLoggedIn = this.crypt.decrypt(authUser);
 
       if(user.isAdminUser) return true;
     }catch(err){}
@@ -84,7 +107,7 @@ export class AuthService {
     const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
     if(!authUser) return false;
     try{
-      const user: IUserLogin = this.crypt.decrypt(authUser);
+      const user: IUserLoggedIn = this.crypt.decrypt(authUser);
 
       if(user.token) return true;
     }catch(err){}
@@ -96,7 +119,7 @@ export class AuthService {
     const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
     if(!authUser) return [];
     try{
-      const user: IUserLogin = this.crypt.decrypt(authUser);
+      const user: IUserLoggedIn = this.crypt.decrypt(authUser);
       if(!user.isAdminUser) return [];
 
       return user.menu;
