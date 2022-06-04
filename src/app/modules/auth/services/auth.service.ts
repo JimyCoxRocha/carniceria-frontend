@@ -50,6 +50,16 @@ export class AuthService {
     });
   }
 
+  get userName(){
+    const authUser = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
+    if(!authUser) return '';
+    try{
+      const user: IUserLoggedIn = this.crypt.decrypt(authUser);
+      return user.username;
+    }catch(err){}
+    
+    return '';
+  }
   register( user: IRegistration ){
     if(this._isLoading) return; this._isLoading = true;
 
