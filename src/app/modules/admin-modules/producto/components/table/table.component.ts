@@ -95,7 +95,9 @@ export class TableComponent implements AfterViewInit {
         action: () => this.clickeado()
       }
     });
-    
-    //this.core.showActionMessageModal('Holii', 'Que tal a todos', 'click', 'yasabe', () => this.clickeado());
+  }
+
+  edit(){
+    console.log("accediendo a EDIT");
   }
 }
