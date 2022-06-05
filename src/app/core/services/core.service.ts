@@ -28,17 +28,18 @@ export class CoreService {
     this._statusLoading = true;
   }
 
-  showErrorModal(title: string, message: string){
+  showErrorModal({title, contentHtml} : ModalConfigurationInterface){
     this._modalError.title = title;
-    this._modalError.contentHtml = message;
+    this._modalError.contentHtml = contentHtml;
     this._modalError.primaryButton = { text: "Aceptar", name: "btnAceptar" };
     this.dialog.open(ModalComponent, {data: this._modalError, panelClass: "custom-container"})
   }
 
-  showMessageModal(title: string, message: string, textButton: string, nameButton: string, widthModal?: string){
+  showMessageModal({title, contentHtml, primaryButton}: ModalConfigurationInterface){
     this._modalError.title = title;
-    this._modalError.contentHtml = message;
-    this._modalError.primaryButton = { text: textButton, name: nameButton };
-    this.dialog.open(ModalComponent, {data: this._modalError, width: (widthModal ? widthModal : ''), panelClass: "custom-container"})
+    this._modalError.contentHtml = contentHtml;
+    this._modalError.primaryButton = { text: primaryButton?.text || '', name: primaryButton?.name || '', action: primaryButton?.action };
+    this.dialog.open(ModalComponent, {data: this._modalError, panelClass: "custom-container"})
   }
+
 }

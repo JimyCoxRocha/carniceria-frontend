@@ -6,7 +6,17 @@
         <div [innerHtml] = "contentHtml"></div>
     </div>
     <mat-dialog-actions align="center" *ngIf="hasButtonPrimary || hasButtonSecundary">
-        <button mat-raised-button *ngIf="hasButtonSecundary" mat-button mat-dialog-close>{{this.data.secundaryButton?.name}}</button>
-        <button mat-raised-button *ngIf="hasButtonPrimary" mat-rised-button color="primary" mat-button cdkFocusInitial mat-dialog-close>{{this.data.primaryButton?.text}}</button>
+        <button mat-raised-button *ngIf="hasButtonSecundary" (click)="clickSecundaryBtn()" mat-button mat-dialog-close>{{this.data.secundaryButton?.name}}</button>
+        <button 
+            mat-raised-button 
+            *ngIf="hasButtonPrimary" 
+            mat-rised-button 
+            color="primary" 
+            mat-button 
+            cdkFocusInitial 
+            mat-dialog-close 
+            (click)="clickPrimaryBtn()">
+                {{this.data.primaryButton?.text}}
+        </button>
     </mat-dialog-actions>
 </div>

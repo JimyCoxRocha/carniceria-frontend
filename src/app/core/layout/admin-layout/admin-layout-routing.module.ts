@@ -8,6 +8,11 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
+        path: 'productos',
+        loadChildren: () => import('../../../modules/admin-modules/producto/producto.module')
+                            .then(m => m.ProductoModule)
+      },
+      {
         path: '',
         loadChildren: () => import('../../../modules/admin-modules/home/home.module')
                             .then(m => m.HomeModule)

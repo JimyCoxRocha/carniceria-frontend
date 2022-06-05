@@ -15,6 +15,23 @@ export class ModalComponent implements OnInit {
 
   contentHtml: string = this.data.contentHtml ? this.data.contentHtml : "";
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+/*     if(this.data.action){
+      this.data.action()
+    } */
+  }
+  
+  clickPrimaryBtn(){
+    if(!this.data.primaryButton 
+      || !this.data.primaryButton?.action) return;
 
+      this.data.primaryButton.action();
+  }
+  
+  clickSecundaryBtn(){
+    if(!this.data.secundaryButton 
+      || !this.data.secundaryButton?.action) return;
+
+      this.data.secundaryButton.action();
+  }
 }

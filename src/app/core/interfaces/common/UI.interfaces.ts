@@ -7,7 +7,8 @@ export interface ModalConfigurationInterface{
 
 export interface ButtonModal {
     name: string,
-    text: string
+    text: string,
+    action?: () => void
 }
 
 export interface DataModelConfirm {

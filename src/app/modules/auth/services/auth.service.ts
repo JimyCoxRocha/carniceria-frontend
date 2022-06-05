@@ -35,7 +35,10 @@ export class AuthService {
     .pipe(
       catchError((err: ErrorApiResponse) => {
         this._isLoading = false;
-        this.core.showErrorModal("No inició sesión", err.error.message[0])
+        this.core.showErrorModal({
+          title: "No inició sesión",
+          contentHtml: err.error.message[0]
+        })
         throw err;
       })
     ).subscribe(data => {
@@ -69,20 +72,24 @@ export class AuthService {
     .pipe(
       catchError((err: ErrorApiResponse) => {
         this._isLoading = false;
-        this.core.showErrorModal("No se registró", err.error.message[0])
+        this.core.showErrorModal({
+          title: "No se registró",
+          contentHtml: err.error.message[0]
+        })
         throw err;
       })
     ).subscribe(data => {
-      console.log('data', data)
       this.handleStorage(data.data);
       this._isLoading = false;
       this.userLogin = data.data;
-
-        this.core.showMessageModal(
-          "Felicidades!", 
-          "Usuario Creado Correctamente. ¡Bienvenido!",
-          "Ok", "btnAceptar"
-        )
+        this.core.showMessageModal({
+          title: "Felicidades!",
+          contentHtml: "Usuario Creado Correctamente. ¡Bienvenido!",
+          primaryButton: {
+            name: "Ok",
+            text: "Ok"
+          }
+        })
         this.router.navigate(['/']);
     });
   }

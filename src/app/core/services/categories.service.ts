@@ -56,7 +56,10 @@ export class CategoriesService {
         return x.data
       }),
       catchError((err: ErrorApiResponse) => {
-        this.core.showErrorModal("Error inesperado", err.error.message[0])
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
         return of({} as Category[])
       })
     );
