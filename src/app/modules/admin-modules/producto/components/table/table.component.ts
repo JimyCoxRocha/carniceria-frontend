@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild, Input, SimpleChanges } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { CoreService } from '../../../../../core/services/core.service';
+import { IProductAdminSimple } from '../../interfaces/product-admin.interface';
 
 export interface PeriodicElement {
   name: string;
@@ -13,37 +14,28 @@ export interface PeriodicElement {
 }
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
 @Component({
   selector: 'app-admin-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol', 'acciones'];
-  dataSource: MatTableDataSource<PeriodicElement>;
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  displayedColumns: string[] = ['select', 'idProducto', 'titulo', 'status', 'stock', 'acciones'];
+  dataSource: MatTableDataSource<IProductAdminSimple>;
+  selection = new SelectionModel<IProductAdminSimple>(true, []);
+  productsToTable: IProductAdminSimple[] = [];
+  
+  @Input() set products(value : IProductAdminSimple[]){
+    this.productsToTable = value;
+    this.dataSource = new MatTableDataSource(value)
+  }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private core: CoreService) {
-    // Create 100 users
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(private core: CoreService) {
+    this.dataSource = new MatTableDataSource([] as IProductAdminSimple[])
   }
 
   ngAfterViewInit() {
@@ -74,11 +66,11 @@ export class TableComponent implements AfterViewInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: IProductAdminSimple): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.idProducto + 1}`;
   }
 
   clickeado(){

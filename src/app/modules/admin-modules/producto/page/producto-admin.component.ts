@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductoAdminService } from '../services/producto-admin.service';
 
 @Component({
   selector: 'app-producto-admin',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductoAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private productoAdminService : ProductoAdminService
+  ) { }
 
   ngOnInit(): void {
+    this.productoAdminService.getProductToTable();
   }
 
+  getProductsToTable(){
+    return this.productoAdminService.productsToTable;
+  }
 }
