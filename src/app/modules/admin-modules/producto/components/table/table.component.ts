@@ -100,4 +100,8 @@ export class TableComponent implements AfterViewInit {
   edit(){
     console.log("accediendo a EDIT");
   }
+
+  viewMore(){
+    console.log("accediendo a Ver más");
+  }
 }

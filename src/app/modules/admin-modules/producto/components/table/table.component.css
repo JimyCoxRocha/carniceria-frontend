@@ -11,13 +11,13 @@ td, th {
   width: 25%;
 }
 
-.mat-elevation-z8, .container{
-  width: 95%;
-  margin: 0 auto;
+.width-table{
+  width: 97%;
 }
 
-.search{
-  width: 90%;
+.mat-elevation-z8{
+  width: 95%;
+  margin: 0 auto;
 }
 
 .container-table{
