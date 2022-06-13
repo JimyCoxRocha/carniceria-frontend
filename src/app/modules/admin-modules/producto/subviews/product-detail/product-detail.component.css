@@ -26,3 +26,9 @@
 .button-edit-product-large{
     margin: 0 auto;
 }
+
+.goBackIconButton{
+    position: absolute;
+    top: 5px;
+    left: 0;
+}
