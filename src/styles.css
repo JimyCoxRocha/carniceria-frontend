@@ -69,3 +69,11 @@ h1 {
 .layoutAdm mat-drawer-content{
     overflow-x: hidden!important;
 }
+
+.mat-sort-header-container{
+    justify-content: center!important;
+}
+
+.expansion-admin-information .mat-expansion-panel-body {
+    padding: 0px 16px !important;
+}

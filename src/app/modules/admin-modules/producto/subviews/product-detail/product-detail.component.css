@@ -1,0 +1,28 @@
+.header-container{
+    height: 60vh;
+    background-color: #BA8975;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.config-product{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .image-large {
+        max-width: calc(70%)!important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .image-large > img {
+        max-width: 80%!important;
+    }
+}
+
+.button-edit-product-large{
+    margin: 0 auto;
+}

@@ -25,8 +25,30 @@ td, th {
   overflow: auto;
 }
 
+@media (min-width: 768px) { 
+  .container-table{
+    height: 900px;
+    overflow: auto;
+  }
+}
+
+
 .mat-paginator-sticky {
   bottom: 0px;
   position: sticky;
   z-index: 10;
+}
+
+.selectColumn, td.mat-cell, th.mat-header-cell {
+  width: unset!important;
+  text-align: center;
+  padding-right: 1rem;
+}
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type{
+  padding-right: 0rem!important;
+}
+
+.imgProduct{
+  max-width: 30px!important;
 }

@@ -1,0 +1,30 @@
+<header class="header-container d-md-flex">
+    <div class="d-md-flex p-md-3 flex-md-column justify-content-md-evenly">
+        <div>
+            <h1 class="text-center pt-4 fw-bolder fs-1">Hola a todos</h1>
+            <p class="text-center fst-italic">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, aliquam laborum minima adipisci quisquam eveniet incidunt harum facilis reprehenderit, ratione similique sed modi quam, libero dolore dolores nulla? Omnis, necessitatibus?</p>
+            <h2 class="fs-1 text-center p-2 fw-bolder mb-0">{{ "123" | currency}} <span class="fst-italic fw-light fs-3">la libra</span></h2>
+        </div>
+            <button mat-flat-button class="d-none d-md-block button-edit-product-large px-5 py-2" color="primary">Editar</button>
+    </div>
+    
+    <div class="px-3 image-large">
+        <img class="img-fluid" src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c1c2.png" alt="">
+    </div>
+    
+    <button mat-fab color="accent" class="config-product d-md-none">
+        <mat-icon>border_color</mat-icon>
+    </button>
+</header>
+
+<main class="px-0 pt-4">
+
+    <mat-accordion class="d-md-none">
+        <app-expansion-panel></app-expansion-panel>
+        <app-expansion-panel></app-expansion-panel>
+        <app-expansion-panel></app-expansion-panel>
+    </mat-accordion>
+
+    <app-tabs></app-tabs>
+      
+</main>

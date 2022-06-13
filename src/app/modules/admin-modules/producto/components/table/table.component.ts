@@ -1,17 +1,10 @@
 import { AfterViewInit, Component, ViewChild, Input, SimpleChanges } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { CoreService } from '../../../../../core/services/core.service';
 import { IProductAdminSimple } from '../../interfaces/product-admin.interface';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 
 @Component({
@@ -20,11 +13,17 @@ export interface PeriodicElement {
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'idProducto', 'titulo', 'status', 'stock', 'acciones'];
+  displayedColumns: string[] = [
+      'select', 'titulo', 'imgUrl',
+      'status', 'stock', 'categorias', 
+      'promociones'
+  ];
+  
   dataSource: MatTableDataSource<IProductAdminSimple>;
   selection = new SelectionModel<IProductAdminSimple>(true, []);
   productsToTable: IProductAdminSimple[] = [];
-  
+  sortedData: IProductAdminSimple[];
+
   @Input() set products(value : IProductAdminSimple[]){
     this.productsToTable = value;
     this.dataSource = new MatTableDataSource(value)
@@ -35,7 +34,8 @@ export class TableComponent implements AfterViewInit {
 
 
   constructor(private core: CoreService) {
-    this.dataSource = new MatTableDataSource([] as IProductAdminSimple[])
+    this.dataSource = new MatTableDataSource([] as IProductAdminSimple[]);
+    this.sortedData = this.productsToTable.slice();
   }
 
   ngAfterViewInit() {
@@ -58,12 +58,7 @@ export class TableComponent implements AfterViewInit {
   }
 
   masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
+    this.selection.clear();
   }
 
   checkboxLabel(row?: IProductAdminSimple): string {
@@ -96,4 +91,40 @@ export class TableComponent implements AfterViewInit {
   viewMore(){
     console.log("accediendo a Ver más");
   }
+
+  clickRow(e:any){
+    //selection.toggle(row)
+    console.log(e);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.productsToTable.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'titulo':
+          const val = compare(a.titulo, b.titulo, isAsc);
+          return val;
+        case 'stock':
+          return compare(a.stock, b.stock, isAsc);
+        case 'categorias':
+          return compare(a.nameCategories.join(', '), b.nameCategories.join(', '), isAsc);
+        case 'promociones':
+          return compare(a.namePromotion, b.namePromotion, isAsc);
+        default:
+          return 0;
+      }
+    });
+
+    this.dataSource = new MatTableDataSource(this.sortedData);
+  }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

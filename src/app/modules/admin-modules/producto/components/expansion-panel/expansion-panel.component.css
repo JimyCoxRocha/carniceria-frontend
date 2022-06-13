@@ -1,0 +1,15 @@
+.ripple{
+    background-color: #0084FD;
+}
+.ripple > p, .ripple{
+    color: white;
+}
+
+.cardTheme{
+    position: relative;
+}
+.buttons-action{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
