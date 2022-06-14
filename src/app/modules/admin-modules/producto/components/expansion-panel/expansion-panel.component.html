@@ -4,19 +4,25 @@
 >
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Self aware panel
+      {{detail.title}}
     </mat-panel-title>
 
   </mat-expansion-panel-header>
   <div
      matRipple
      [matRippleCentered]="true"
-     class="p-2 py-1 ripple rounded d-flex justify-content-center align-items-center">
+     class="p-2 py-1 ripple rounded d-flex justify-content-center align-items-center"
+     *ngIf="detail.actionAdd"
+     
+     >
      <p class="text-center mb-0">
-       Agregar detalle
+       {{detail.actionAdd.title}}
       </p>
-      <mat-icon aria-hidden="false" aria-label="Example home icon" class="ms-1">home</mat-icon>
+      <mat-icon *ngIf="detail?.actionAdd?.icon" aria-hidden="false" aria-label="Example home icon" class="ms-1">{{detail.actionAdd.icon}}</mat-icon>
   </div>
 
-  <app-card-detail></app-card-detail>
+  <app-card-detail
+  *ngFor="let cardContent of detail.card"
+    [content]="cardContent"
+  ></app-card-detail>
 </mat-expansion-panel>

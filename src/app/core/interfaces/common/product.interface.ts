@@ -20,6 +20,7 @@ export interface Product{
     minimaUnidad: string
 }
 
+/* UTILIZADO EN product-admin.interface */
 export interface DetailProduct{
     idDetalleProducto: number,
     tituloDetalle: string,

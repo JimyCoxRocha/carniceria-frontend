@@ -13,13 +13,16 @@
 
 @media only screen and (min-width: 768px) {
     .image-large {
-        max-width: calc(70%)!important;
+        width: calc(70%)!important;
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .image-large > img {
-        max-width: 80%!important;
+        width: 80%!important;
+    }
+    .detail-large{
+        width: calc(30%)!important;
     }
 }
 
@@ -32,3 +35,4 @@
     top: 5px;
     left: 0;
 }
+

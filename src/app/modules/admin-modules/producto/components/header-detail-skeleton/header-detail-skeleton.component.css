@@ -1,0 +1,10 @@
+.headerSkeleton{
+    position: relative;
+    height: 60vh!important;
+}
+
+.btn-edit{
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+}

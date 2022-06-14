@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IAdminElementExtraDetail } from '../../interfaces/product-detail.interface';
 
 @Component({
   selector: 'app-tabs',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.component.css']
 })
 export class TabsComponent implements OnInit {
-
+  @Input() detail!: IAdminElementExtraDetail;
+  @Input() tabTitle!: string
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.detail);
   }
 
 }

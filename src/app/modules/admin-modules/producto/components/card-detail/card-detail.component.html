@@ -1,15 +1,21 @@
 <mat-card class="mt-2 cardTheme">
     <div class="buttons-action">
-      <button mat-icon-button color="primary" aria-label="Example icon button with a vertical three dot icon">
+
+      <button mat-icon-button color="primary" *ngIf="content?.actionEdit !== undefined" (click)="content?.actionEdit()" aria-label="Example icon button with a vertical three dot icon">
         <mat-icon>mode_edit_outline_rounded</mat-icon>
       </button>
-      <button mat-icon-button color="warn" aria-label="Example icon button with a vertical three dot icon">
+
+      <button mat-icon-button color="warn" *ngIf="content?.actionDelete !== undefined" (click)="content?.actionDelete()" aria-label="Example icon button with a vertical three dot icon">
         <mat-icon>backspace_rounded</mat-icon>
       </button>
+
     </div>
-    <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-    <span class="ms-2"><strong>Titulo</strong></span>
-    <p class="mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+    <img mat-card-sm-image [src]="content?.image">
+
+
+    <span class="ms-2"><strong>{{content?.title}}</strong></span>
+    <p class="mt-2">{{content?.description}}</p>
     
     
   </mat-card>

@@ -1,0 +1,19 @@
+
+<div class="px-5 pt-5">
+    <button *ngIf="detail.actionAdd" mat-flat-button class="d-none d-md-block button-add-element-large px-5 py-2"
+    color="primary">
+    {{detail.actionAdd.title}}
+    <mat-icon *ngIf="detail?.actionAdd?.icon" aria-hidden="false" aria-label="Example home icon" class="ms-1">
+        {{detail.actionAdd.icon}}</mat-icon>
+    </button>
+</div>
+<mat-tab-group *ngIf="selectedTabIndex != undefined" contentTabIndex="0" defaultTabIndex="0" [selectedIndex]="selectedTabIndex" backgroundColor="accent" class="d-none mt-5 d-md-block pb-5 px-5 animate__animated animate__pulse tabNoSelectOnDisplay" mat-stretch-tabs mat-align-tabs="end">
+    
+    <mat-tab *ngFor="let element of detail.elements; let index=index;">
+        <ng-template mat-tab-label>{{element.title}}</ng-template>
+        <app-tabs 
+            [detail]="element"
+            tabTitle="element"
+        ></app-tabs>
+    </mat-tab>
+</mat-tab-group>

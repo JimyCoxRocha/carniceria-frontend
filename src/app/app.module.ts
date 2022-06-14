@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarModule } from './modules/carStore/car.module';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginatorComponent } from './core/components/custom-paginator/custom-paginator.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CustomPaginatorComponent } from './core/components/custom-paginator/cus
     BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [
     {

@@ -1,25 +1,15 @@
-<mat-tab-group mat-align-tabs="start" class="d-none d-md-block pb-5" mat-align-tabs="center"
-
->
-    <mat-tab label="First">
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-            holaa
-    </ng-template>
-    <div class="px-5 pt-5">
-        <button mat-flat-button class="d-none d-md-block button-add-element-large px-5 py-2" color="primary">Agregar Nuevo</button>
+<div class="px-5 pt-5">
+  <button *ngIf="detail.actionAdd" mat-flat-button class="d-none d-md-block button-add-element-large px-5 py-2" color="primary">
+    {{detail.actionAdd.title}}
+    <mat-icon *ngIf="detail?.actionAdd?.icon" aria-hidden="false" aria-label="Example home icon" class="ms-1">{{detail.actionAdd.icon}}</mat-icon>
+  </button>
+</div>
+<div class="px-5 py-5" style="overflow-x: hidden; max-width: 100vw!important">
+  <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-md-center">
+    <div class="col"
+      *ngFor="let cardContent of detail.card"
+    >
+      <app-card-detail [content]="cardContent"></app-card-detail>
     </div>
-    <div class="px-5 py-5" style="overflow-x: hidden; max-width: 100vw!important">
-        <div class="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-md-center">
-          <div class="col"><app-card-detail></app-card-detail></div>
-          <div class="col"><app-card-detail></app-card-detail></div>
-          <div class="col"><app-card-detail></app-card-detail></div>
-          <div class="col"><app-card-detail></app-card-detail></div>
-          <div class="col"><app-card-detail></app-card-detail></div>
-          <div class="col"><app-card-detail></app-card-detail></div>
-        </div>
-      </div>
-
-    
-    </mat-tab>
-</mat-tab-group>
+  </div>
+</div>

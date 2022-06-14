@@ -9,6 +9,11 @@ import { ProductDetailComponent } from './subviews/product-detail/product-detail
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { CardDetailComponent } from './components/card-detail/card-detail.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { HeaderDetailSkeletonComponent } from './components/header-detail-skeleton/header-detail-skeleton.component';
+import { ContentDetailSkeletonComponent } from './components/content-detail-skeleton/content-detail-skeleton.component';
+import { CoreModule } from 'src/app/core/core.module';
+import { TabsMixedComponent } from './components/tabs-mixed/tabs-mixed.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +22,17 @@ import { CardDetailComponent } from './components/card-detail/card-detail.compon
     ProductDetailComponent,
     ExpansionPanelComponent,
     TabsComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    HeaderDetailSkeletonComponent,
+    ContentDetailSkeletonComponent,
+    TabsMixedComponent
   ],
   imports: [
     CommonModule,
     ProductoRoutingModule,
-    MaterialUIModule
+    MaterialUIModule,
+    NgxSkeletonLoaderModule,
+    CoreModule
   ]
 })
 export class ProductoModule { }

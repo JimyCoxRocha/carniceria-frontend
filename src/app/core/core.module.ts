@@ -8,6 +8,8 @@ import { NavLinkComponent } from './components/nav-link/nav-link.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialUIModule } from './material-ui.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -16,20 +18,23 @@ import { MaterialUIModule } from './material-ui.module';
     FixedImageComponent,
     ModalComponent,
     NavLinkComponent,
-    CounterComponent
+    CounterComponent,
+    CardSkeletonComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialUIModule
+    MaterialUIModule,
+    NgxSkeletonLoaderModule
   ],
   exports: [
     ImageCardComponent,
     ProductCardComponent,
     FixedImageComponent,
     NavLinkComponent,
-    CounterComponent
+    CounterComponent,
+    CardSkeletonComponent
   ]
 })
 export class CoreModule { }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IAdminElementExtraDetail } from '../../interfaces/product-detail.interface';
 
 @Component({
   selector: 'app-expansion-panel',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExpansionPanelComponent implements OnInit {
   panelOpenState = false;
+  @Input() detail!: IAdminElementExtraDetail;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ICardElementExtraDetail } from '../../interfaces/product-detail.interface';
 
 @Component({
   selector: 'app-card-detail',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-detail.component.css']
 })
 export class CardDetailComponent implements OnInit {
-
+  @Input() content!: ICardElementExtraDetail;
+  
   constructor() { }
 
   ngOnInit(): void {
