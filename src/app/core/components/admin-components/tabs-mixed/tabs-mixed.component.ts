@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { IAdminElementExtraDetailMixed } from '../../interfaces/product-detail.interface';
+import { IAdminElementExtraDetailMixed } from '../interfaces';
 
 @Component({
   selector: 'app-tabs-mixed',

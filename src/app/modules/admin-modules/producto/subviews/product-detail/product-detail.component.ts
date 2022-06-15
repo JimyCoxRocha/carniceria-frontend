@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter } from 'rxjs';
+import { IAdminElementExtraDetail, IAdminElementExtraDetailMixed } from 'src/app/core/components/admin-components/interfaces';
+import { IHeaderAdminEdit } from 'src/app/core/components/admin-components/interfaces/header.interface';
 import { Category } from 'src/app/core/interfaces';
 import { IProductAdminDetail } from '../../interfaces/product-admin.interface';
-import { IAdminElementExtraDetail, IAdminElementExtraDetailMixed } from '../../interfaces/product-detail.interface';
 import { ProductoAdminService } from '../../services/producto-admin.service';
 
 interface RouteParams {
@@ -32,7 +33,6 @@ export class ProductDetailComponent implements OnInit {
       idProduct && this.detailService.getDetailToTable(idProduct).subscribe(data => {
         this.product = data;
         this.productExtraDetail();
-        console.log(this.productDetail);
       });
     }catch(Err){}
   }
@@ -108,6 +108,17 @@ export class ProductDetailComponent implements OnInit {
       } as IAdminElementExtraDetailMixed
   }
 
+  get contentHeader(){
+    const product = this.product?.product;
+    return {
+      title: product?.titulo,
+      description: product?.descripcion,
+      price: product?.precio,
+      minimumUnit: product?.minimaUnidad,
+      unit: this.product?.unidadMedida.unidad,
+      imgUrl: product?.imgUrl,
+    } as IHeaderAdminEdit
+  }
 
   productExtraDetail(){
       if(!this.product) return;

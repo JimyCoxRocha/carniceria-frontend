@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAdminElementExtraDetail } from '../../interfaces/product-detail.interface';
+import { IAdminElementExtraDetail } from '../interfaces';
 
 @Component({
   selector: 'app-tabs',

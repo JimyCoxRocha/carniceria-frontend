@@ -1,0 +1,27 @@
+<!-- EDITAR EN CASO DE SER NECESARIO -->
+<app-header-detail-skeleton *ngIf="isLoading"></app-header-detail-skeleton>
+
+<header class="header-container d-md-flex" *ngIf="!isLoading">
+    <button mat-icon-button color="accent" class="goBackIconButton d-flex" routerLink="/admin/productos">
+        <mat-icon class="fs-1" color="primary">arrow_back_ios_new</mat-icon>
+    </button>
+
+    <div class="detail-large d-md-flex p-md-3 flex-md-column justify-content-md-evenly">
+        <div>
+            <h1 class="text-center pt-4 fw-bolder fs-1">{{content.title}}</h1>
+            <p class="text-center fst-italic">{{content.description}}</p>
+            <h2 class="fs-1 text-center p-2 fw-bolder mb-0">{{ content.price | currency}} 
+                <span class="fst-italic fw-light fs-3">por {{ content.minimumUnit }} {{ content.unit }}</span>
+            </h2>
+        </div>
+            <button mat-flat-button class="d-none d-md-block button-edit-product-large px-5 py-2" color="primary">Editar</button>
+    </div>
+    
+    <div class="px-3 image-large">
+        <img class="img-fluid" [src]="content.imgUrl" [alt]="'No se cargó la IMG:' + content.title">
+    </div>
+    
+    <button mat-fab color="accent" class="config-product d-md-none">
+        <mat-icon>border_color</mat-icon>
+    </button>
+</header>

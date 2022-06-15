@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICardElementExtraDetail } from '../../interfaces/product-detail.interface';
+import { ICardElementExtraDetail } from 'src/app/core/components/admin-components/interfaces';
 
 @Component({
   selector: 'app-card-detail',

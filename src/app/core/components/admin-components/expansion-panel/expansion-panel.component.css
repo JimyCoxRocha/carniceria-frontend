@@ -13,3 +13,7 @@
     right: 0;
     top: 0;
 }
+
+.cards:last-of-type{
+    margin-bottom: 10px!important;
+}

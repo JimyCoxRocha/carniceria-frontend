@@ -9,7 +9,16 @@ import { CounterComponent } from './components/counter/counter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialUIModule } from './material-ui.module';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.component';
+import { CardSkeletonComponent } from './components/admin-components/card-skeleton/card-skeleton.component';
+import { HeaderAdminEditComponent } from './components/admin-components/header-admin-edit/header-admin-edit.component';
+import { HeaderDetailSkeletonComponent } from './components/admin-components/header-detail-skeleton/header-detail-skeleton.component';
+import { RouterModule } from '@angular/router';
+import { ContentAdminEditComponent } from './components/admin-components/content-admin-edit/content-admin-edit.component';
+import { ContentDetailSkeletonComponent } from './components/admin-components/content-detail-skeleton/content-detail-skeleton.component';
+import { ExpansionPanelComponent } from './components/admin-components/expansion-panel/expansion-panel.component';
+import { TabsMixedComponent } from './components/admin-components/tabs-mixed/tabs-mixed.component';
+import { TabsComponent } from './components/admin-components/tabs/tabs.component';
+import { CardDetailComponent } from './components/admin-components/card-detail/card-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +28,23 @@ import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.
     ModalComponent,
     NavLinkComponent,
     CounterComponent,
-    CardSkeletonComponent
+    CardSkeletonComponent,
+    HeaderAdminEditComponent,
+    HeaderDetailSkeletonComponent,
+    ContentAdminEditComponent,
+    ContentDetailSkeletonComponent,
+    ExpansionPanelComponent,
+    TabsMixedComponent,
+    TabsComponent,
+    CardDetailComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialUIModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    RouterModule
   ],
   exports: [
     ImageCardComponent,
@@ -34,7 +52,15 @@ import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.
     FixedImageComponent,
     NavLinkComponent,
     CounterComponent,
-    CardSkeletonComponent
+    CardSkeletonComponent,
+    HeaderAdminEditComponent,
+    HeaderDetailSkeletonComponent,
+    ContentAdminEditComponent,
+    ContentDetailSkeletonComponent,
+    ExpansionPanelComponent,
+    TabsMixedComponent,
+    TabsComponent,
+    CardDetailComponent
   ]
 })
 export class CoreModule { }
