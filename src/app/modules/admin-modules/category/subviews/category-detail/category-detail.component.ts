@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -8,12 +9,29 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class CategoryDetailComponent implements OnInit {
 
+  isLoading : boolean;
+  category : any;
+
+
   constructor(
-    private primengConfig: PrimeNGConfig
-  ) { }
+    private primengConfig: PrimeNGConfig,
+    private _router : Router
+  ) { 
+    this.isLoading = true;
+  }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
   }
 
+  buttonBack(){
+    this._router.navigate(['admin/administrar']);
+  }
+
+  getDetailCategory(){
+    
+  }
 }

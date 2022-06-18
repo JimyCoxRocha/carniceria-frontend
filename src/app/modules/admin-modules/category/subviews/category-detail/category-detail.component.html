@@ -2,25 +2,33 @@
     <div class="header__detail">
         <div class="header__detail__description">
             <div>
-                <button class="buttonBack" pRipple> 
+                <button class="buttonBack" pRipple (click)="buttonBack()"> 
                     <i class="pi pi-chevron-left"></i> 
                 </button>
             </div>
+            
+            <ng-template [ngIf]="isLoading">
+                <p-skeleton height="2rem" width="25em" styleClass="mb-2"></p-skeleton>
+                <p-skeleton styleClass="mb-2" width="15em"></p-skeleton>
+                <p-skeleton width="7.1rem" height="3rem"></p-skeleton>
+            </ng-template>
+            
             <div class="title_header">
-                <p>Costillar de Cerdo</p>
+                <p *ngIf="!isLoading">Costillar de Cerdo</p>
             </div>
             <div class="description_header">
-                <p>La mejor costilla de cerdo fresca y lista para comer</p>
+                <p *ngIf="!isLoading">La mejor costilla de cerdo fresca y lista para comer</p>
             </div>
             <div>
-                <button class="button_Edit" pRipple>
+                <button class="button_Edit" pRipple *ngIf="!isLoading">
                     <i class="pi pi-pencil"></i>
                     Editar
                 </button>
             </div>
         </div>
         <div class="header__detail__image">
-            <img src="https://i.blogs.es/bf2ecf/1366_2000-1-/450_1000.jpg" alt="">
+            <p-skeleton width="100%" height="100%" *ngIf="isLoading"></p-skeleton>
+            <img src="https://i.blogs.es/bf2ecf/1366_2000-1-/450_1000.jpg" alt="" *ngIf="!isLoading">
         </div>
     </div>
     <div class="body__detail">

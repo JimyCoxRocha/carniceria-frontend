@@ -44,6 +44,8 @@ section{
     top: 20px;
     opacity: 1;
     background-color: #780000;
+    transition: all 0.2s;
+    z-index: 9;
 }
 
 .buttonBack > i{
@@ -80,6 +82,7 @@ section{
     background-color: #780000;
     color: whitesmoke;
     opacity: 1;
+    transition: all 0.2s;
 }
 
 .button_Edit:hover{
