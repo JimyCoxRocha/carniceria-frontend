@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AppConstants } from '../constants';
-import { Product, ProductoResponse } from '../interfaces';
-import { StorageService, HttpProcessService } from '.';
+import { Product, ProductoResponse, ErrorApiResponse } from '../interfaces';
+import { StorageService, HttpProcessService, CoreService } from '.';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { catchError, Observable, of, map } from 'rxjs';
 
 export interface IProductsCar {
   id: number, 
@@ -16,6 +19,8 @@ export interface IProductCarStore extends Product {
   providedIn: 'root'
 })
 export class ProductsService {
+  apiUrl = environment.API_URL;
+
   _products: ProductoResponse[] = [];
   _isLoading: boolean = false;
   _productsCar: IProductsCar[] = [];
@@ -23,7 +28,9 @@ export class ProductsService {
   
   constructor(
     private storage: StorageService,
-    private http: HttpProcessService
+    private http: HttpProcessService,
+    private httpClient : HttpClient,
+    private core: CoreService
   ) { }
 
   getProductInCar(){
@@ -97,5 +104,20 @@ export class ProductsService {
     })
   }
 
+  getProductsByIdCategory(idCategory : number) : Observable<any>{
+    return this.httpClient.get<any>(`${this.apiUrl}Producto/by-category/${idCategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.data;
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as Product[])
+      })
+    );
+  }
   
 }

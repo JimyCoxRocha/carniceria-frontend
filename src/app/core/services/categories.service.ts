@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse, Category } from '../interfaces';
+import { ApiResponse, ErrorApiResponse, Category, Product } from '../interfaces';
 import { CoreService, StorageService } from '.';
 
 @Injectable({
@@ -64,6 +64,10 @@ export class CategoriesService {
       })
     );
   }
+
+ 
+
+
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>
