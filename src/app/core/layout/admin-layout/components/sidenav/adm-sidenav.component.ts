@@ -25,6 +25,7 @@ export class AdmSidenavComponent implements OnInit {
   ngOnInit(): void {
     this.close.emit(false);
     this.menu = this.auth.getMenu();
+    console.log(this.menu);
   }
 
   closeSideNav(event:any){

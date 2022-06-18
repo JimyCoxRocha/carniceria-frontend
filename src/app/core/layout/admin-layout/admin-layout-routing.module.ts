@@ -13,6 +13,11 @@ const routes: Routes = [
                             .then(m => m.ProductoModule)
       },
       {
+        path: 'administrar',
+        loadChildren: () => import('../../../modules/admin-modules/category/categoria.module')
+                            .then(m => m.CategoriaModule)
+      },
+      {
         path: '',
         loadChildren: () => import('../../../modules/admin-modules/home/home.module')
                             .then(m => m.HomeModule)

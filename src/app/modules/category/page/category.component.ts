@@ -14,7 +14,7 @@ export class CategoryComponent implements OnInit {
   _products: ProductoResponse[] = [];
   sortOptions: SelectItem[];
   
-  idCategoria : number;
+  idCategory : number;
   isLoading : boolean ;
   emptyMessage : string;
 
@@ -24,7 +24,7 @@ export class CategoryComponent implements OnInit {
   ) 
   { 
     this.isLoading = true;
-    this.idCategoria = 0;
+    this.idCategory = 0;
     this.emptyMessage = "Sin registros";
     this.sortOptions = [
       {label: 'De mayor a menor', value: 'menor'},
@@ -38,15 +38,15 @@ export class CategoryComponent implements OnInit {
 
   getIdCategory(){
     this._router.params.subscribe((param : any)=>{
-      this.idCategoria = param['id'];
+      this.idCategory = param['id'];
       this.isLoading = true;
-      
-      this.getProductsByIdCategory();
+
+      this.getProductsByIdCategory(this.idCategory);
     })
   }
 
-  getProductsByIdCategory(){
-    this._productService.getProductsByIdCategory(this.idCategoria).subscribe((response)=>{
+  getProductsByIdCategory(idCategory : number){
+    this._productService.getProductsByIdCategory(idCategory).subscribe((response)=>{
       this._products = response;
       this.isLoading = false;
     })
