@@ -1,1 +1,39 @@
-<p>categoria-admin works!</p>
+<p-toast></p-toast>
+
+<div class="card">
+    <p-table #dt [value]="categories" [loading]="isLoading" [rows]="5" [paginator]="true" [globalFilterFields]="['idCategoria','titulo']" responsiveLayout="stack"
+        [rowHover]="true" dataKey="idCategoria" [rowsPerPageOptions]="[10,25,50]"
+        selectionMode="single" (onRowSelect)="onRowSelect($event)"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h3 class="m-0"><b>Administrar Categorías</b></h3>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="idCategoria"><i class="pi pi-qrcode"></i> ID<p-sortIcon field="idCategoria"></p-sortIcon></th>
+                <th ><i class="pi pi-image"></i> Imagen</th>
+                <th pSortableColumn="titulo"><i class="pi pi-ticket"></i> Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
+                <th pSortableColumn="descripcion"><i class="pi pi-book"></i> Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+            <tr [pSelectableRow]="category">
+                <td><span class="p-column-title"><b>ID: </b></span> {{category.idCategoria}}</td>
+                <td><span class="p-column-title"><b>Imagen: </b></span> <img [src]="category.urlImage" [alt]="category.titulo" width="100" class="shadow-4" /></td>
+                <td><span class="p-column-title"><b>Título: </b></span> {{category.titulo}}</td>
+                <td><span class="p-column-title"><b>Descripción: </b></span> {{category.descripcion}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total existen {{categories ? categories.length : 0 }} categorías.
+            </div>
+        </ng-template>
+    </p-table>
+</div>

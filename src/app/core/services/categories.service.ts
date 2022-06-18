@@ -65,9 +65,6 @@ export class CategoriesService {
     );
   }
 
- 
-
-
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>

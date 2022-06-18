@@ -4,6 +4,8 @@ import {RippleModule} from 'primeng/ripple';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
+import {ToastModule} from 'primeng/toast';
+
 
 @NgModule({
   declarations: [],
@@ -16,7 +18,8 @@ import {DropdownModule} from 'primeng/dropdown';
     RippleModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    ToastModule
   ]
 })
 export class SharedModuleModule { }
