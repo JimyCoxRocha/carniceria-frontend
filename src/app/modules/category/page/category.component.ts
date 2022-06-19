@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SelectItem } from 'primeng/api';
-import { ProductoResponse } from 'src/app/core/interfaces';
-import { ProductsService } from 'src/app/core/services';
+import { SelectItem, MenuItem } from 'primeng/api';
+import { Category, ProductoResponse, SubCategory } from 'src/app/core/interfaces';
+import { CategoriesService, ProductsService } from 'src/app/core/services';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-category',
@@ -13,6 +14,8 @@ export class CategoryComponent implements OnInit {
 
   _products: ProductoResponse[] = [];
   sortOptions: SelectItem[];
+  menuItems: MenuItem[] = [];
+  _categories : Category[] = [];
   
   idCategory : number;
   isLoading : boolean ;
@@ -21,6 +24,7 @@ export class CategoryComponent implements OnInit {
   constructor(
     private _router : ActivatedRoute, 
     private _productService : ProductsService,
+    private _categoriesService : CategoriesService
   ) 
   { 
     this.isLoading = true;
@@ -34,6 +38,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdCategory();
+    this.getAllCategories();
   }
 
   getIdCategory(){
@@ -49,7 +54,41 @@ export class CategoryComponent implements OnInit {
     this._productService.getProductsByIdCategory(idCategory).subscribe((response)=>{
       this._products = response;
       this.isLoading = false;
+      console.log(this._products)
     })
+  }
+
+  getAllCategories(){
+    this._categoriesService.categories()
+    .pipe( finalize ( () => this.fillMenuCategories()))
+    .subscribe((response : Category[]) =>{
+      this._categories = response;
+    })
+  }
+
+  fillMenuCategories(){
+    let arrayAux : any = []
+
+    this._categories.forEach((category : Category)=>{
+      arrayAux.push(
+        {
+          label : category.titulo,
+          items : this.handleCategories(category)
+        }
+      )
+    })
+
+    this.menuItems = arrayAux;
+  }
+
+  handleCategories( category : Category){
+    let subcategories : any = [];
+
+    category.subCategoria.forEach((subCategory : SubCategory)=>{
+      subcategories.push({label : subCategory.titulo})
+    })
+
+    return subcategories;
   }
 
   onSortChange($event : any){
