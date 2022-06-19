@@ -33,9 +33,10 @@ export class CategoriaAdminComponent implements OnInit {
   }
 
   getAllCategories(){
-    return this.categoryService.categories().subscribe((response) => {
+    return this.categoryService.categoriesAdmin().subscribe((response) => {
       this.categories = response;
       this.isLoading = false;
+      console.log(this.categories);
     })
   }
 

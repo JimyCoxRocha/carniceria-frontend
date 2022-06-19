@@ -3,6 +3,8 @@ section{
     flex-flow: column nowrap;
 }
 
+/* HEADER */
+
 .header__detail{
     background-color: #ba8875;
     width: 100%;
@@ -10,6 +12,7 @@ section{
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    overflow: hidden;
 }
 
 .header__detail__description{
@@ -89,6 +92,17 @@ section{
     opacity: 0.8;
 }
 
+/* BODY */
+.body__detail{
+    padding: 30px 30px;
+}
+
+.title_body i , b{
+    font-size: 20px;
+    color: #780000;
+    font-weight: 600;
+}
+
 
 @media (max-width: 800px) {
     .header__detail__description, .header__detail__image {
@@ -97,5 +111,8 @@ section{
     }
     .header__detail{
         flex-direction: column-reverse;
+    }
+    .header__detail__image > img{
+        object-fit: fill;
     }
   }

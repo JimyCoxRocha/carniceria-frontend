@@ -14,10 +14,10 @@
             </ng-template>
             
             <div class="title_header">
-                <p *ngIf="!isLoading">Costillar de Cerdo</p>
+                <p *ngIf="!isLoading">{{category.titulo}}</p>
             </div>
             <div class="description_header">
-                <p *ngIf="!isLoading">La mejor costilla de cerdo fresca y lista para comer</p>
+                <p *ngIf="!isLoading">{{category.descripcion}}</p>
             </div>
             <div>
                 <button class="button_Edit" pRipple *ngIf="!isLoading">
@@ -28,10 +28,37 @@
         </div>
         <div class="header__detail__image">
             <p-skeleton width="100%" height="100%" *ngIf="isLoading"></p-skeleton>
-            <img src="https://i.blogs.es/bf2ecf/1366_2000-1-/450_1000.jpg" alt="" *ngIf="!isLoading">
+            <img [src]="category.urlImage" [alt]="category.titulo" *ngIf="!isLoading">
         </div>
     </div>
     <div class="body__detail">
-        <p>ASDASDSA</p>
+        <div class="title_body">
+            <p-divider align="center">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-inbox mr-2"></i>
+                    <b>Subcategorias</b>
+                </div>
+            </p-divider>
+        </div>
+        
+        <div class="cards_body flex flex-wrap justify-content-center aligns-item-center gap-3">
+            <ng-template [ngIf]="isLoading">
+               <app-card-skeleton-subcategories></app-card-skeleton-subcategories>
+            </ng-template>
+
+            <div *ngFor="let subCategory of category.subCategoria" style="height: 100%;">
+                <p-card [header]="subCategory.titulo" [style]="{width: '360px', height : '100%'}" styleClass="p-card-shadow">
+                    <ng-template pTemplate="header">
+                        <img alt="Card" [src]="!subCategory.urlImage ? category.urlImage : subCategory.urlImage " height="200px">
+                    </ng-template>
+                    <p>{{subCategory.descripcion}}</p>
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-pencil"></p-button>
+                        <p-button icon="pi pi-times" styleClass="p-button-danger" [style]="{'margin-left': '.5em'}"></p-button>
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+
     </div>
 </section>

@@ -20,6 +20,7 @@
                 <th ><i class="pi pi-image"></i> Imagen</th>
                 <th pSortableColumn="titulo"><i class="pi pi-ticket"></i> Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
                 <th pSortableColumn="descripcion"><i class="pi pi-book"></i> Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
+                <th pSortableColumn="numSubCategories"><i class="pi pi-th-large"></i> N° Subcategorías <p-sortIcon field="numSubCategories"></p-sortIcon></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-category>
@@ -28,6 +29,7 @@
                 <td><span class="p-column-title"><b>Imagen: </b></span> <img [src]="category.urlImage" [alt]="category.titulo" width="100" class="shadow-4" /></td>
                 <td><span class="p-column-title"><b>Título: </b></span> {{category.titulo}}</td>
                 <td><span class="p-column-title"><b>Descripción: </b></span> {{category.descripcion}}</td>
+                <td><span class="p-column-title"><b>N° Subcategorías: </b></span> {{category.numSubCategories}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

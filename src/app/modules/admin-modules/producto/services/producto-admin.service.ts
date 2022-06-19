@@ -45,7 +45,7 @@ export class ProductoAdminService {
     this._isLoading = true;
 
     return this.http.get<ApiResponse<IProductAdminDetail>>
-    (`${this.apiUrl}Producto/detail-product/${idProduct}`)
+    (`${this.apiUrl}Producto/product-detail/${idProduct}`)
     .pipe(
       map((x: ApiResponse<IProductAdminDetail>) => {
         return x.data

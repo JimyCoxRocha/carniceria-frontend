@@ -65,6 +65,40 @@ export class CategoriesService {
     );
   }
 
+  categoriesAdmin(): Observable<Category[]>{
+
+    return this.http.get<ApiResponse<Category[]>>
+    (`${this.apiUrl}Categoria/only-categories`)
+    .pipe(
+      map((x: ApiResponse<Category[]>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as Category[])
+      })
+    );
+  }
+
+  getCategoryById(idCategory : number) : Observable<Category>{
+    return this.http.get<ApiResponse<Category>>
+    (`${this.apiUrl}Categoria/get-category/${idCategory}`)
+    .pipe(
+      map((x: ApiResponse<Category>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as Category)
+      })
+    );
+  }
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>
