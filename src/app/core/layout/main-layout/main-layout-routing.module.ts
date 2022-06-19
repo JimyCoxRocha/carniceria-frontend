@@ -21,6 +21,11 @@ const routes: Routes = [
                             .then(m => m.CarModule)
       },
       {
+        path: 'categoria',
+        loadChildren: () => import('../../../modules/category/category.module')
+                            .then(m => m.CategoryModule)
+      },
+      {
         path: '',
         loadChildren: () => import('../../../modules/home/home-module.module')
                             .then(m => m.HomeModuleModule)

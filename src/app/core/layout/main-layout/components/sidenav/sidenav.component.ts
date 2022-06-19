@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { categoryFormat } from '../../interfaces/layout.interfaces';
 
@@ -12,7 +13,8 @@ export class SidenavComponent implements OnInit {
   @Output() close = new EventEmitter<Boolean>();
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private _router : Router
   ){}
 
   ngOnInit(): void {

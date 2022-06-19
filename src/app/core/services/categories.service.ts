@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse, Category } from '../interfaces';
+import { ApiResponse, ErrorApiResponse, Category, Product } from '../interfaces';
 import { CoreService, StorageService } from '.';
 
 @Injectable({
@@ -61,6 +61,41 @@ export class CategoriesService {
           contentHtml: err.error.message[0]
         })
         return of({} as Category[])
+      })
+    );
+  }
+
+  categoriesAdmin(): Observable<Category[]>{
+
+    return this.http.get<ApiResponse<Category[]>>
+    (`${this.apiUrl}Categoria/only-categories`)
+    .pipe(
+      map((x: ApiResponse<Category[]>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as Category[])
+      })
+    );
+  }
+
+  getCategoryById(idCategory : number) : Observable<Category>{
+    return this.http.get<ApiResponse<Category>>
+    (`${this.apiUrl}Categoria/get-category/${idCategory}`)
+    .pipe(
+      map((x: ApiResponse<Category>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as Category)
       })
     );
   }

@@ -5,16 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { HomeModuleModule } from './modules/home/home-module.module';
 import { HttpClientModule } from '@angular/common/http';
-import { CarModule } from './modules/carStore/car.module';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginatorComponent } from './core/components/custom-paginator/custom-paginator.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
