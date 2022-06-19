@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './page/category.component';
 
 const routes: Routes = [
-  {path : ':id', component : CategoryComponent},
+  {path : ':idCategory/:idSubcategory', component : CategoryComponent},
   { path:'**' , redirectTo:''}
 ];
 

@@ -1,1 +1,50 @@
-<p>table-products works!</p>
+<p-dataView #dv [value]="_products" [paginator]="true" [loading]="isLoading" [rows]="12" filterBy="titulo"
+[emptyMessage]="emptyMessage" layout="grid">
+    <ng-template pTemplate="header">
+        <div class="flex flex-column md:flex-row md:justify-content-between">
+            <p-dropdown [options]="sortOptions" placeholder="Ordenar por precio" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+            <span class="p-input-icon-left mb-2 md:mb-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText placeholder="Buscar Producto" (input)="dv.filter($any($event.target).value)">
+            </span>
+            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+        <div class="col-12">
+            <div class="product-list-item">
+                <img [src]="product.imgUrl" [alt]="product.titulo"/>
+                <div class="product-list-detail">
+                    <div class="product-name">{{product.titulo}}</div>
+                    <div class="product-description">{{product.descripcion}}</div>
+                    <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.titulo}}</span>
+                </div>
+                <div class="product-list-action">
+                    <span class="product-price">${{product.precio}}</span>
+                    <p-button icon="pi pi-shopping-cart" label="Añadir al carrito"></p-button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template let-product pTemplate="gridItem">
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="product-grid-item card">
+                <div class="product-grid-item-top">
+                    <div>
+                        <i class="pi pi-tag product-category-icon"></i>
+                        <span class="product-category">{{product.titulo}}</span>
+                    </div>
+                </div>
+                <div class="product-grid-item-content">
+                    <img [src]="product.imgUrl" [alt]="product.titulo"/>
+                    <div class="product-name">{{product.titulo}}</div>
+                    <div class="product-description">{{product.descripcion}}</div>
+                </div>
+                <div class="product-grid-item-bottom">
+                    <span class="product-price">${{product.precio}}</span>
+                    <p-button icon="pi pi-shopping-cart"></p-button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

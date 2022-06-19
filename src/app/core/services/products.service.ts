@@ -4,7 +4,7 @@ import { Product, ProductoResponse, ErrorApiResponse } from '../interfaces';
 import { StorageService, HttpProcessService, CoreService } from '.';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, Observable, of, map } from 'rxjs';
+import { catchError, Observable, of, map } from 'rxjs'; 
 
 export interface IProductsCar {
   id: number, 
@@ -30,7 +30,7 @@ export class ProductsService {
     private storage: StorageService,
     private http: HttpProcessService,
     private httpClient : HttpClient,
-    private core: CoreService
+    private core: CoreService,
   ) { }
 
   getProductInCar(){
@@ -104,18 +104,14 @@ export class ProductsService {
     })
   }
 
-  getProductsByIdCategory(idCategory : number) : Observable<any>{
-    return this.httpClient.get<any>(`${this.apiUrl}Producto/by-category/${idCategory}`)
+  getProductsByIdCategory(idCategory : number, idSubcategory : number) : Observable<any>{
+    return this.httpClient.get<any>(`${this.apiUrl}Producto/by-category/${idCategory}/${idSubcategory}`)
     .pipe(
       map((response : any)=>{
         return response.data;
       }),
-      catchError((err: ErrorApiResponse) => {
-        this.core.showErrorModal({
-          title: "Error inesperado",
-          contentHtml: err.error.message[0]
-        })
-        return of({} as Product[])
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
       })
     );
   }

@@ -44,7 +44,7 @@ import { CardDetailComponent } from './components/admin-components/card-detail/c
     ReactiveFormsModule,
     MaterialUIModule,
     NgxSkeletonLoaderModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     ImageCardComponent,

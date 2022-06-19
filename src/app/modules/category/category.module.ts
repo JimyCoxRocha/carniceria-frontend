@@ -10,11 +10,17 @@ import { FormsModule } from '@angular/forms';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import {CardModule} from 'primeng/card';
 import { TableProductsComponent } from './components/table-products/table-products.component';
+import { OverlayCardCategoriesComponent } from './components/overlay-card-categories/overlay-card-categories.component';
+import { ModalErrorPrimeNGComponent } from './components/modal-error-prime-ng/modal-error-prime-ng.component';
+import {DialogModule} from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [
     CategoryComponent,
-    TableProductsComponent
+    TableProductsComponent,
+    OverlayCardCategoriesComponent,
+    ModalErrorPrimeNGComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +30,8 @@ import { TableProductsComponent } from './components/table-products/table-produc
     DataViewModule,
     FormsModule,
     PanelMenuModule,
-    CardModule
+    CardModule,
+    DialogModule
   ]
 })
 export class CategoryModule { }

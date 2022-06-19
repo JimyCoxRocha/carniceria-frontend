@@ -13,13 +13,14 @@ import {finalize} from 'rxjs/operators';
 export class CategoryComponent implements OnInit {
 
   _products: ProductoResponse[] = [];
-  sortOptions: SelectItem[];
   menuItems: MenuItem[] = [];
   _categories : Category[] = [];
   
   idCategory : number;
+  idSubcategory : number;
   isLoading : boolean ;
-  emptyMessage : string;
+  isLoadingCategoriesOverlay : boolean;
+  isOpenModalError : boolean;
 
   constructor(
     private _router : ActivatedRoute, 
@@ -28,12 +29,10 @@ export class CategoryComponent implements OnInit {
   ) 
   { 
     this.isLoading = true;
+    this.isLoadingCategoriesOverlay = true;
     this.idCategory = 0;
-    this.emptyMessage = "Sin registros";
-    this.sortOptions = [
-      {label: 'De mayor a menor', value: 'menor'},
-      {label: 'De menor a mayor', value: 'mayor'}
-    ];
+    this.idSubcategory = 0;
+    this.isOpenModalError = false;
   }
 
   ngOnInit(): void {
@@ -43,19 +42,31 @@ export class CategoryComponent implements OnInit {
 
   getIdCategory(){
     this._router.params.subscribe((param : any)=>{
-      this.idCategory = param['id'];
+      this.idCategory = param['idCategory'];
+      this.idSubcategory = param['idSubcategory']
       this.isLoading = true;
 
-      this.getProductsByIdCategory(this.idCategory);
+      this.getProductsByIdCategory(this.idCategory, this.idSubcategory);
     })
   }
 
-  getProductsByIdCategory(idCategory : number){
-    this._productService.getProductsByIdCategory(idCategory).subscribe((response)=>{
+  getProductsByIdCategory(idCategory : number, idSubcategory : number){
+    this._productService.getProductsByIdCategory(idCategory, idSubcategory).subscribe((response)=>{
+      this.isOpenModal(response);
       this._products = response;
-      this.isLoading = false;
-      console.log(this._products)
+      
     })
+  }
+
+  isOpenModal(response : any){
+    if(response.openModal){
+      this.isOpenModalError = true;
+      this.isLoading = true;
+      return;
+    } 
+
+    this.isLoading = false;
+    this.isOpenModalError = false;
   }
 
   getAllCategories(){
@@ -63,19 +74,23 @@ export class CategoryComponent implements OnInit {
     .pipe( finalize ( () => this.fillMenuCategories()))
     .subscribe((response : Category[]) =>{
       this._categories = response;
+      this.isLoadingCategories();
     })
+  }
+
+  isLoadingCategories(){
+    if(this.isOpenModalError){
+      this.isLoadingCategoriesOverlay = true;
+      return;
+    }
+
+    this.isLoadingCategoriesOverlay = false;
   }
 
   fillMenuCategories(){
     let arrayAux : any = []
-
     this._categories.forEach((category : Category)=>{
-      arrayAux.push(
-        {
-          label : category.titulo,
-          items : this.handleCategories(category)
-        }
-      )
+      arrayAux.push({ label : category.titulo, items : this.handleCategories(category)});
     })
 
     this.menuItems = arrayAux;
@@ -83,33 +98,11 @@ export class CategoryComponent implements OnInit {
 
   handleCategories( category : Category){
     let subcategories : any = [];
-
     category.subCategoria.forEach((subCategory : SubCategory)=>{
-      subcategories.push({label : subCategory.titulo})
+      subcategories.push({label : subCategory.titulo, routerLink: [`/categoria/${category.idCategoria}/${subCategory.idSubcategoria}`]})
     })
 
     return subcategories;
   }
 
-  onSortChange($event : any){
-    if($event.value == "mayor"){
-      this._products = this._products.sort(this.sortProductForPriceHight);
-    }else if($event.value == "menor"){
-      this._products = this._products.sort(this.sortProductForPriceLow);
-    }
-  }
-
-  sortProductForPriceHight(x : any,y : any){
-    if(x.precio < y.precio) return -1;
-    if(x.precio > y.precio) return 1;
-    return 0;
-  }
-
-  sortProductForPriceLow(x : any,y : any){
-    if(x.precio > y.precio) return -1;
-    if(x.precio < y.precio) return 1;
-    return 0;
-  }
-
- 
 }
