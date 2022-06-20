@@ -8,14 +8,19 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: 'productos',
-        loadChildren: () => import('../../../modules/admin-modules/producto/producto.module')
-                            .then(m => m.ProductoModule)
-      },
-      {
         path: 'administrar',
         loadChildren: () => import('../../../modules/admin-modules/category/categoria.module')
                             .then(m => m.CategoriaModule)
+      },
+      {
+        path: 'eliminar',
+        loadChildren: () => import('../../../modules/admin-modules/category-delete/category-delete.module')
+                            .then(m => m.CategoryDeleteModule)
+      },
+      {
+        path: 'productos',
+        loadChildren: () => import('../../../modules/admin-modules/producto/producto.module')
+                            .then(m => m.ProductoModule)
       },
       {
         path: '',
