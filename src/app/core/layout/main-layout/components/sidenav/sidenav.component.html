@@ -17,7 +17,7 @@
             >
             
             <mat-list-item style="height: 5rem;"
-              [routerLink] = "'categoria/'+item.category.idCategoria"
+              [routerLink] = "'categoria/'+item.category.idCategoria+'/'+item.category.subCategoria[0].idSubcategoria"
               (click)="closeSideNav($event)"
             >
               <img

@@ -7,10 +7,20 @@ import { SharedModuleModule } from 'src/app/shared/shared-module.module';
 import {RatingModule} from 'primeng/rating';
 import {DataViewModule} from 'primeng/dataview';
 import { FormsModule } from '@angular/forms';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {CardModule} from 'primeng/card';
+import { TableProductsComponent } from './components/table-products/table-products.component';
+import { OverlayCardCategoriesComponent } from './components/overlay-card-categories/overlay-card-categories.component';
+import { ModalErrorPrimeNGComponent } from './components/modal-error-prime-ng/modal-error-prime-ng.component';
+import {DialogModule} from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    CategoryComponent,
+    TableProductsComponent,
+    OverlayCardCategoriesComponent,
+    ModalErrorPrimeNGComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +28,10 @@ import { FormsModule } from '@angular/forms';
     SharedModuleModule,
     RatingModule,
     DataViewModule,
-    FormsModule
+    FormsModule,
+    PanelMenuModule,
+    CardModule,
+    DialogModule
   ]
 })
 export class CategoryModule { }
