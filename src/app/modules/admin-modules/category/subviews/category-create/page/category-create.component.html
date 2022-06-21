@@ -6,7 +6,7 @@
     </div>
 
     <div class="create_category_body">
-        <p class="title_create_category"> <i class="pi pi-info-circle"></i> Información de la Categoría</p>
+        <p class="title_create_category"> <i class="pi pi-tag"></i> Información de la Categoría</p>
         
         <p class="mt-5 title_image">Imagen</p>
         <div class="imageSelect mb-5 mt-2" (click)="photoInput.click()">
@@ -26,50 +26,34 @@
             </ng-template>
         </div>
 
+        <p class="mt-5 title_image">Título</p>
+        <div class="p-fluid grid">
+            <div class="field col-12">
+                <input type="text" pInputText [(ngModel)]="category.titulo"> 
+            </div>
+        </div>
+
+        <p class="mt-2 title_image">Descripción</p>
         <div class="p-fluid grid">
             <div class="field col-12">
                 <span class="p-float-label">
-                    <input type="text" id="inputtext" pInputText [(ngModel)]="value1"> 
-                    <label for="inputtext">Título</label>
-                </span>
-            </div>
-            <div class="field col-12">
-                <span class="p-float-label">
-                    <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="value10" pInputTextarea></textarea>
-                    <label for="textarea">Descripción</label>
+                    <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="category.descripcion" pInputTextarea></textarea>
                 </span>
             </div>
         </div>
 
-        <p class="title_create_category"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
+        <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
 
-        <div>
-            <p-tabView>
-                <p-tabPanel header="Subcategorías Existentes">
-                   
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-                        <label for="ny">New York</label>
-                    </div>
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
-                        <label for="sf">San Francisco</label>
-                    </div>
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
-                        <label for="la">Los Angeles</label>
-                    </div>
-                    
-                </p-tabPanel>
-                <p-tabPanel header="Crear Subcategoría">
-                    Content 2
-                </p-tabPanel>
-            </p-tabView>
+        <div class="checkboxes_subcategories mb-6">
+            <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
+                <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
+            </div>
         </div>
     </div>
 
     <div class="flex justify-content-center aling-items-center mb-5">
-        <button class="create_button" pRipple>
+        <button class="create_button" pRipple (click)="createCategory()">
             <i class="pi pi-check"></i>
             CREAR CATEGORÍA
         </button>

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse, Category, Product } from '../interfaces';
+import { ApiResponse, ErrorApiResponse, Category, Product, SubCategory } from '../interfaces';
 import { CoreService, StorageService } from '.';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { CoreService, StorageService } from '.';
 })
 export class CategoriesService {
   _categories: Category[] = [];
+  _subCategories: SubCategory[] = [];
   _isLoading: boolean = false;
 
   apiUrl = environment.API_URL;
@@ -107,6 +108,33 @@ export class CategoriesService {
           contentHtml: err.error.message[0]
         })
         return of({} as Category)
+      })
+    );
+  }
+
+  subCategories() : Observable<SubCategory[]>{
+    const subCategoryObservable: Observable<SubCategory[]> = this._subCategories.length !== 0 
+    ? new Observable<SubCategory[]>(subscriber => {
+        subscriber.next(this._subCategories);
+        subscriber.complete()
+      })
+    : this.getAllSubCategories();
+    return subCategoryObservable;
+  }
+
+  getAllSubCategories() : Observable<SubCategory[]>{
+    return this.http.get<ApiResponse<SubCategory[]>>
+    (`${this.apiUrl}Categoria/sub-categories`)
+    .pipe(
+      map((x: ApiResponse<SubCategory[]>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as SubCategory[])
       })
     );
   }
