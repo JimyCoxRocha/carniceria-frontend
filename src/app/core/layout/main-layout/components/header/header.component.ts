@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BreakpointsService } from 'src/app/core/services/breakpoints.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[] = [];
   
   constructor(private router: Router, 
-    private bp: BreakpointsService) { }
+    private bp: BreakpointsService,
+    private auth: AuthService) { }
 
   ngOnInit(): void {
     this.items = [
@@ -64,5 +66,19 @@ export class HeaderComponent implements OnInit {
 
   handleUrl(){
     this.router.navigateByUrl("carrito");
+  }
+
+  get isAuthUser(){
+    return this.auth.isAuthUser();
+  }
+
+  get isAdminUser(){
+    return this.auth.isAdminUser();
+  }
+  
+  handleUser(){
+    this.isAuthUser
+      ? this.router.navigate(['/auth/login'])
+      : this.router.navigate(['/'])
   }
 }
