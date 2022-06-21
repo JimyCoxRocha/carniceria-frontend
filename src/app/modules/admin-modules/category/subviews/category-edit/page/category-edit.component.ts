@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { Category } from 'src/app/core/interfaces';
+import { Category, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 
 @Component({
-  selector: 'app-category-detail',
-  templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.css']
+  selector: 'app-category-edit',
+  templateUrl: './category-edit.component.html',
+  styleUrls: ['./category-edit.component.css']
 })
-export class CategoryDetailComponent implements OnInit {
+export class CategoryEditComponent implements OnInit {
 
   isLoading : boolean;
   category : Category = {} as Category;
   idCategory : number ;
+  selectedSubCategories : SubCategory[] = [];
+  isExistPhoto : boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private _router : Router,
     private _route : ActivatedRoute,
     private _categoryService : CategoriesService
   ) { 
@@ -38,20 +39,11 @@ export class CategoryDetailComponent implements OnInit {
     })
   }
 
-  
   getDetailCategory(){
     this._categoryService.getCategoryById(this.idCategory).subscribe((response : Category) =>{
       this.category = response;
-      console.log(this.category);
-      this.isLoading = false;
+      this.selectedSubCategories = this.category.subCategoria;
     })
   }
-  
-  buttonBack(){
-    this._router.navigate(['admin/administrar']);
-  }
 
-  redirectEditPage(){
-    this._router.navigate([`admin/administrar/edit-category/${this.category.idCategoria}`])
-  }
 }

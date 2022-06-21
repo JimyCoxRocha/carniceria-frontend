@@ -10,7 +10,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     RippleModule,

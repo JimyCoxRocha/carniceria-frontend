@@ -20,7 +20,7 @@
                 <p *ngIf="!isLoading">{{category.descripcion}}</p>
             </div>
             <div>
-                <button class="button_Edit" pRipple *ngIf="!isLoading">
+                <button class="button_Edit" pRipple *ngIf="!isLoading" (click)="redirectEditPage()">
                     <i class="pi pi-pencil"></i>
                     Editar
                 </button>
