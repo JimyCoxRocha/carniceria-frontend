@@ -1,30 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Category } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 
 @Component({
-  selector: 'app-categoria-admin',
-  templateUrl: './categoria-admin.component.html',
-  styleUrls: ['./categoria-admin.component.css'],
-  providers: [MessageService,ConfirmationService]
+  selector: 'app-category-delete',
+  templateUrl: './category-delete.component.html',
+  styleUrls: ['./category-delete.component.css']
 })
-export class CategoriaAdminComponent implements OnInit {
+export class CategoryDeleteComponent implements OnInit {
 
   categories : Category[] = [] ;
   isLoading : boolean;
   isDelete : boolean;
-
+  
   constructor(
     private categoryService : CategoriesService,
-    private primengConfig: PrimeNGConfig,
-    ) {
-      this.isLoading = true;
-      this.isDelete = false;
-    }
+  ) { 
+    this.isLoading = true;
+    this.isDelete = true;
+  }
 
   ngOnInit(): void {
-    this.primengConfig.ripple = true;
     this.getAllCategories();
   }
 

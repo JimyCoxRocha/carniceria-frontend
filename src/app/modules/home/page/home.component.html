@@ -25,7 +25,7 @@
             <app-image-card
                 [title]="element.titulo"
                 titleBtn="Ver Productos"
-                [url]="url+element.idCategoria"
+                [url]="url+element.idCategoria+'/'+element.subCategoria[0].idSubcategoria"
                 [urlImage]="element.urlImage"
             ></app-image-card>
           </div>
