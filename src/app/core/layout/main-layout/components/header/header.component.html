@@ -1,30 +1,27 @@
 
-  <div class="grid text-right" style="max-width: 100%; padding: 0px;">
+  <div class="grid text-right" style="max-width: 100%; padding: 0px; margin: 0px;">
     <div class="col-8 md:col-4 flex align-items-center justify-content-center">
       <img class="img-fluid" style="max-width: 80%;" src="assets/images/vertical-logo.png" alt="">
     </div>
     <div class="col-4 md:col-3 mt-2 flex justify-content-evenly align-items-center" >
       
-      <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined"></button>
-      <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined"></button>
-      
-      <!-- <p-avatar
-        icon="pi pi-user"
-        styleClass="p-mr-2 mr-5"
-        [size]="brakpoint('md') ? 'large' : 'small'"
-        [style]="{'background-color':'#2196F3', 'color': '#ffffff'}"
-      ></p-avatar>
-
-      
-      <p-avatar
-        icon="pi pi-user"
-        styleClass="p-mr-2"
-        [size]="brakpoint('md') ? 'large' : 'small'"
-        [style]="{'background-color':'#2196F3', 'color': '#ffffff'}"
-        shape="circle"
-      ></p-avatar> -->
-    
+      <div>
+        <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-text"></button>
+         <p class="m-0 text-center">Cuenta</p>
+      </div>
+      <div>
+        <button pButton pRipple type="button" icon="pi pi-shield" class="p-button-rounded p-button-danger p-button-text"></button>
+        <p class="m-0 text-center">Admin</p>
+      </div>
+      <div>
+        <button pButton pRipple type="button" icon="pi pi-shopping-cart" class="p-button-rounded p-button-success p-button-text"></button>
+        <p class="m-0 text-center">Carrito</p>
+      </div>
     </div>
+    
+    
+    
+
     <div class="col-12 md:col-5 mt-2 text-center">
       <div class="p-col-12 p-md-4">
           <div class="p-inputgroup">
@@ -33,10 +30,10 @@
           </div>
       </div>
     </div>
+
   </div>
 
-  <p-menubar [model]="items">
-  </p-menubar>
+  
 
 
 <!-- <app-sidenav></app-sidenav>

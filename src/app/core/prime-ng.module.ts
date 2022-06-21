@@ -10,6 +10,7 @@ import {CardModule} from 'primeng/card';
 import {AvatarModule} from 'primeng/avatar';
 import {InputTextModule} from 'primeng/inputtext';
 import {MenubarModule} from 'primeng/menubar';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import {MenubarModule} from 'primeng/menubar';
     CardModule,
     AvatarModule,
     InputTextModule,
-    MenubarModule
+    MenubarModule,
+    MegaMenuModule
   ],
   exports: [
     SidebarModule,
@@ -36,7 +38,8 @@ import {MenubarModule} from 'primeng/menubar';
     CardModule,
     AvatarModule,
     InputTextModule,
-    MenubarModule
+    MenubarModule,
+    MegaMenuModule
   ]
 })
 export class PrimeNgModule { }

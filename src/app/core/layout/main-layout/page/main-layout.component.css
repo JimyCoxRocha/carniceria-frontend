@@ -6,3 +6,29 @@
 .sideBar{
   max-width: 800px!important;
 }
+
+.footer-tabs {
+  width: 96%;
+  height: 4rem;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0;
+  z-index: 6;
+  left: 0;
+  right: 0;
+}
+
+.card-tabs{
+  width: 100%!important;
+  height: 100%!important;
+  border-radius: 1rem;
+  background-color: #ffff;
+  padding: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tabs{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%!important;
+}
