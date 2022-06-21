@@ -1,12 +1,19 @@
 <div style="max-width: 90rem; margin: 0 auto; width: 95%;">
 
   <app-header></app-header>
-  
   <p-sidebar [(visible)]="display" [baseZIndex]="10000">
-    
+    <app-sidenav
+      [categories]="categories"
+      [_isLoadingCategory]="isLoading"
+      (close)="display = false"
+    ></app-sidenav>
   </p-sidebar>
   
-  <p-megaMenu [model]="items"></p-megaMenu>
+  <p-megaMenu [model]="breakpoint('md') ? items : []">
+    <button pButton pRipple type="button" label="Promociones" class="p-button-rounded p-button-success"></button>
+    <!-- TODO: Esto viene con el modulo de recomendaciones -->
+    <button pButton pRipple type="button" label="Día del padre" class="p-button-rounded p-button-info"></button>
+  </p-megaMenu>
   
   <router-outlet></router-outlet>
 

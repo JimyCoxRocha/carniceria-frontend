@@ -11,6 +11,12 @@ import {AvatarModule} from 'primeng/avatar';
 import {InputTextModule} from 'primeng/inputtext';
 import {MenubarModule} from 'primeng/menubar';
 import { MegaMenuModule } from 'primeng/megamenu';
+import {ListboxModule} from 'primeng/listbox';
+import { FormsModule } from '@angular/forms';
+import {ImageModule} from 'primeng/image';
+import {RippleModule} from 'primeng/ripple';
+import {SkeletonModule} from 'primeng/skeleton';
+import {DividerModule} from 'primeng/divider';
 
 @NgModule({
   declarations: [],
@@ -26,7 +32,13 @@ import { MegaMenuModule } from 'primeng/megamenu';
     AvatarModule,
     InputTextModule,
     MenubarModule,
-    MegaMenuModule
+    MegaMenuModule,
+    ListboxModule,
+    FormsModule,
+    ImageModule,
+    RippleModule,
+    SkeletonModule,
+    DividerModule
   ],
   exports: [
     SidebarModule,
@@ -39,7 +51,13 @@ import { MegaMenuModule } from 'primeng/megamenu';
     AvatarModule,
     InputTextModule,
     MenubarModule,
-    MegaMenuModule
+    MegaMenuModule,
+    ListboxModule,
+    FormsModule,
+    ImageModule,
+    RippleModule,
+    SkeletonModule,
+    DividerModule
   ]
 })
 export class PrimeNgModule { }

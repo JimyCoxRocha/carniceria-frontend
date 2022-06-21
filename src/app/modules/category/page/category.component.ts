@@ -46,12 +46,24 @@ export class CategoryComponent implements OnInit {
       this.idSubcategory = param['idSubcategory']
       this.isLoading = true;
 
-      this.getProductsByIdCategory(this.idCategory, this.idSubcategory);
+      if(param['idCategory'] && param['idSubcategory']){
+        this.getProductsByIdCategoryAndSubCategory(this.idCategory, this.idSubcategory);
+      }else{
+        this.getProductsByIdCategory(this.idCategory);
+      }
     })
   }
 
-  getProductsByIdCategory(idCategory : number, idSubcategory : number){
-    this._productService.getProductsByIdCategory(idCategory, idSubcategory).subscribe((response)=>{
+  getProductsByIdCategory(idCategory : number){
+    this._productService.getProductsByIdCategory(idCategory).subscribe((response)=>{
+      this.isOpenModal(response);
+      this._products = response;
+      
+    })
+  }
+
+  getProductsByIdCategoryAndSubCategory(idCategory : number, idSubcategory : number){
+    this._productService.getProductsByIdCategoryAndSubCategory(idCategory, idSubcategory).subscribe((response)=>{
       this.isOpenModal(response);
       this._products = response;
       

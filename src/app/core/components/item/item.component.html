@@ -1,0 +1,20 @@
+<div pRipple class="item-wrapper red" [routerLink]="url">
+    <div class="flex ">
+        <div>
+            <p-image 
+                [src]="image" 
+                alt="Image" 
+                width="50"
+                height="50"
+                imageClass="border-circle"
+                >
+            </p-image>
+        </div>
+        <div class="flex justify-content-between px-2 align-items-center" style="width: 100%;">
+            <p class="m-0">
+                <strong>{{title}}</strong>
+            </p>
+            <i class="pi pi-angle-right"></i>
+        </div>
+    </div>
+</div>

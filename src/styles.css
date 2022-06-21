@@ -84,3 +84,9 @@ h1 {
     background-color: var(--primary-color);
   }
     
+
+
+/*  PRIME NG  */
+.p-ripple.red .p-ink {
+    background: #541313;
+}

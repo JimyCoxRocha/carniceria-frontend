@@ -1,136 +1,55 @@
-<p-sidebar [(visible)]="display">
-  Content
-</p-sidebar>
 
+  
+  <p-divider align="left" type="dashed">
+    <b>Categorías</b>
+  </p-divider>
 
+  <ng-container *ngIf="!_isLoadingCategory; else skeleton">
+    <div *ngFor="let item of categories"
+      (click)="closeSideNav()"
+      class="py-1"
+    >
+      <app-item
+        [image]="item.urlImage"
+        [title]="item.titulo"
+        [url]="'/categoria/'+item.idCategoria"
+      ></app-item>
+    </div>
+  </ng-container>
 
-<!-- <p-button type="text" (click)="display = true" icon="pi pi-plus" label="Show"></p-button> -->
-
-
-
-
-<!-- <div class="container">
-  <mat-tab-group mat-stretch-tabs mat-align-tabs="center" selectedIndex="0">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <strong>Menú</strong>
-      </ng-template>
-      <mat-nav-list>
-        <div class="card">
-          <div class="card-header" style="background-color: var(--primary-color);">
-            <p style="color: var(--white-color);" class="m-0 fs-5 py-2">Categorias</p>
-          </div>
-        </div>
-        
-        <mat-list>
-          <ng-container 
-            *ngFor = "let item of categoriesAccordion"
-            >
-            
-            <mat-list-item style="height: 5rem;"
-              [routerLink] = "'categoria/'+item.category.idCategoria+'/'+item.category.subCategoria[0].idSubcategoria"
-              (click)="closeSideNav($event)"
-            >
-              <img
-              class="rounded-circle me-3"
-              style="width: 3.5rem; height: 3.5rem;"
-              [src]="item.category.urlImage" 
-              alt="" >
-              <p class="m-0">{{item.category.titulo}}</p>
-              <span class="example-spacer"></span>
-              <mat-icon>navigate_next</mat-icon>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </ng-container>
-        </mat-list>
-      
-        <div class="card mt-5">
-          <div
-            (click)="closeSideNav($event)"
-            class="card-header d-flex justify-content-between align-items-center cursor-pointer"
-            routerLink="promociones"
-            >
-            <p class="fs-5 m-0 p-2">Promociones</p>
-            <mat-icon>navigate_next</mat-icon>
-          </div>
-          <div class="list-group list-group-flush">
-            <app-nav-link
-              (isClick)="closeSideNav($event)"  
-              title="Nosotros"
-              urlNav="nosotros"
-            ></app-nav-link>
-            <app-nav-link
-              (isClick)="closeSideNav($event)"
-              title="Localidad"
-              urlNav="localidad"
-            ></app-nav-link>
-          </div>
-        </div>
-      
-      </mat-nav-list>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <strong>Cuenta</strong>
-      </ng-template>
-
-      <div class="card mt-2" *ngIf="!isAuthUser; else userDetail">
-        <div class="list-group list-group-flush">
-          <app-nav-link
-            (isClick)="closeSideNav($event)"
-            title="Iniciar Sesión"
-            urlNav="auth/login"
-          ></app-nav-link>
-        </div>
-        <div 
-          (click)="closeSideNav($event)"
-          class="card-header d-flex justify-content-between align-items-center cursor-pointer"
-          routerLink="auth/register"
-          >
-          <p class="fs-5 m-0 p-2">Crear Cuenta</p>
-          <mat-icon>navigate_next</mat-icon>
-        </div>
+  <ng-template #skeleton>
+    <div class="flex">
+      <p-skeleton
+        shape="circle"
+        size="4rem"
+        styleClass="p-mr-2"
+      ></p-skeleton>
+      <div style="flex: 1">
+        <p-skeleton width="100%" styleClass="p-mb-2"></p-skeleton>
+        <p-skeleton width="75%"></p-skeleton>
       </div>
+    </div>
+  </ng-template>
 
-      <ng-template #userDetail>
-          <mat-card class="example-card mt-4 d-flex" 
-            routerLink="auth/register"
-            (click)="closeSideNav(true)"
-          >
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"
-                style="background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');"
-              ></div>
-              <mat-card-title>{{userName}}</mat-card-title>
-              <mat-card-subtitle>Nivel ~</mat-card-subtitle>
-            </mat-card-header>
-            <span class="example-spacer"></span>
-            <div class="d-flex align-items-center">
-              <mat-icon>build_icon</mat-icon>
-            </div>
-          </mat-card>
-          <mat-divider></mat-divider>
-          <div class="espacer-hight"></div>
+  <p-divider type="dashed"></p-divider>
 
-          <div class="list-group list-group-flush">
-            <mat-divider></mat-divider>
-            <div *ngIf="isAdminUser"
-                class="list-group-item d-flex justify-content-between align-items-center cursor-pointer"
-                routerLink="/admin">
-                <p class="fs-5 m-0 p-2">Administración</p>
-                <mat-icon>admin_panel_settings</mat-icon>
-            </div>
-            <mat-divider></mat-divider>
-            <div 
-                class="list-group-item d-flex justify-content-between align-items-center cursor-pointer"
-                (click)="sessionClose()">
-                <p class="fs-5 m-0 p-2">Cerrar Sesión</p>
-                <mat-icon>meeting_room</mat-icon>
-            </div>
-            <mat-divider></mat-divider>
-          </div>
-      </ng-template>
-    </mat-tab>
-
-</mat-tab-group>
-</div> -->
+  <div class="mt-5">
+    <div 
+      (click)="closeSideNav()"
+      class="flex-1 flex align-items-center justify-content-center text-white m-2 px-5 py-3 border-round item-simple" 
+      style="background-color: #541313;">
+        Promociones
+    </div>
+    <div 
+      (click)="closeSideNav()"
+      class="flex-1 flex align-items-center justify-content-center text-white m-2 px-5 py-3 border-round item-simple" 
+      style="background-color: #541313;">
+        Nosotros
+    </div>
+    <div 
+      (click)="closeSideNav()"
+      class="flex-1 flex align-items-center justify-content-center text-white m-2 px-5 py-3 border-round item-simple" 
+      style="background-color: #541313;">
+        Localidad
+    </div>
+  </div>

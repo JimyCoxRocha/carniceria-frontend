@@ -20,6 +20,7 @@ import { TabsMixedComponent } from './components/admin-components/tabs-mixed/tab
 import { TabsComponent } from './components/admin-components/tabs/tabs.component';
 import { CardDetailComponent } from './components/admin-components/card-detail/card-detail.component';
 import { PrimeNgModule } from './prime-ng.module';
+import { ItemComponent } from './components/item/item.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PrimeNgModule } from './prime-ng.module';
     ExpansionPanelComponent,
     TabsMixedComponent,
     TabsComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    ItemComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { PrimeNgModule } from './prime-ng.module';
     MaterialUIModule,
     NgxSkeletonLoaderModule,
     RouterModule,
-    PrimeNgModule
+    PrimeNgModule,
+    
   ],
   exports: [
     ImageCardComponent,
@@ -62,7 +65,8 @@ import { PrimeNgModule } from './prime-ng.module';
     ExpansionPanelComponent,
     TabsMixedComponent,
     TabsComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    ItemComponent
   ]
 })
 export class CoreModule { }

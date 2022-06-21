@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Category } from 'src/app/core/interfaces';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { categoryFormat } from '../../interfaces/layout.interfaces';
 
@@ -10,9 +11,9 @@ import { categoryFormat } from '../../interfaces/layout.interfaces';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  @Input() categoriesAccordion: categoryFormat[] = [];
-  @Output() close = new EventEmitter<Boolean>();
-
+  @Output() close = new EventEmitter<Boolean>(); 
+  @Input() categories: Category[] = [];
+  @Input() _isLoadingCategory: boolean = true;
 
 
   display: boolean = false;
@@ -24,33 +25,10 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     
 
-    this.close.emit(false);
+    /* this.close.emit(false); */
   }
 
-  closeSideNav(event:any){
-    if(event){
-      this.close.emit(true);
-    }
+  closeSideNav(){
+    this.close.emit(true);
   }
-
-/*  
-
-  get isAuthUser(){
-    return this.auth.isAuthUser();
-  }
-
-  get isAdminUser(){
-    return this.auth.isAdminUser();
-  }
-
-  get userName(){
-    return this.auth.userName;
-  }
-  
-  sessionClose(){
-    this.closeSideNav(true);
-    this.auth.closeSession();
-  }
-
-  showFiller = false; */
 }

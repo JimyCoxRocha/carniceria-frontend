@@ -48,6 +48,7 @@ export class CategoriesService {
   } */
 
   getCategories(): Observable<Category[]>{
+
     return this.http.get<ApiResponse<Category[]>>
     (`${this.apiUrl}Categoria`)
     .pipe(

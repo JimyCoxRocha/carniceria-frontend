@@ -30,13 +30,13 @@ import { PrimeNgModule } from '../../prime-ng.module';
     MainLayoutRoutingModule,
     CoreModule,
     MaterialUIModule,
-    PrimeNgModule
+    PrimeNgModule,
     ],
   exports: [
     HeaderComponent,
     SidenavComponent,
     MainLayoutComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
   ]
 })
 export class MainLayoutModule { }

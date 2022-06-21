@@ -104,8 +104,20 @@ export class ProductsService {
     })
   }
 
-  getProductsByIdCategory(idCategory : number, idSubcategory : number) : Observable<any>{
+  getProductsByIdCategoryAndSubCategory(idCategory : number, idSubcategory : number) : Observable<any>{
     return this.httpClient.get<any>(`${this.apiUrl}Producto/by-category/${idCategory}/${idSubcategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.data;
+      }),
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
+      })
+    );
+  }
+
+  getProductsByIdCategory(idCategory : number) : Observable<any>{
+    return this.httpClient.get<any>(`${this.apiUrl}Producto/by-category/${idCategory}`)
     .pipe(
       map((response : any)=>{
         return response.data;

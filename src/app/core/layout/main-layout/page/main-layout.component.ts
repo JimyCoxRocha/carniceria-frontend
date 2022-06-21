@@ -6,6 +6,16 @@ import { categoryFormat } from '../interfaces/layout.interfaces';
 import {MegaMenuItem, MenuItem} from 'primeng/api';
 import { BreakpointsService } from 'src/app/core/services/breakpoints.service';
 
+interface City {
+  name: string;
+  code: string;
+}
+
+interface Country {
+  name: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
@@ -15,15 +25,31 @@ export class MainLayoutComponent implements OnInit, AfterViewChecked {
   categoriesAccordion: categoryFormat[] = [];
   categories: Category[] = [];
   display: boolean = false;
+  _isLoadingCategory = true;
 
   items: MegaMenuItem[] = [];
+  cities: City[] = [];
+  selectedCity: City = { name: "New York", code: "NY" };
+  
+  selectedCitya(event: any){
+    console.log("eve: ",event);
+  }
 
   constructor(
       private categoriesService: CategoriesService,
       private productsService: ProductsService,
       private cdRef : ChangeDetectorRef,
-      private bp: BreakpointsService
+      private bp: BreakpointsService,
     ) {
+
+      this.cities = [
+        { name: "New York", code: "NY" },
+        { name: "Rome", code: "RM" },
+        { name: "London", code: "LDN" },
+        { name: "Istanbul", code: "IST" },
+        { name: "Paris", code: "PRS" }
+      ];
+
   }
 
   ngOnInit(): void {
@@ -31,16 +57,18 @@ export class MainLayoutComponent implements OnInit, AfterViewChecked {
     this.items = [];
     
     this.categoriesService.categories().subscribe(categories => {
+      console.log("Resultado");
+      this.categories = categories;
+      this._isLoadingCategory = false;
       this.items = categories.map(category => {
         return { 
           "label": category.titulo,
-          "routerLink": "categoria/1"
+          "routerLink": "categoria/" + category.idCategoria
         }
       })
-      console.log(this.items);
     });
 
-    this.categoriesService.categories().subscribe(x => {
+    /* this.categoriesService.categories().subscribe(x => {
       this.categories = x;
       x.map(v => {
         this.categoriesAccordion = 
@@ -51,8 +79,16 @@ export class MainLayoutComponent implements OnInit, AfterViewChecked {
           }
         ]
       })
-    });
+    }); */
 
+  }
+
+  get isLoading() {
+    return this._isLoadingCategory;
+  }
+
+  breakpoint(point: string){
+      return this.bp.breakpoint(point);
   }
 
   ngAfterViewChecked()

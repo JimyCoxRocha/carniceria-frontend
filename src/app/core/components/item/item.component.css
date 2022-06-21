@@ -1,0 +1,9 @@
+.item-wrapper{
+    background-color: #ebebeb;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+}
+
+.item-wrapper:hover{
+    cursor: pointer;
+}

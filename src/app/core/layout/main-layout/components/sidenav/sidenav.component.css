@@ -27,3 +27,7 @@
 .espacer-hight{
   height: 3rem;
 }
+
+.item-simple:hover{
+  cursor: pointer;
+}
