@@ -1,41 +1,23 @@
-<p-toast></p-toast>
-
 <div class="card">
-    <p-table #dt [value]="categories" [loading]="isLoading" [rows]="5" [paginator]="true" [globalFilterFields]="['idCategoria','titulo']" responsiveLayout="stack"
-        [rowHover]="true" dataKey="idCategoria" [rowsPerPageOptions]="[10,25,50]"
-        selectionMode="single" (onRowSelect)="onRowSelect($event)"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-                <h3 class="m-0"><b>Administrar Categorías</b></h3>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="idCategoria"><i class="pi pi-qrcode"></i> ID<p-sortIcon field="idCategoria"></p-sortIcon></th>
-                <th ><i class="pi pi-image"></i> Imagen</th>
-                <th pSortableColumn="titulo"><i class="pi pi-ticket"></i> Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
-                <th pSortableColumn="descripcion"><i class="pi pi-book"></i> Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
-                <th pSortableColumn="numSubCategories"><i class="pi pi-th-large"></i> N° Subcategorías <p-sortIcon field="numSubCategories"></p-sortIcon></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-category>
-            <tr [pSelectableRow]="category">
-                <td><span class="p-column-title"><b>ID: </b></span> {{category.idCategoria}}</td>
-                <td><span class="p-column-title"><b>Imagen: </b></span> <img [src]="category.urlImage" [alt]="category.titulo" width="100" class="shadow-4" /></td>
-                <td><span class="p-column-title"><b>Título: </b></span> {{category.titulo}}</td>
-                <td><span class="p-column-title"><b>Descripción: </b></span> {{category.descripcion}}</td>
-                <td><span class="p-column-title"><b>N° Subcategorías: </b></span> {{category.numSubCategories}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
-                En total existen {{categories ? categories.length : 0 }} categorías.
-            </div>
-        </ng-template>
-    </p-table>
+    <p-toolbar class="mb-3">
+        <div class="p-toolbar-group-left">
+            <button class="button_add_category" [routerLink]="'create-category'" [disabled]="isLoading" pRipple>
+                <i class="pi pi-plus"></i> Crear Categoría
+            </button>
+        </div>
+    </p-toolbar>
+
+    <app-table-categories [categories]="categories" [isLoading]="isLoading" [isDelete]="isDelete"></app-table-categories>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+

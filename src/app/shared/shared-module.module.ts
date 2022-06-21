@@ -6,7 +6,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
 import {SkeletonModule} from 'primeng/skeleton';
-
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,9 @@ import {SkeletonModule} from 'primeng/skeleton';
     InputTextModule,
     DropdownModule,
     ToastModule,
-    SkeletonModule
+    SkeletonModule,
+    InputTextareaModule,
+    FormsModule,
   ]
 })
 export class SharedModuleModule { }
