@@ -77,8 +77,9 @@ export class HeaderComponent implements OnInit {
   }
   
   handleUser(){
+    console.log(this.isAuthUser);
     this.isAuthUser
-      ? this.router.navigate(['/auth/login'])
-      : this.router.navigate(['/'])
+      ? this.router.navigate(['/'])
+      : this.router.navigate(['/auth/login'])
   }
 }
