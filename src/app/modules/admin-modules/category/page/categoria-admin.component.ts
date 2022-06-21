@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfirmationService, MessageService  } from 'primeng/api';
+import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Category } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 
@@ -18,12 +17,14 @@ export class CategoriaAdminComponent implements OnInit {
 
   constructor(
     private categoryService : CategoriesService,
+    private primengConfig: PrimeNGConfig,
     ) {
       this.isLoading = true;
       this.isDelete = false;
     }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
     this.getAllCategories();
   }
 

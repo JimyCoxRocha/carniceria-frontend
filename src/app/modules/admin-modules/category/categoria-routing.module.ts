@@ -5,13 +5,18 @@ import { CategoryDetailComponent } from './subviews/category-detail/category-det
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: 'detail-category/:id',
     component: CategoryDetailComponent
+  },
+  {
+    path : 'create-category',
+    loadChildren : () => import('../../../modules/admin-modules/category/subviews/category-create/category-create.module')
+                         .then(m => m.CategoryCreateModule),
   },
   {
     path: '',
     component: CategoriaAdminComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 ];
 

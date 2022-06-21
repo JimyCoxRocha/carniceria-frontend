@@ -10,7 +10,7 @@ const routes: Routes = [
       {
         path: 'administrar',
         loadChildren: () => import('../../../modules/admin-modules/category/categoria.module')
-                            .then(m => m.CategoriaModule)
+                            .then(m => m.CategoriaModule),
       },
       {
         path: 'eliminar',

@@ -1,3 +1,23 @@
 <div class="card">
+    <p-toolbar class="mb-3">
+        <div class="p-toolbar-group-left">
+            <button class="button_add_category" [routerLink]="'create-category'" [disabled]="isLoading" pRipple>
+                <i class="pi pi-plus"></i> Crear Categoría
+            </button>
+        </div>
+    </p-toolbar>
+
     <app-table-categories [categories]="categories" [isLoading]="isLoading" [isDelete]="isDelete"></app-table-categories>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
