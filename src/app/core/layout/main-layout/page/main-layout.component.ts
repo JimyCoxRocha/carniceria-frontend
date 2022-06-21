@@ -3,6 +3,7 @@ import { ExpansionPanelInterface } from '../components/expansion-panel/expansion
 import { Category } from '../../../interfaces';
 import { ProductsService, CategoriesService } from 'src/app/core/services';
 import { categoryFormat } from '../interfaces/layout.interfaces';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-main-layout',
@@ -12,6 +13,8 @@ import { categoryFormat } from '../interfaces/layout.interfaces';
 export class MainLayoutComponent implements OnInit, AfterViewChecked {
   categoriesAccordion: categoryFormat[] = [];
   categories: Category[] = [];
+  display: boolean = false;
+  items: MenuItem[] =  [];
 
   constructor(
       private categoriesService: CategoriesService,
@@ -21,6 +24,13 @@ export class MainLayoutComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
+
+    this.items = [
+      {label: 'New', icon: 'pi pi-fw pi-plus'},
+      {label: 'Open', icon: 'pi pi-fw pi-download'},
+      {label: 'Undo', icon: 'pi pi-fw pi-refresh'}
+    ];
+    
     this.categoriesService.categories().subscribe(x => { 
       this.categories = x;
       x.map(v => {

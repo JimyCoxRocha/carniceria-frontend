@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { categoryFormat } from '../../interfaces/layout.interfaces';
 
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -12,12 +13,17 @@ export class SidenavComponent implements OnInit {
   @Input() categoriesAccordion: categoryFormat[] = [];
   @Output() close = new EventEmitter<Boolean>();
 
+
+
+  display: boolean = false;
   constructor(
     private auth: AuthService,
     private _router : Router
   ){}
 
   ngOnInit(): void {
+    
+
     this.close.emit(false);
   }
 
@@ -26,6 +32,8 @@ export class SidenavComponent implements OnInit {
       this.close.emit(true);
     }
   }
+
+/*  
 
   get isAuthUser(){
     return this.auth.isAuthUser();
@@ -44,5 +52,5 @@ export class SidenavComponent implements OnInit {
     this.auth.closeSession();
   }
 
-  showFiller = false;
+  showFiller = false; */
 }

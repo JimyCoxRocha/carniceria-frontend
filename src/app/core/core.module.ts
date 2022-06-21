@@ -19,6 +19,7 @@ import { ExpansionPanelComponent } from './components/admin-components/expansion
 import { TabsMixedComponent } from './components/admin-components/tabs-mixed/tabs-mixed.component';
 import { TabsComponent } from './components/admin-components/tabs/tabs.component';
 import { CardDetailComponent } from './components/admin-components/card-detail/card-detail.component';
+import { PrimeNgModule } from './prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CardDetailComponent } from './components/admin-components/card-detail/c
     MaterialUIModule,
     NgxSkeletonLoaderModule,
     RouterModule,
+    PrimeNgModule
   ],
   exports: [
     ImageCardComponent,

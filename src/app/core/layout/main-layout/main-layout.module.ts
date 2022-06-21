@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { CoreModule } from '../../core.module';
 import { MaterialUIModule } from '../../material-ui.module';
+import { PrimeNgModule } from '../../prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MaterialUIModule } from '../../material-ui.module';
     LayoutModule,
     MainLayoutRoutingModule,
     CoreModule,
-    MaterialUIModule
+    MaterialUIModule,
+    PrimeNgModule
     ],
   exports: [
     HeaderComponent,

@@ -2,3 +2,7 @@
   .example-spacer {
     flex: 1 1 auto;
   }
+
+.sideBar{
+  max-width: 800px!important;
+}
