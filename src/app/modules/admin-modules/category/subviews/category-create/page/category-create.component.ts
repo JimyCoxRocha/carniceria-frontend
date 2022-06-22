@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category, SubCategory } from 'src/app/core/interfaces';
 
 @Component({
@@ -12,9 +13,18 @@ export class CategoryCreateComponent implements OnInit {
   selectedSubCategories : SubCategory[] = [];
   isExistPhoto : boolean = false;
 
-  constructor() { }
+  constructor(
+    private _router : Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  buttonBack(){
+    this._router.navigate(['admin/categoria/administrar']);
+  }
+
+  getPhotoSelected($event : any){
+
+  }
 }
