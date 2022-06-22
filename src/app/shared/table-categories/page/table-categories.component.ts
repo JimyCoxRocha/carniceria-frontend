@@ -29,7 +29,7 @@ export class TableCategoriesComponent implements OnInit {
 
   onRowSelect(event : any) {
     let idCategoria = event.data.idCategoria;
-    this._router.navigate([`admin/administrar/detail-category/${idCategoria}`]);
+    this._router.navigate([`admin/categoria/administrar/detail-category/${idCategoria}`]);
   }
 
   showModalDeleteCategory(){
