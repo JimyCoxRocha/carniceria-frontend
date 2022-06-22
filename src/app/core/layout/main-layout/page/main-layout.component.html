@@ -1,32 +1,38 @@
-<div style="max-width: 90rem; margin: 0 auto; width: 95%;">
+<div style="overflow-x: hidden;">
 
-  <app-header></app-header>
-  <p-sidebar [(visible)]="display" [baseZIndex]="10000">
-    <app-sidenav
-      [categories]="categories"
-      [_isLoadingCategory]="isLoading"
-      (close)="display = false"
-    ></app-sidenav>
-  </p-sidebar>
+  <div style="max-width: 90rem; margin: 0 auto; width: 95%;">
+    <app-header></app-header>
+    <p-sidebar [(visible)]="display" [baseZIndex]="10000">
+      <app-sidenav
+        [categories]="categories"
+        [_isLoadingCategory]="isLoading"
+        (close)="display = false"
+      ></app-sidenav>
+    </p-sidebar>
+    
+    <p-megaMenu [model]="breakpoint('md') ? items : []">
+      <button pButton pRipple type="button" label="Promociones" class="p-button-rounded p-button-success"></button>
+      <!-- TODO: Esto viene con el modulo de recomendaciones -->
+      <button pButton pRipple type="button" label="Día del padre" class="p-button-rounded p-button-info"></button>
+    </p-megaMenu>
+    
+    <router-outlet></router-outlet>
   
-  <p-megaMenu [model]="breakpoint('md') ? items : []">
-    <button pButton pRipple type="button" label="Promociones" class="p-button-rounded p-button-success"></button>
-    <!-- TODO: Esto viene con el modulo de recomendaciones -->
-    <button pButton pRipple type="button" label="Día del padre" class="p-button-rounded p-button-info"></button>
-  </p-megaMenu>
-  
-  <router-outlet></router-outlet>
-
-  <div style="width: 100%; height: 1rem;"></div>
-  <div class="footer-tabs animate__animated  animate__backInUp" *ngIf="!brakpoint('md')">
-    <div class="card-tabs">
-      <div class="tabs">
-        <button pButton pRipple type="button" icon="pi pi-align-justify" class="p-button-rounded p-button-text" (click)="display = true"></button>
-        <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-text"></button>
-        <button pButton pRipple type="button" icon="pi pi-home" class="p-button-rounded p-button-text" routerLink="/"></button>
+    <div style="width: 100%; height: 1rem;"></div>
+    <div class="footer-tabs animate__animated  animate__backInUp" *ngIf="!brakpoint('md')">
+      <div class="card-tabs">
+        <div class="tabs">
+          <button pButton pRipple type="button" icon="pi pi-align-justify" class="p-button-rounded p-button-text" (click)="display = true"></button>
+          <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-text"></button>
+          <button pButton pRipple type="button" icon="pi pi-home" class="p-button-rounded p-button-text" routerLink="/"></button>
+        </div>
       </div>
     </div>
   </div>
+
+  <app-footer [categories]="categories"></app-footer>
+  
+  
 </div>
 
 

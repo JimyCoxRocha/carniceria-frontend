@@ -1,20 +1,63 @@
-<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-    <mdb-carousel-item *ngFor="let item of communications">
-      <div class="view w-100 carouselImage"
-        [style.background-image] = "'url('+item.urlImage+')'">
+<!-- [containerStyle]="{'max-width': '640px'}" -->
+<p-galleria 
+  [value]="images" 
+  [responsiveOptions]="responsiveOptions"
+  [circular]="true"
+  [autoPlay]="true" 
+  [transitionInterval]="2000"
+  [showItemNavigators]="brakpoint('md') ? false : true"
+  [showThumbnails]="brakpoint('md') ? true : false"
+>
+  <ng-template pTemplate="item" let-item>
+    <div style="max-height: 400px; overflow: hidden;">
+      <img [src]="item.previewImageSrc" style="width: 100%;" />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+      <div class="grid grid-nogutter justify-content-center">
+          <img [src]="item.thumbnailImageSrc" style="width: 80px; height: 45px;"/>
       </div>
-      <div class="carousel-caption">
-        <div class="mb-sm-6 mb-md-5">
-          <h3 class="h3-responsive d-inline box-shadow px-5 py-3">{{item.titulo}}</h3>
+  </ng-template>
+  <ng-template pTemplate="caption" let-item>
+        <h4 class="text-center m-0 font-semibold" style="margin-bottom: .5rem; color: #ffffff;">{{item.title}}</h4>
+        <p class="text-center m-0 font-light font-italic">{{item.communcation.descripcion}}</p>
+        <!-- <button pButton pRipple type="button" label="Danger" class="p-button-rounded p-button-danger"></button> -->
+        <div class="text-center" *ngIf="item.communcation.urlBtn && item.communcation.tituloBoton">
+          <p-chip
+            [routerLink]="item.communcation.urlBtn"
+            color="primary" 
+            [label]="item.communcation.tituloBoton" 
+            styleClass="p-mr-2 m-1 custom-chip"
+          ></p-chip>
         </div>
-        <button *ngIf="item.tituloBoton"
-        mat-raised-button
-        color="primary" 
-        class="px-4 py-1"
-        (click)="handleClickBtn(item.idTipoComunicacion, item.idComunicacion)"
-        >
-            {{item.tituloBoton}}
-        </button>
+    </ng-template>
+</p-galleria>
+
+<!-- <p-galleria [value]="images" [responsiveOptions]="responsiveOptions"   [numVisible]="5">
+  <ng-template pTemplate="item" let-item>
+      <img [src]="item.previewImageSrc" style="max-width: 50%;" [alt]="item.alt" />
+  </ng-template>
+
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="grid grid-nogutter justify-content-center">
+        <img [src]="item.thumbnailImageSrc" />
+    </div>
+  </ng-template>
+</p-galleria> -->
+
+<!-- <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+  <mdb-carousel-item *ngFor="let item of communications">
+    <div class="view w-100 carouselImage" [style.background-image]="'url('+item.urlImage+')'">
+    </div>
+    <div class="carousel-caption">
+      <div class="mb-sm-6 mb-md-5">
+        <h3 class="h3-responsive d-inline box-shadow px-5 py-3">{{item.titulo}}</h3>
       </div>
-    </mdb-carousel-item>
-  </mdb-carousel>
+      <button *ngIf="item.tituloBoton" mat-raised-button color="primary" class="px-4 py-1"
+        (click)="handleClickBtn(item.idTipoComunicacion, item.idComunicacion)">
+        {{item.tituloBoton}}
+      </button>
+    </div>
+  </mdb-carousel-item>
+</mdb-carousel>
+ -->

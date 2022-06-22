@@ -87,6 +87,15 @@ h1 {
 
 
 /*  PRIME NG  */
+.p-chip.custom-chip {
+    background: #541313;
+    color: var(--primary-color-text);
+}
+ 
+.p-chip.custom-chip:hover {
+    cursor: pointer;
+}
+
 .p-ripple.red .p-ink {
     background: #541313;
 }

@@ -1,3 +1,5 @@
+import { ICarouselImage } from "."
+
 export interface Communication{
     idComunicacion: number,
     tituloBoton: string,
@@ -8,10 +10,15 @@ export interface Communication{
     fechaInicio?: string,
     fechaExpiracion?: string,
     urlImage: string,
-    tipoComunicacion: TypeCommunication
+    tipoComunicacion: TypeCommunication,
+    urlBtn: string
 }
 
 export interface TypeCommunication{
     idTipoComunicacion: number,
     titulo: string
+}
+
+export interface ICarouselCommunication extends ICarouselImage{
+    communcation: Communication
 }

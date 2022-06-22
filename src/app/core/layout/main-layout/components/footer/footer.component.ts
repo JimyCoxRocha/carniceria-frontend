@@ -11,8 +11,8 @@ export class FooterComponent implements OnInit {
   socialNetworks = [
     {
       title: "Facebook",
-      url: "facebook.com",
-      icon: "facebook_outlined"
+      url: "https://www.facebook.com/",
+      icon: "pi pi-facebook"
     }
   ]
   @Input("categories") categories: Category[]  = [];
