@@ -33,4 +33,7 @@
   width: 100%!important;
 }
 
-
+.spacer{
+  width: 100%;
+  height: 4rem;
+}
