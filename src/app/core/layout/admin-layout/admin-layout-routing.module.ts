@@ -8,12 +8,12 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: 'administrar',
+        path: 'categoria/administrar',
         loadChildren: () => import('../../../modules/admin-modules/category/categoria.module')
                             .then(m => m.CategoriaModule),
       },
       {
-        path: 'eliminar',
+        path: 'categoria/eliminar',
         loadChildren: () => import('../../../modules/admin-modules/category-delete/category-delete.module')
                             .then(m => m.CategoryDeleteModule)
       },
