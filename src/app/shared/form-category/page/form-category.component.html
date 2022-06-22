@@ -13,7 +13,12 @@
         <input class="file-input" accept="image/png, .jpeg, .jpg," (change)="getPhotoSelected($event)" type="file" name="file" hidden #photoInput>
         <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
             <div class="imgSelected">
-                <img src="{{photoSelected}}" alt="Image" height="250px">
+                <ng-template [ngIf]="isEdit" [ngIfElse]="photoSelectedImage">
+                    <img src="{{category.urlImage}}" alt="Image" height="250px">
+                </ng-template>
+                <ng-template #photoSelectedImage>
+                    <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
+                </ng-template>
             </div>
         </ng-template>
         <ng-template #desingImage>
@@ -30,7 +35,12 @@
        <div class="information_image">
            <div class="text_image">
                <i class="pi pi-image"></i>
-                <p>{{fileTmp.fileName}}</p>
+               <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
+                   <p>{{category.urlImage}}</p>
+               </ng-template>
+               <ng-template #informationPhotoSelected>
+                   <p>{{fileTmp.fileName}}</p>
+               </ng-template>
             </div>
             <div >
                 <button class="button_clear" (click)="clearImage()" pRipple>
@@ -65,7 +75,7 @@
 
         <ng-template #checkSubCategories>
             <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
-                <p-checkbox [name]="subCategory.titulo" value="category" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
                 <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
             </div>
         </ng-template>

@@ -15,7 +15,8 @@ export class CategoryEditComponent implements OnInit {
   category : Category = {} as Category;
   idCategory : number ;
   selectedSubCategories : SubCategory[] = [];
-  isExistPhoto : boolean = false;
+  isExistPhoto : boolean = true;
+  isEdit : boolean = true;
 
   constructor(
     private primengConfig: PrimeNGConfig,

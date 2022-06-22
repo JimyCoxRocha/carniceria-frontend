@@ -12,12 +12,13 @@ import { CategoriesService } from 'src/app/core/services';
 export class FormCategoryComponent implements OnInit {
 
   @Input() category : Category = {} as Category;
-  @Input() selectedSubCategories : SubCategory[] = [];
   @Input() isExistPhoto : boolean = false;
+  @Input() isEdit : boolean = false;
   
   a : any;
   isLoading : boolean = true;
   subCategories : SubCategory[] = [];
+  selectedSubCategories : SubCategory[] = [];
   
   fileTmp : any;
   photoSelected? : string | ArrayBuffer | null;
@@ -41,8 +42,8 @@ export class FormCategoryComponent implements OnInit {
     this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{
       this.subCategories = response;
       this.isLoading = false;
-      this.a = this.selectedSubCategories;
-      console.log(this.selectedSubCategories);
+      this.selectedSubCategories = this.category.subCategoria;
+      console.log(this.selectedSubCategories)
     })
   }
 
@@ -70,8 +71,10 @@ export class FormCategoryComponent implements OnInit {
   }
 
   clearImage(){
+    this.category.urlImage = "";
     this.fileTmp = {};
     this.isExistPhoto = false;
     this.photoSelected = "";
+    this.isEdit = false;
   }
 }

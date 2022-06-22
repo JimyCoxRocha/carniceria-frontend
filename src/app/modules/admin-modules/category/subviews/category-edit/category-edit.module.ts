@@ -5,7 +5,6 @@ import { CategoryEditRoutingModule } from './category-edit-routing.module';
 import { CategoryEditComponent } from './page/category-edit.component';
 import { FormCategoryModule } from 'src/app/shared/form-category/form-category.module';
 
-
 @NgModule({
   declarations: [
     CategoryEditComponent

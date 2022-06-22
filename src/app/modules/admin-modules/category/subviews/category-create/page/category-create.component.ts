@@ -12,6 +12,7 @@ export class CategoryCreateComponent implements OnInit {
   category : Category = {} as Category;
   selectedSubCategories : SubCategory[] = [];
   isExistPhoto : boolean = false;
+  isEdit : boolean = false;
 
   constructor(
     private _router : Router

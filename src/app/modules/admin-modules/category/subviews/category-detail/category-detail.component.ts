@@ -52,6 +52,6 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   redirectEditPage(){
-    this._router.navigate([`admin/administrar/edit-category/${this.category.idCategoria}`])
+    this._router.navigate([`admin/categoria/administrar/edit-category/${this.category.idCategoria}`])
   }
 }
