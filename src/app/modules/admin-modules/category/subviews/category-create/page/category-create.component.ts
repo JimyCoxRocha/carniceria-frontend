@@ -23,7 +23,7 @@ export class CategoryCreateComponent implements OnInit {
   }
 
   buttonBack(){
-    this._router.navigate(['admin/administrar']);
+    this._router.navigate(['admin/categoria/administrar']);
   }
 
   getPhotoSelected($event : any){

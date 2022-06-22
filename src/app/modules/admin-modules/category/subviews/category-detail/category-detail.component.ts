@@ -48,6 +48,6 @@ export class CategoryDetailComponent implements OnInit {
   }
   
   buttonBack(){
-    this._router.navigate(['admin/administrar']);
+    this._router.navigate(['admin/categoria/administrar']);
   }
 }
