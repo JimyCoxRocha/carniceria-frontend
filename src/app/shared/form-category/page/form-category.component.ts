@@ -42,7 +42,7 @@ export class FormCategoryComponent implements OnInit {
       this.subCategories = response;
       this.isLoading = false;
       this.a = this.selectedSubCategories;
-      console.log(this.a);
+      console.log(this.selectedSubCategories);
     })
   }
 

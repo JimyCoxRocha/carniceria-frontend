@@ -65,7 +65,7 @@
 
         <ng-template #checkSubCategories>
             <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
-                <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                <p-checkbox [name]="subCategory.titulo" value="category" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
                 <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
             </div>
         </ng-template>
