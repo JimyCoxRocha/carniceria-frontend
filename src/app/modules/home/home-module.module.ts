@@ -9,6 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { HomeModuleRoutingModule } from './home-module-routing.module';
 import { CarouselSlideComponent } from './components/carousel/carousel-slide.component';
 import { CarouselModule, WavesModule  } from 'angular-bootstrap-md';
+import { PrimeNgModule } from 'src/app/core/prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,9 @@ import { CarouselModule, WavesModule  } from 'angular-bootstrap-md';
     CoreModule,
     MatIconModule,
     HomeModuleRoutingModule,
-    CarouselModule, WavesModule,
-    
+    CarouselModule, 
+    WavesModule,
+    PrimeNgModule
   ],
   exports:[
     HomeComponent

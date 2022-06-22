@@ -2,3 +2,7 @@
     display: flex;
     justify-content: center!important;
 }
+
+.padding-footer{
+    padding-bottom: 5rem;
+}

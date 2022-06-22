@@ -1,8 +1,12 @@
+<!-- CAROUSEL SOLO PARA PROMOCIONES Y PRODUCTOS -->
+<div class="m-5"></div>
+
 <div class="container-md p-0">
   <app-carousel-slide
     [communications]="communications"
   ></app-carousel-slide>
 </div>
+
 <section class="container mt-5">
     <h1 class="text-center">{{"Disfruta de tus comidas en familia" | uppercase}}</h1>
     <p>
@@ -10,27 +14,66 @@
     </p>
 
 </section>
-<div style="">
+<div>
   <app-fixed-image
     title="La mejor carne"
     url="assets/images/carne.png"
   ></app-fixed-image>
 </div>
-<section class="mt-5 container">
-    <h1 class="text-center">{{"Categorias" | uppercase}}</h1>
-        <div class="row d-flex justify-content-start">
-          <div 
-            *ngFor="let element of categories"
-            class="col-12 col-sm-6 col-lg-3 mb-5">
-            <app-image-card
-                [title]="element.titulo"
-                titleBtn="Ver Productos"
-                [url]="url+element.idCategoria+'/'+element.subCategoria[0].idSubcategoria"
-                [urlImage]="element.urlImage"
-            ></app-image-card>
-          </div>
+
+<section class="mt-5">
+  <h1 class="text-center">{{"Categorias" | uppercase}}</h1>
+  <p-carousel [value]="categories" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions"
+    *ngIf="categories.length > 0 ; else skeletonCategories"
+  >
+    <ng-template let-product pTemplate="item">
+        <div class="product-item">
+            <div class="product-item-content p-2">
+              <app-image-card
+                  [title]="product.titulo"
+                  titleBtn="Ver Productos"
+                  [url]="url+product.idCategoria"
+                  [urlImage]="product.urlImage"
+              ></app-image-card>
+            </div>
         </div>
+    </ng-template>
+  </p-carousel>
+  <ng-template #skeletonCategories>
+    <div class="grid">
+      <div class="col">
+        <p-skeleton height="6rem" styleClass="p-mb-2" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="col">
+        <p-skeleton height="6rem" styleClass="p-mb-2" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="col">
+        <p-skeleton height="6rem" styleClass="p-mb-2" borderRadius="16px"></p-skeleton>
+      </div>
+    </div>
+  </ng-template>
 </section>
+
+
+  <div class="col-12 md:col-6 lg:col-4">
+      <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+              <div>
+                  <i class="pi pi-tag product-category-icon"></i>
+                  <span class="product-category">hola</span>
+              </div>
+          </div>
+          <div class="product-grid-item-content">
+              <!-- <img [src]="product.imgUrl" [alt]="product.titulo"/> -->
+              <div class="product-name">hola</div>
+              <div class="product-description">hola</div>
+          </div>
+          <div class="product-grid-item-bottom">
+              <span class="product-price">$hola</span>
+              <p-button icon="pi pi-shopping-cart"></p-button>
+          </div>
+      </div>
+  </div>
 
 <section class="container mt-5">
   <h1 class="text-center">{{"Recomendaciones" | uppercase}}</h1>

@@ -3,14 +3,14 @@
     <div class="card-body position-absolute top-50 start-50 translate-middle">
         <h1 class="text-light text-center mb-1">{{title | uppercase}}</h1>
         <div class="text-center">
-            <button 
-            *ngIf="titleBtn"
-                mat-raised-button 
-                color="primary" 
-                class="px-4"
+            <button
+                *ngIf="titleBtn" 
+                pButton 
+                pRipple 
+                type="button" 
+                [label]="titleBtn"
                 (click)="handleUrl()"
-                >
-                {{titleBtn}}
+                class="p-button-rounded p-button-danger">
             </button>
         </div>
     </div>
