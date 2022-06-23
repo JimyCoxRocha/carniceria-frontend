@@ -18,6 +18,7 @@ export class FormSubcategoryComponent implements OnInit {
   @Input() labelButton : string = ""
 
   isLoading : boolean = true;
+  categories : Category[] = [];
   
   fileTmp : any;
   photoSelected? : string | ArrayBuffer | null;
@@ -30,6 +31,7 @@ export class FormSubcategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.getAllCategories();
   }
 
   buttonBack(){
@@ -55,7 +57,26 @@ export class FormSubcategoryComponent implements OnInit {
   }
 
   selectFunctionCategory(){
+    if(this.labelButton == "Crear"){
+      this.createSubcategory();
+      return ;
+    }
+
+    this.updateSubcategory();
+  }
+
+  createSubcategory(){
+    this.subCategory.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+    this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
     
+    const data = [this.subCategory];
+
+    
+
+  }
+
+  updateSubcategory(){
+    console.log("ACTUALIZADO");
   }
 
   clearImage(){
@@ -64,5 +85,13 @@ export class FormSubcategoryComponent implements OnInit {
     this.isExistPhoto = false;
     this.photoSelected = "";
     this.isEdit = false;
+  }
+
+  getAllCategories(){
+    this.categoryService.categories().subscribe((response : Category[]) =>{
+      this.categories = response;
+      this.isLoading = false;
+      this.selectedCategories = this.subCategory.categories;
+    })
   }
 }

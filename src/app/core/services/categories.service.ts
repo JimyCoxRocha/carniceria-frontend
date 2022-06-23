@@ -112,6 +112,10 @@ export class CategoriesService {
     );
   }
 
+  createCategory( data : Category) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Categoria`,data);
+  }
+
   subCategories() : Observable<SubCategory[]>{
     const subCategoryObservable: Observable<SubCategory[]> = this._subCategories.length !== 0 
     ? new Observable<SubCategory[]>(subscriber => {
@@ -154,6 +158,10 @@ export class CategoriesService {
         return of({} as SubCategory)
       })
     );
+  }
+
+  createSubcategory(data : [SubCategory]) : Observable<any>{
+    return this.http.post<any>('',data);
   }
 /* 
   get productosCart(): Observable<ApiProductos>{

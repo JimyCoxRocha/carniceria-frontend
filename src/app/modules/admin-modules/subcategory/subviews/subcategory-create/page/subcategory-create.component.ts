@@ -12,7 +12,7 @@ export class SubcategoryCreateComponent implements OnInit {
   selectedCategories : Category[] = [];
   isExistPhoto : boolean = false;
   isEdit : boolean = false;
-  labelButton : string = "Crear "
+  labelButton : string = "Crear"
 
   constructor() { }
 

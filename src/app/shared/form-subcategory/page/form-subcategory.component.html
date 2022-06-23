@@ -66,26 +66,26 @@
         </div>
     </div>
 
-    <!-- <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p> -->
+    <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Categorías</p>
 
-    <!-- <div class="checkboxes_subcategories mb-6">
+    <div class="checkboxes_subcategories mb-6">
         <ng-template [ngIf]="isLoading" [ngIfElse]="checkSubCategories">
             <p-progressSpinner></p-progressSpinner>
         </ng-template>
 
         <ng-template #checkSubCategories>
-            <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
-                <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
-                <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
+            <div class="field-checkbox"  *ngFor="let category of categories">
+                <p-checkbox [name]="category.titulo" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.titulo" ></p-checkbox>
+                <label [for]="category.titulo">{{category.titulo}}</label>
             </div>
         </ng-template>
-    </div> -->
+    </div>
 </div>
 
 <div class="flex justify-content-center aling-items-center mb-5">
     <button class="create_button" pRipple (click)="selectFunctionCategory()">
         <i class="pi pi-check"></i>
-        {{labelButton + "subcategoría" | uppercase}}
+        {{labelButton + " subcategoría" | uppercase}}
     </button>
 </div>
 

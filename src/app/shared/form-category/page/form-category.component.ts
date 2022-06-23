@@ -44,7 +44,6 @@ export class FormCategoryComponent implements OnInit {
       this.subCategories = response;
       this.isLoading = false;
       this.selectedSubCategories = this.category.subCategoria;
-      console.log(this.selectedSubCategories)
     })
   }
 
@@ -65,10 +64,28 @@ export class FormCategoryComponent implements OnInit {
     }
   }
 
-  createCategory(){
-    this.category.subCategoria = this.selectedSubCategories;
+  selectFunctionCategory(){
+    if(this.labelButton == "Crear"){
+      this.createSubcategory();
+      return ;
+    }
 
-    console.log(this.category);
+    this.updateSubcategory();
+  }
+
+  createSubcategory(){
+    this.category.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+    this.category.subCategoria = this.selectedSubCategories;
+    
+    const data = this.category;
+
+    this.categoryService.createCategory(data).subscribe((response : any)=>{
+      console.log(response);
+    })
+  }
+
+  updateSubcategory(){
+    console.log("ACTUALIZADO");
   }
 
   clearImage(){

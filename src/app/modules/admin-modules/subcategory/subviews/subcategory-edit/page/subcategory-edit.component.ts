@@ -17,7 +17,7 @@ export class SubcategoryEditComponent implements OnInit {
   isLoading : boolean;
   isExistPhoto : boolean = true;
   isEdit : boolean = true;
-  labelButton : string = "Editar "
+  labelButton : string = "Editar"
 
   idSubcategory : number ;
 
@@ -44,9 +44,8 @@ export class SubcategoryEditComponent implements OnInit {
   }
 
   getDetailSubcategory(){
-    this._categoryService.getSubcategoryById(this.idSubcategory).subscribe((response : any) =>{
+    this._categoryService.getSubcategoryById(this.idSubcategory).subscribe((response : SubCategory) =>{
       this.subCategory = response;
     })
   }
-
 }
