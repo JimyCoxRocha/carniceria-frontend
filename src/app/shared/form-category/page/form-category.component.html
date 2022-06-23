@@ -36,10 +36,10 @@
            <div class="text_image">
                <i class="pi pi-image"></i>
                <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
-                   <p>{{category.urlImage}}</p>
+                   <p class="text_information_image">{{category.urlImage}}</p>
                </ng-template>
                <ng-template #informationPhotoSelected>
-                   <p>{{fileTmp.fileName}}</p>
+                   <p class="text_information_image">{{fileTmp.fileName}}</p>
                </ng-template>
             </div>
             <div >

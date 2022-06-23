@@ -112,8 +112,14 @@ export class CategoriesService {
     );
   }
 
-  createCategory( data : Category) : Observable<any>{
+  createCategory( data : any) : Observable<any>{
     return this.http.post<any>(`${this.apiUrl}Categoria`,data);
+  }
+
+  updateCategory(){}
+
+  deleteCategory(idCategory : number) : Observable<ApiResponse<any>>{
+    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}Categoria/${idCategory}`)
   }
 
   subCategories() : Observable<SubCategory[]>{

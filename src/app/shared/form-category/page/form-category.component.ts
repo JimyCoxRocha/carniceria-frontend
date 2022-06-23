@@ -79,7 +79,7 @@ export class FormCategoryComponent implements OnInit {
     
     const data = this.category;
 
-    this.categoryService.createCategory(data).subscribe((response : any)=>{
+    this.categoryService.createCategory([data]).subscribe((response : any)=>{
       console.log(response);
     })
   }

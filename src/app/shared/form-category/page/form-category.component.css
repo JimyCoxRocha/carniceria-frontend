@@ -120,6 +120,7 @@
     align-items: flex-start;
     gap: 1em;
     margin: 0;
+    width: 95%;
 }
 
 .text_image > i{
@@ -129,6 +130,12 @@
 .text_image > *{
     margin: 0px;
     padding: 0px;
+}
+
+.text_information_image{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .button_clear{

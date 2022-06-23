@@ -1,3 +1,10 @@
 <div class="card">
-    <app-table-categories [categories]="categories" [isLoading]="isLoading" [isDelete]="isDelete"></app-table-categories>
+    <app-table-categories 
+        [categories]="categories" 
+        [isLoading]="isLoading" 
+        [isDelete]="isDelete"
+
+        (changeLoading)="changeLoading()"
+        (deleteCategoryOutput)= "deleteCategory()"
+    ></app-table-categories>
 </div>
