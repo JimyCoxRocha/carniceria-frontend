@@ -138,6 +138,23 @@ export class CategoriesService {
       })
     );
   }
+
+  getSubcategoryById(idSubcategory : number) : Observable<SubCategory>{
+    return this.http.get<ApiResponse<SubCategory>>
+    (`${this.apiUrl}Categoria/get-subcategory/${idSubcategory}`)
+    .pipe(
+      map((x: ApiResponse<SubCategory>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as SubCategory)
+      })
+    );
+  }
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>

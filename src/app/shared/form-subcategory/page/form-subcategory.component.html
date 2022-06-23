@@ -5,7 +5,7 @@
 </div>
 
 <div class="create_category_body">
-    <p class="title_create_category"> <i class="pi pi-tag"></i> Información de la Categoría</p>
+    <p class="title_create_category"> <i class="pi pi-tag"></i> Información de la Subcategoría</p>
     
     <p class="mt-5 title_image">Imagen</p>
     
@@ -14,7 +14,7 @@
         <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
             <div class="imgSelected">
                 <ng-template [ngIf]="isEdit" [ngIfElse]="photoSelectedImage">
-                    <img src="{{category.urlImage}}" alt="Image" height="250px">
+                    <img src="{{subCategory.urlImage}}" alt="Image" height="250px">
                 </ng-template>
                 <ng-template #photoSelectedImage>
                     <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
@@ -36,10 +36,10 @@
            <div class="text_image">
                <i class="pi pi-image"></i>
                <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
-                   <p>{{category.urlImage}}</p>
+                   <p class="text_information_image">{{subCategory.urlImage}}</p>
                </ng-template>
                <ng-template #informationPhotoSelected>
-                   <p>{{fileTmp.fileName}}</p>
+                   <p class="text_information_image">{{fileTmp.fileName}}</p>
                </ng-template>
             </div>
             <div >
@@ -53,7 +53,7 @@
     <p class="mt-5 title_image">Título</p>
     <div class="p-fluid grid">
         <div class="field col-12">
-            <input type="text" pInputText [(ngModel)]="category.titulo"> 
+            <input type="text" pInputText [(ngModel)]="subCategory.titulo"> 
         </div>
     </div>
 
@@ -61,14 +61,14 @@
     <div class="p-fluid grid">
         <div class="field col-12">
             <span class="p-float-label">
-                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="category.descripcion" pInputTextarea></textarea>
+                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="subCategory.descripcion" pInputTextarea></textarea>
             </span>
         </div>
     </div>
 
-    <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
+    <!-- <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p> -->
 
-    <div class="checkboxes_subcategories mb-6">
+    <!-- <div class="checkboxes_subcategories mb-6">
         <ng-template [ngIf]="isLoading" [ngIfElse]="checkSubCategories">
             <p-progressSpinner></p-progressSpinner>
         </ng-template>
@@ -79,12 +79,13 @@
                 <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
             </div>
         </ng-template>
-    </div>
+    </div> -->
 </div>
 
 <div class="flex justify-content-center aling-items-center mb-5">
-    <button class="create_button" pRipple (click)="createCategory()">
+    <button class="create_button" pRipple (click)="selectFunctionCategory()">
         <i class="pi pi-check"></i>
-        {{labelButton + "categoría" | uppercase}}
+        {{labelButton + "subcategoría" | uppercase}}
     </button>
 </div>
+

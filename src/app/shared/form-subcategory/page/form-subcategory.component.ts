@@ -5,21 +5,19 @@ import { Category, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 
 @Component({
-  selector: 'app-form-category',
-  templateUrl: './form-category.component.html',
-  styleUrls: ['./form-category.component.css']
+  selector: 'app-form-subcategory',
+  templateUrl: './form-subcategory.component.html',
+  styleUrls: ['./form-subcategory.component.css']
 })
-export class FormCategoryComponent implements OnInit {
+export class FormSubcategoryComponent implements OnInit {
 
-  @Input() category : Category = {} as Category;
+  @Input() subCategory : SubCategory = {} as SubCategory;
+  @Input() selectedCategories : Category[] = [];
   @Input() isExistPhoto : boolean = false;
   @Input() isEdit : boolean = false;
-  @Input() labelButton : string = "";
-  
-  a : any;
+  @Input() labelButton : string = ""
+
   isLoading : boolean = true;
-  subCategories : SubCategory[] = [];
-  selectedSubCategories : SubCategory[] = [];
   
   fileTmp : any;
   photoSelected? : string | ArrayBuffer | null;
@@ -32,21 +30,12 @@ export class FormCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.getAllSubcategories();
   }
 
   buttonBack(){
-    this._router.navigate(['admin/categoria/administrar']);
+    this._router.navigate(['admin/sub-categoria/administrar']);
   }
 
-  getAllSubcategories(){
-    this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{
-      this.subCategories = response;
-      this.isLoading = false;
-      this.selectedSubCategories = this.category.subCategoria;
-      console.log(this.selectedSubCategories)
-    })
-  }
 
   getPhotoSelected($event : any){
     if($event.target.files && $event.target.files[0]){
@@ -65,14 +54,12 @@ export class FormCategoryComponent implements OnInit {
     }
   }
 
-  createCategory(){
-    this.category.subCategoria = this.selectedSubCategories;
-
-    console.log(this.category);
+  selectFunctionCategory(){
+    
   }
 
   clearImage(){
-    this.category.urlImage = "";
+    this.subCategory.urlImage = "";
     this.fileTmp = {};
     this.isExistPhoto = false;
     this.photoSelected = "";

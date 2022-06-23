@@ -1,15 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableSubcategoryComponent } from './page/table-subcategory.component';
-
-
+import { TableModule} from 'primeng/table';
+import { ToolbarModule} from 'primeng/toolbar';
+import { SharedModuleModule } from 'src/app/shared/shared-module.module';
+import { DividerModule} from 'primeng/divider';
+import { CardModule} from 'primeng/card';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
     TableSubcategoryComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TableModule,
+    ToolbarModule,
+    SharedModuleModule,
+    DividerModule,
+    CardModule,
+    ConfirmDialogModule
+  ],
+  exports : [
+    TableSubcategoryComponent
   ]
 })
 export class TableSubcategoryModule { }

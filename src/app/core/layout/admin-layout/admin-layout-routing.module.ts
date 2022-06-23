@@ -8,6 +8,16 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
+        path: 'sub-categoria/administrar',
+        loadChildren: () => import('../../../modules/admin-modules/subcategory/subcategory.module')
+                            .then(m => m.SubcategoryModule),
+      },
+      {
+        path: 'sub-categoria/eliminar',
+        loadChildren: () => import('../../../modules/admin-modules/subcategory-delete/subcategory-delete.module')
+                            .then(m => m.SubcategoryDeleteModule),
+      },
+      {
         path: 'categoria/administrar',
         loadChildren: () => import('../../../modules/admin-modules/category/categoria.module')
                             .then(m => m.CategoriaModule),

@@ -1,1 +1,48 @@
-<p>table-subcategory works!</p>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-table #dt [value]="subCategories" [loading]="isLoading" [rows]="5" [paginator]="true" [globalFilterFields]="['idSubcategoria','titulo']" responsiveLayout="stack"
+        [rowHover]="true" dataKey="idSubcategoria" [rowsPerPageOptions]="[10,25,50]"
+        selectionMode="single" (onRowSelect)="onRowSelect($event)"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h3 class="m-0"><b>Administrar Subcategorías</b></h3>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="idSubcategoria"><i class="pi pi-qrcode"></i> ID<p-sortIcon field="idSubcategoria"></p-sortIcon></th>
+                <th ><i class="pi pi-image"></i> Imagen</th>
+                <th pSortableColumn="titulo"><i class="pi pi-ticket"></i> Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
+                <th pSortableColumn="descripcion"><i class="pi pi-book"></i> Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
+                <th pSortableColumn="numCategories"><i class="pi pi-th-large"></i> N° Categorías <p-sortIcon field="numCategories"></p-sortIcon></th>
+                <ng-template [ngIf]="isDelete">
+                    <th><i class="pi pi-trash"></i> Eliminar</th>
+                </ng-template>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-subCategory>
+            <tr [pSelectableRow]="subCategory">
+                <td><span class="p-column-title"><b>ID: </b></span> {{subCategory.idSubcategoria}}</td>
+                <td><span class="p-column-title"><b>Imagen: </b></span> <img [src]="subCategory.urlImage" [alt]="subCategory.titulo" width="100" class="shadow-4" /></td>
+                <td><span class="p-column-title"><b>Título: </b></span> {{subCategory.titulo}}</td>
+                <td><span class="p-column-title"><b>Descripción: </b></span> {{!subCategory.descripcion ? "Sin descripción" : subCategory.descripcion}}</td>
+                <td><span class="p-column-title"><b>N° Subcategorías: </b></span> {{subCategory.numCategories}}</td>
+                <ng-template [ngIf]="isDelete">
+                    <td>
+                        <button pButton pRipple type="button" class="p-button-danger" icon="pi pi-trash" (click)="showModalDeleteSubcategory()"></button>
+                    </td>
+                </ng-template>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total existen {{ subCategories ? subCategories.length : 0 }} subcategorías.
+            </div>
+        </ng-template>
+    </p-table>
+

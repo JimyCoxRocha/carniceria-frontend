@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SubcategoryDeleteComponent } from './page/subcategory-delete.component';
+import { SubcategoryDetailComponent } from './page/subcategory-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SubcategoryDeleteComponent,
+    component: SubcategoryDetailComponent,
     pathMatch: 'full',
   },
 ];
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SubcategoryDeleteRoutingModule { }
+export class SubcategoryDetailRoutingModule { }
