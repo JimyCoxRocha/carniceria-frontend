@@ -17,9 +17,10 @@ export class FormCategoryComponent implements OnInit {
   @Input() labelButton : string = "";
   
   isLoading : boolean = true;
-  subCategories : SubCategory[] = [];
-  selectedSubCategories : SubCategory[] = [];
-  
+  subCategories : any[] = [];
+  selectedSubCategories : any[] = [];
+
+
   isLoadingOverlay : boolean = false;
   displayOverlay : boolean = false;
   labelOverlay : string = "";
@@ -40,6 +41,7 @@ export class FormCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.primengConfig.ripple = true;
     this.getAllSubcategories();
+
   }
 
   buttonBack(){
@@ -47,11 +49,19 @@ export class FormCategoryComponent implements OnInit {
   }
 
   getAllSubcategories(){
-    this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{
-      this.subCategories = response;
-      this.isLoading = false;
+    this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{    
+      this.subCategories = this.handleSubcategories(response);
       this.selectedSubCategories = this.category.subCategoria;
+      this.isLoading = false;
     })
+  }
+
+  handleSubcategories(response : any){
+    response.forEach((i : any) =>{
+      delete i.numCategories
+    })
+
+    return response;
   }
 
   getPhotoSelected($event : any){
@@ -108,7 +118,9 @@ export class FormCategoryComponent implements OnInit {
   }
 
   updateCategory(){
-    console.log("ACTUALIZADO");
+    this.category.subCategoria = this.selectedSubCategories;
+    console.log("Actualizado");
+    console.log(this.category);
   }
 
   clearImage(){
@@ -120,7 +132,7 @@ export class FormCategoryComponent implements OnInit {
   }
 
   validateInputs(){
-    if(this.isObjEmpty(this.fileTmp) || !this.category.titulo || !this.category.descripcion){
+    if(this.isObjEmpty(this.fileTmp) && !this.category.urlImage || !this.category.titulo || !this.category.descripcion){
       return false;
   }
 

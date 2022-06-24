@@ -41,7 +41,6 @@ export class SubcategoryDetailComponent implements OnInit {
     this._categoryService.getSubcategoryById(this.idSubcategory).subscribe((response : any) =>{
       this.subCategory = response;
       this.categories = response.categories;
-      console.log(this.categories);
       this.isLoading = false;
     })
   }

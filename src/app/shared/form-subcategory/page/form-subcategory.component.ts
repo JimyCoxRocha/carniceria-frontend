@@ -47,6 +47,15 @@ export class FormSubcategoryComponent implements OnInit {
     this._router.navigate(['admin/sub-categoria/administrar']);
   }
 
+  getAllCategories(){
+    this.categoryService.categories().subscribe((response : Category[]) =>{
+      this.categories = response;
+      this.isLoading = false;
+      //this.selectedCategories = this.subCategory.categories;
+      console.log(response);
+      console.log(this.subCategory)
+    })
+  }
 
   getPhotoSelected($event : any){
     if($event.target.files && $event.target.files[0]){
@@ -114,16 +123,8 @@ export class FormSubcategoryComponent implements OnInit {
     this.isEdit = false;
   }
 
-  getAllCategories(){
-    this.categoryService.categories().subscribe((response : Category[]) =>{
-      this.categories = response;
-      this.isLoading = false;
-      this.selectedCategories = this.subCategory.categories;
-    })
-  }
-
   validateInputs(){
-    if(this.isObjEmpty(this.fileTmp) || !this.subCategory.titulo || !this.subCategory.descripcion){
+    if(this.isObjEmpty(this.fileTmp) && !this.subCategory.urlImage || !this.subCategory.titulo || !this.subCategory.descripcion){
       return false;
   }
 
