@@ -15,6 +15,8 @@ export class SubcategoryDetailComponent implements OnInit {
   
   subCategory : SubCategory = {} as SubCategory;
   categories : Category[] = [];
+  displayModal : boolean = false;
+  lengthSubcategory : number = 0;
 
   constructor(
     private _route : ActivatedRoute,
@@ -39,12 +41,24 @@ export class SubcategoryDetailComponent implements OnInit {
 
   getDetailSubcategory(){
     this._categoryService.getSubcategoryById(this.idSubcategory).subscribe((response : any) =>{
+      this.isOpenModal(response);
       this.subCategory = response;
       this.categories = response.categories;
-      this.isLoading = false;
+      this.lengthSubcategory = this.subCategory.categories.length;
     })
   }
-  
+
+  isOpenModal( response : any){
+    if(response.openModal){
+      this.displayModal = true;
+      this.isLoading = true;
+      return ;
+    }
+
+    this.isLoading = false;
+    this.displayModal = false;
+  }
+
   buttonBack(){
     this._router.navigate(['admin/sub-categoria/administrar']);
   }

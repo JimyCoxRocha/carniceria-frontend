@@ -1,0 +1,12 @@
+<ng-template [ngIf]="isLoading">
+    <section>
+        <div class="form__overlay">
+            <div class="spinner__overlay">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+            <div class="text__overlay">
+                <p>{{textOverlay | uppercase}}</p>
+            </div>
+        </div>
+    </section>
+</ng-template>

@@ -11,8 +11,8 @@ import {PanelMenuModule} from 'primeng/panelmenu';
 import {CardModule} from 'primeng/card';
 import { TableProductsComponent } from './components/table-products/table-products.component';
 import { OverlayCardCategoriesComponent } from './components/overlay-card-categories/overlay-card-categories.component';
-import { ModalErrorPrimeNGComponent } from './components/modal-error-prime-ng/modal-error-prime-ng.component';
 import {DialogModule} from 'primeng/dialog';
+import { ModalErrorPrimengModule } from 'src/app/shared/modal-error-primeng/modal-error-primeng.module';
 
 
 @NgModule({
@@ -20,7 +20,6 @@ import {DialogModule} from 'primeng/dialog';
     CategoryComponent,
     TableProductsComponent,
     OverlayCardCategoriesComponent,
-    ModalErrorPrimeNGComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +30,8 @@ import {DialogModule} from 'primeng/dialog';
     FormsModule,
     PanelMenuModule,
     CardModule,
-    DialogModule
+    DialogModule,
+    ModalErrorPrimengModule,
   ]
 })
 export class CategoryModule { }

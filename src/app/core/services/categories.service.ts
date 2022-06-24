@@ -95,19 +95,14 @@ export class CategoriesService {
     );
   }
 
-  getCategoryById(idCategory : number) : Observable<Category>{
-    return this.http.get<ApiResponse<Category>>
-    (`${this.apiUrl}Categoria/get-category/${idCategory}`)
+  getCategoryById(idCategory : number) : Observable<any>{
+    return this.http.get<Category>(`${this.apiUrl}Categoria/get-category/${idCategory}`)
     .pipe(
-      map((x: ApiResponse<Category>) => {
+      map((x: any) => {
         return x.data
       }),
-      catchError((err: ErrorApiResponse) => {
-        this.core.showErrorModal({
-          title: "Error inesperado",
-          contentHtml: err.error.message[0]
-        })
-        return of({} as Category)
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
       })
     );
   }
@@ -130,7 +125,23 @@ export class CategoriesService {
     );
   }
 
-  updateCategory(){}
+  updateCategory( data : any) : Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}Categoria/Update`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
+  }
 
   deleteCategory(idCategory : number) : Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}Categoria/${idCategory}`)
@@ -171,19 +182,15 @@ export class CategoriesService {
     );
   }
 
-  getSubcategoryById(idSubcategory : number) : Observable<SubCategory>{
-    return this.http.get<ApiResponse<SubCategory>>
+  getSubcategoryById(idSubcategory : number) : Observable<any>{
+    return this.http.get<SubCategory>
     (`${this.apiUrl}Categoria/get-subcategory/${idSubcategory}`)
     .pipe(
-      map((x: ApiResponse<SubCategory>) => {
+      map((x: any) => {
         return x.data
       }),
-      catchError((err: ErrorApiResponse) => {
-        this.core.showErrorModal({
-          title: "Error inesperado",
-          contentHtml: err.error.message[0]
-        })
-        return of({} as SubCategory)
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
       })
     );
   }
@@ -200,7 +207,23 @@ export class CategoriesService {
     );
   }
 
-  updateSubcategory(){}
+  updateSubcategory( data : any) : Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}Categoria/Subcategory/Update`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
+  }
 
   deleteSubcategory(idSubcategory : number) : Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}Categoria/Subcategory/${idSubcategory}`)

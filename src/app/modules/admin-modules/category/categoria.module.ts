@@ -13,6 +13,7 @@ import { ToolbarModule} from 'primeng/toolbar';
 import { SharedModuleModule } from 'src/app/shared/shared-module.module';
 import { DividerModule} from 'primeng/divider';
 import { CardModule} from 'primeng/card';
+import { ModalErrorPrimengModule } from 'src/app/shared/modal-error-primeng/modal-error-primeng.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CardModule} from 'primeng/card';
     SharedModuleModule,
     DividerModule,
     CardModule,
-    TableCategoriesModule
+    TableCategoriesModule,
+    ModalErrorPrimengModule
   ],
 })
 export class CategoriaModule { }

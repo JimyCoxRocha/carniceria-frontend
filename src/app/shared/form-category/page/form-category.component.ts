@@ -119,8 +119,24 @@ export class FormCategoryComponent implements OnInit {
 
   updateCategory(){
     this.category.subCategoria = this.selectedSubCategories;
-    console.log("Actualizado");
-    console.log(this.category);
+
+    const data = this.category;
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Editando categoría";
+
+    this.categoryService.updateCategory(data).subscribe((response) => {
+      this.isLoadingOverlay = false;
+
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    })
   }
 
   clearImage(){

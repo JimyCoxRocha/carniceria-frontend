@@ -58,7 +58,6 @@ export class CategoryComponent implements OnInit {
     this._productService.getProductsByIdCategory(idCategory).subscribe((response)=>{
       this.isOpenModal(response);
       this._products = response;
-      
     })
   }
 
