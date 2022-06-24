@@ -1,0 +1,102 @@
+<app-load-overlay 
+    [isLoadingOverlay]="isLoadingOverlay"
+    [displayOverlay]="displayOverlay"
+    [labelOverlay]="labelOverlay"
+    [iconOverlay]="iconOverlay"
+></app-load-overlay>
+
+<div>
+    <button class="buttonBack" pRipple (click)="buttonBack()"> 
+        <i class="pi pi-chevron-left"></i> 
+    </button>
+</div>
+
+<div class="create_category_body">
+    <p class="title_create_category"> <i class="pi pi-tag"></i> Información de la Categoría</p>
+    
+    <p class="mt-5 title_image">Imagen</p>
+    
+    <div class="imageSelect mb-3 mt-2" (click)="photoInput.click()">
+        <input class="file-input" accept="image/png, .jpeg, .jpg," (change)="getPhotoSelected($event)" type="file" name="file" hidden #photoInput>
+        <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
+            <div class="imgSelected">
+                <ng-template [ngIf]="isEdit" [ngIfElse]="photoSelectedImage">
+                    <img src="{{category.urlImage}}" alt="Image" height="250px">
+                </ng-template>
+                <ng-template #photoSelectedImage>
+                    <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #desingImage>
+            <div class="designeImagen">
+                <i class="pi pi-images"></i>
+                <p>Click Para Buscar Imagen</p>
+                <p>Tamaño máximo: 4MB</p>
+                <p>Tipo de imagen aceptado: (.png, .jpeg, .jpg)</p>
+            </div>
+        </ng-template>
+    </div>
+    <small id="username-help" class="p-error" *ngIf="submitted && !category.urlImage && !isExistPhoto">Imagen es requerida</small>
+
+    <ng-template [ngIf]="isExistPhoto">
+       <div class="information_image">
+           <div class="text_image">
+               <i class="pi pi-image"></i>
+               <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
+                   <p class="text_information_image">{{category.urlImage}}</p>
+               </ng-template>
+               <ng-template #informationPhotoSelected>
+                   <p class="text_information_image">{{fileTmp.fileName}}</p>
+               </ng-template>
+            </div>
+            <div >
+                <button class="button_clear" (click)="clearImage()" pRipple>
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+       </div>
+    </ng-template>
+
+    <p class="mt-5 title_image">Título</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <input type="text" pInputText [(ngModel)]="category.titulo" required> 
+            <small id="username-help" class="p-error" *ngIf="submitted && !category.titulo">Título es requerido</small>
+        </div>
+    </div>
+
+    <p class="mt-2 title_image">Descripción</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <span class="p-float-label">
+                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="category.descripcion" pInputTextarea required></textarea>
+                <small id="username-help" class="p-error" *ngIf="submitted && !category.descripcion">Descripción es requerida</small>
+            </span>
+        </div>
+    </div>
+
+    <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
+
+    <div>
+        <div class="checkboxes_subcategories mb-6">
+            <ng-template [ngIf]="isLoading" [ngIfElse]="checkSubCategories">
+                <p-progressSpinner></p-progressSpinner>
+            </ng-template>
+    
+            <ng-template #checkSubCategories>
+                <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
+                    <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                    <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div class="flex justify-content-center aling-items-center mb-5">
+    <button class="create_button" pRipple (click)="selectFunctionCategory()">
+        <i class="pi pi-check"></i>
+        {{labelButton + " categoría" | uppercase}}
+    </button>
+</div>

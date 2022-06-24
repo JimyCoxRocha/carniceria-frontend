@@ -1,77 +1,8 @@
 <section>
-    <div>
-        <button class="buttonBack" pRipple (click)="buttonBack()"> 
-            <i class="pi pi-chevron-left"></i> 
-        </button>
-    </div>
-
-    <div class="create_category_body">
-        <p class="title_create_category"> <i class="pi pi-info-circle"></i> Información de la Categoría</p>
-        
-        <p class="mt-5 title_image">Imagen</p>
-        <div class="imageSelect mb-5 mt-2" (click)="photoInput.click()">
-            <input class="file-input" accept="image/png, .jpeg, .jpg," (change)="getPhotoSelected($event)" type="file" name="file" hidden #photoInput>
-            <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
-                <div class="imgSelected">
-                    <!-- <img src="{{photoSelected}}" alt="Image" height="250px" *ngIf="!isPhotoEdit"> -->
-                </div>
-            </ng-template>
-            <ng-template #desingImage>
-                <div class="designeImagen">
-                    <i class="pi pi-images"></i>
-                    <p>Click Para Buscar Imagen</p>
-                    <p>Tamaño máximo: 4MB</p>
-                    <p>Tipo de imagen aceptado: (.png, .jpeg, .jpg)</p>
-                </div>
-            </ng-template>
-        </div>
-
-        <div class="p-fluid grid">
-            <div class="field col-12">
-                <span class="p-float-label">
-                    <input type="text" id="inputtext" pInputText [(ngModel)]="value1"> 
-                    <label for="inputtext">Título</label>
-                </span>
-            </div>
-            <div class="field col-12">
-                <span class="p-float-label">
-                    <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="value10" pInputTextarea></textarea>
-                    <label for="textarea">Descripción</label>
-                </span>
-            </div>
-        </div>
-
-        <p class="title_create_category"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
-
-        <div>
-            <p-tabView>
-                <p-tabPanel header="Subcategorías Existentes">
-                   
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-                        <label for="ny">New York</label>
-                    </div>
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
-                        <label for="sf">San Francisco</label>
-                    </div>
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
-                        <label for="la">Los Angeles</label>
-                    </div>
-                    
-                </p-tabPanel>
-                <p-tabPanel header="Crear Subcategoría">
-                    Content 2
-                </p-tabPanel>
-            </p-tabView>
-        </div>
-    </div>
-
-    <div class="flex justify-content-center aling-items-center mb-5">
-        <button class="create_button" pRipple>
-            <i class="pi pi-check"></i>
-            CREAR CATEGORÍA
-        </button>
-    </div>
+    <app-form-category 
+        [category]="category" 
+        [isEdit]="isEdit"
+        [labelButton]="labelButton"
+        [isExistPhoto]="isExistPhoto"
+    ></app-form-category>
 </section>

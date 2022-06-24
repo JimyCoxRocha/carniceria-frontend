@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { Category, SubCategory } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-category-create',
@@ -9,24 +8,16 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class CategoryCreateComponent implements OnInit {
 
-  value1 : any
-  value10 : any
-  selectedCities: string[] = [];
+  category : Category = {} as Category;
+  selectedSubCategories : SubCategory[] = [];
   isExistPhoto : boolean = false;
+  isEdit : boolean = false;
+  labelButton : string = "Crear"
 
   constructor(
-    private _router : Router,
-    private primengConfig: PrimeNGConfig,
   ) { }
 
   ngOnInit(): void {
   }
 
-  buttonBack(){
-    this._router.navigate(['admin/categoria/administrar']);
-  }
-
-  getPhotoSelected($event : any){
-
-  }
 }

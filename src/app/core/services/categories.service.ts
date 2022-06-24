@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse, Category, Product } from '../interfaces';
+import { ApiResponse, ErrorApiResponse, Category, Product, SubCategory } from '../interfaces';
 import { CoreService, StorageService } from '.';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { CoreService, StorageService } from '.';
 })
 export class CategoriesService {
   _categories: Category[] = [];
+  _subCategories: SubCategory[] = [];
   _isLoading: boolean = false;
 
   apiUrl = environment.API_URL;
@@ -110,6 +111,109 @@ export class CategoriesService {
       })
     );
   }
+
+  createCategory( data : any) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Categoria`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
+  }
+
+  updateCategory(){}
+
+  deleteCategory(idCategory : number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}Categoria/${idCategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    );
+  }
+
+  subCategories() : Observable<SubCategory[]>{
+    const subCategoryObservable: Observable<SubCategory[]> = this._subCategories.length !== 0 
+    ? new Observable<SubCategory[]>(subscriber => {
+        subscriber.next(this._subCategories);
+        subscriber.complete()
+      })
+    : this.getAllSubCategories();
+    return subCategoryObservable;
+  }
+
+  getAllSubCategories() : Observable<SubCategory[]>{
+    return this.http.get<ApiResponse<SubCategory[]>>
+    (`${this.apiUrl}Categoria/sub-categories`)
+    .pipe(
+      map((x: ApiResponse<SubCategory[]>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as SubCategory[])
+      })
+    );
+  }
+
+  getSubcategoryById(idSubcategory : number) : Observable<SubCategory>{
+    return this.http.get<ApiResponse<SubCategory>>
+    (`${this.apiUrl}Categoria/get-subcategory/${idSubcategory}`)
+    .pipe(
+      map((x: ApiResponse<SubCategory>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of({} as SubCategory)
+      })
+    );
+  }
+
+  createSubcategory(data : any) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Categoria/Subcategory`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!",error : err}]
+      })
+    );
+  }
+
+  updateSubcategory(){}
+
+  deleteSubcategory(idSubcategory : number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}Categoria/Subcategory/${idSubcategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    );
+  }
+
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>

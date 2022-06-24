@@ -50,4 +50,8 @@ export class CategoryDetailComponent implements OnInit {
   buttonBack(){
     this._router.navigate(['admin/categoria/administrar']);
   }
+
+  redirectEditPage(){
+    this._router.navigate([`admin/categoria/administrar/edit-category/${this.category.idCategoria}`])
+  }
 }

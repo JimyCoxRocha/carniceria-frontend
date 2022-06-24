@@ -19,7 +19,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     SharedModuleModule,
     DividerModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   exports : [
     TableCategoriesComponent

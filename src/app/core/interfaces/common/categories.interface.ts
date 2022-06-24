@@ -13,4 +13,5 @@ export interface SubCategory{
     descripcion: string,
     status: string,
     urlImage: string
+    categories : Category[],
 }

@@ -1,0 +1,14 @@
+<div class="card">
+    <p-toolbar class="mb-3">
+        <div class="p-toolbar-group-left">
+            <button class="button_add_category" [routerLink]="'create-subcategory'" pRipple>
+                <i class="pi pi-plus"></i> Crear Subcategoría
+            </button>
+        </div>
+    </p-toolbar>
+
+    <app-table-subcategory 
+        [isDelete]="isDelete"
+    ></app-table-subcategory>
+</div>
+

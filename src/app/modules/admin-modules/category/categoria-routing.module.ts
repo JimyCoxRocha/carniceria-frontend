@@ -9,6 +9,11 @@ const routes: Routes = [
     component: CategoryDetailComponent
   },
   {
+    path: 'edit-category/:id',
+    loadChildren : () => import('../../../modules/admin-modules/category/subviews/category-edit/category-edit.module')
+                         .then(m => m.CategoryEditModule),
+  },
+  {
     path : 'create-category',
     loadChildren : () => import('../../../modules/admin-modules/category/subviews/category-create/category-create.module')
                          .then(m => m.CategoryCreateModule),

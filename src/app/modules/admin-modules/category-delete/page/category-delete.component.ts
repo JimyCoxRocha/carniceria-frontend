@@ -32,4 +32,11 @@ export class CategoryDeleteComponent implements OnInit {
     })
   }
 
+  deleteCategory(){
+    this.getAllCategories();
+  }
+
+  changeLoading(){
+    this.isLoading = true;
+  }
 }
