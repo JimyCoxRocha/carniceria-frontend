@@ -1,7 +1,8 @@
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>
 
 <p-table #dt [value]="subCategories" [loading]="isLoading" [rows]="5" [paginator]="true" [globalFilterFields]="['idSubcategoria','titulo']" responsiveLayout="stack"
-        [rowHover]="true" dataKey="idSubcategoria" [rowsPerPageOptions]="[10,25,50]"
+        [rowHover]="true" dataKey="idSubcategoria" [rowsPerPageOptions]="[5,10,15]"
         selectionMode="single" (onRowSelect)="onRowSelect($event)"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -34,7 +35,7 @@
                 <td><span class="p-column-title"><b>N° Subcategorías: </b></span> {{subCategory.numCategories}}</td>
                 <ng-template [ngIf]="isDelete">
                     <td>
-                        <button pButton pRipple type="button" class="p-button-danger" icon="pi pi-trash" (click)="showModalDeleteSubcategory()"></button>
+                        <button pButton pRipple type="button" class="p-button-danger" icon="pi pi-trash" (click)="showModalDeleteSubcategory(subCategory)"></button>
                     </td>
                 </ng-template>
             </tr>

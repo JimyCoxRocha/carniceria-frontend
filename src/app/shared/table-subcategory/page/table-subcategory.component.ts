@@ -38,12 +38,31 @@ export class TableSubcategoryComponent implements OnInit {
     this._router.navigate([`admin/sub-categoria/administrar/detail-subcategory/${idSubcategory}`]);
   }
 
-  showModalDeleteSubcategory(){
+  showModalDeleteSubcategory(subCategory : SubCategory){
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to perform this action?',
+      header : "Confirmación",
+      message: `¿Desea eliminar la siguiente subcategoría: "${subCategory.titulo}"?`,
+      acceptLabel : "Confirmar",
+      rejectLabel : "Cancelar",
+      rejectButtonStyleClass : "p-button-danger"	,
       accept: () => {
-          //Actual logic to perform a confirmation
+          this.deleteSubcategory(subCategory.idSubcategoria);
       }
-  });
+    });
   }
+
+  deleteSubcategory(idSubcategoria : number){
+    this.isLoading = true;
+    this.categoriesService.deleteSubcategory(idSubcategoria).subscribe((response) =>{
+      if(response.toastError){
+        this.isLoading = false;
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Ha ocurrido un error, intente más tarde!'});
+        return ;
+      }
+
+      this.getAllSubCategories();
+      this.messageService.add({severity:'success', summary: 'Completado', detail: 'Subcategoría inactivada con éxito', life : 3000});
+    })
+  }
+
 }

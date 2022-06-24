@@ -53,13 +53,12 @@ export class TableCategoriesComponent implements OnInit {
   deleteCategory(idCategory : number){
     this.reloadTable();
     this.categoryService.deleteCategory(idCategory).subscribe((response) =>{
-      if(response.data == "Proceso Ejecutado Correctamente"){
-        this.messageService.add({severity:'success', summary: 'Completado', detail: 'Categoría inactivada con éxito', life : 3000});
-        this.deleteCategoryOutput.emit();
-      }else{
-        this.messageService.add({severity:'error', summary: 'Error', detail: 'Error'});
-        this.deleteCategoryOutput.emit();
+      if(response.toastError){
+        this.messageService.add({severity:'error', summary: 'Error', detail: `${response.messageToast}`});
       }
+
+      this.messageService.add({severity:'success', summary: 'Completado', detail: 'Categoría inactivada con éxito', life : 3000});
+      this.deleteCategoryOutput.emit();
     })
   }
 

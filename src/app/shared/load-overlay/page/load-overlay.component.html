@@ -1,0 +1,24 @@
+<ng-template [ngIf]="displayOverlay">
+    <section>
+        <div class="card__overlay">
+            <ng-template [ngIf]="isLoadingOverlay" [ngIfElse]="messageResponse">
+                <div class="card__overlay__content__load">
+                    <p-progressSpinner></p-progressSpinner>
+    
+                    <div>
+                        <p>{{tittleOverlay | uppercase}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #messageResponse>
+                <div class="card__overlay__content__response">
+                    <i [class]="iconOverlay"></i>
+                    <p>{{labelOverlay}}</p>
+                </div>
+                <div class="button_complete" >
+                    <button pRipple (click)="redirectCategory()">Continuar</button>
+                </div>
+            </ng-template>
+        </div>
+    </section>
+</ng-template>

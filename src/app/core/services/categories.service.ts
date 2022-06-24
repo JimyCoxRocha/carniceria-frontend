@@ -113,13 +113,35 @@ export class CategoriesService {
   }
 
   createCategory( data : any) : Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}Categoria`,data);
+    return this.http.post<any>(`${this.apiUrl}Categoria`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
   }
 
   updateCategory(){}
 
-  deleteCategory(idCategory : number) : Observable<ApiResponse<any>>{
-    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}Categoria/${idCategory}`)
+  deleteCategory(idCategory : number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}Categoria/${idCategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    );
   }
 
   subCategories() : Observable<SubCategory[]>{
@@ -166,9 +188,32 @@ export class CategoriesService {
     );
   }
 
-  createSubcategory(data : [SubCategory]) : Observable<any>{
-    return this.http.post<any>('',data);
+  createSubcategory(data : any) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Categoria/Subcategory`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!",error : err}]
+      })
+    );
   }
+
+  updateSubcategory(){}
+
+  deleteSubcategory(idSubcategory : number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}Categoria/Subcategory/${idSubcategory}`)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    );
+  }
+
 /* 
   get productosCart(): Observable<ApiProductos>{
     return this.http.get<ApiProductos>

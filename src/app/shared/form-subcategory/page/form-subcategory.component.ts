@@ -19,6 +19,15 @@ export class FormSubcategoryComponent implements OnInit {
 
   isLoading : boolean = true;
   categories : Category[] = [];
+
+  
+  isLoadingOverlay : boolean = false;
+  displayOverlay : boolean = false;
+  labelOverlay : string = "";
+  iconOverlay : string = "";
+  submitted : boolean = false;
+  tittleOverlay : string = "";
+  urlOverlay : string = "admin/sub-categoria/administrar";
   
   fileTmp : any;
   photoSelected? : string | ArrayBuffer | null;
@@ -57,6 +66,10 @@ export class FormSubcategoryComponent implements OnInit {
   }
 
   selectFunctionCategory(){
+    this.submitted = true;
+
+    if(!this.validateInputs()) return ;
+
     if(this.labelButton == "Crear"){
       this.createSubcategory();
       return ;
@@ -69,9 +82,23 @@ export class FormSubcategoryComponent implements OnInit {
     this.subCategory.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
     this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
     
-    const data = [this.subCategory];
+    const data = this.subCategory;
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Creando subcategoría";
 
-    
+    this.categoryService.createSubcategory([data]).subscribe((response) => {
+      this.isLoadingOverlay = false;
+
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    })
 
   }
 
@@ -93,5 +120,21 @@ export class FormSubcategoryComponent implements OnInit {
       this.isLoading = false;
       this.selectedCategories = this.subCategory.categories;
     })
+  }
+
+  validateInputs(){
+    if(this.isObjEmpty(this.fileTmp) || !this.subCategory.titulo || !this.subCategory.descripcion){
+      return false;
+  }
+
+    return true;
+  }
+
+
+  isObjEmpty(obj : any) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) return false;
+    }
+    return true;
   }
 }

@@ -16,13 +16,20 @@ export class FormCategoryComponent implements OnInit {
   @Input() isEdit : boolean = false;
   @Input() labelButton : string = "";
   
-  a : any;
   isLoading : boolean = true;
   subCategories : SubCategory[] = [];
   selectedSubCategories : SubCategory[] = [];
   
+  isLoadingOverlay : boolean = false;
+  displayOverlay : boolean = false;
+  labelOverlay : string = "";
+  iconOverlay : string = "";
+  tittleOverlay : string = "";
+  urlOverlay : string = "admin/categoria/administrar";
+
   fileTmp : any;
   photoSelected? : string | ArrayBuffer | null;
+  submitted : boolean = false;
 
   constructor(
     private categoryService : CategoriesService,
@@ -65,26 +72,42 @@ export class FormCategoryComponent implements OnInit {
   }
 
   selectFunctionCategory(){
+    this.submitted = true;
+
+    if(!this.validateInputs()) return ;
+
     if(this.labelButton == "Crear"){
-      this.createSubcategory();
+      this.createCategory();
       return ;
     }
 
-    this.updateSubcategory();
+    this.updateCategory();
   }
 
-  createSubcategory(){
+  createCategory(){
     this.category.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
     this.category.subCategoria = this.selectedSubCategories;
     
     const data = this.category;
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Creando categoría";
 
     this.categoryService.createCategory([data]).subscribe((response : any)=>{
-      console.log(response);
+      this.isLoadingOverlay = false;
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+      
     })
   }
 
-  updateSubcategory(){
+  updateCategory(){
     console.log("ACTUALIZADO");
   }
 
@@ -94,5 +117,21 @@ export class FormCategoryComponent implements OnInit {
     this.isExistPhoto = false;
     this.photoSelected = "";
     this.isEdit = false;
+  }
+
+  validateInputs(){
+    if(this.isObjEmpty(this.fileTmp) || !this.category.titulo || !this.category.descripcion){
+      return false;
+  }
+
+    return true;
+  }
+
+
+  isObjEmpty(obj : any) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) return false;
+    }
+    return true;
   }
 }

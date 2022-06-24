@@ -1,3 +1,10 @@
+<app-load-overlay 
+    [isLoadingOverlay]="isLoadingOverlay"
+    [displayOverlay]="displayOverlay"
+    [labelOverlay]="labelOverlay"
+    [iconOverlay]="iconOverlay"
+></app-load-overlay>
+
 <div>
     <button class="buttonBack" pRipple (click)="buttonBack()"> 
         <i class="pi pi-chevron-left"></i> 
@@ -30,6 +37,7 @@
             </div>
         </ng-template>
     </div>
+    <small id="username-help" class="p-error" *ngIf="submitted && !category.urlImage && !isExistPhoto">Imagen es requerida</small>
 
     <ng-template [ngIf]="isExistPhoto">
        <div class="information_image">
@@ -53,7 +61,8 @@
     <p class="mt-5 title_image">Título</p>
     <div class="p-fluid grid">
         <div class="field col-12">
-            <input type="text" pInputText [(ngModel)]="category.titulo"> 
+            <input type="text" pInputText [(ngModel)]="category.titulo" required> 
+            <small id="username-help" class="p-error" *ngIf="submitted && !category.titulo">Título es requerido</small>
         </div>
     </div>
 
@@ -61,24 +70,27 @@
     <div class="p-fluid grid">
         <div class="field col-12">
             <span class="p-float-label">
-                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="category.descripcion" pInputTextarea></textarea>
+                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="category.descripcion" pInputTextarea required></textarea>
+                <small id="username-help" class="p-error" *ngIf="submitted && !category.descripcion">Descripción es requerida</small>
             </span>
         </div>
     </div>
 
     <p class="title_create_category mb-4"> <i class="pi pi-check-square"></i> Selección de Subcategorías</p>
 
-    <div class="checkboxes_subcategories mb-6">
-        <ng-template [ngIf]="isLoading" [ngIfElse]="checkSubCategories">
-            <p-progressSpinner></p-progressSpinner>
-        </ng-template>
-
-        <ng-template #checkSubCategories>
-            <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
-                <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
-                <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
-            </div>
-        </ng-template>
+    <div>
+        <div class="checkboxes_subcategories mb-6">
+            <ng-template [ngIf]="isLoading" [ngIfElse]="checkSubCategories">
+                <p-progressSpinner></p-progressSpinner>
+            </ng-template>
+    
+            <ng-template #checkSubCategories>
+                <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
+                    <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                    <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </div>
 
