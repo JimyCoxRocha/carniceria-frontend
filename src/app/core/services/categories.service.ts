@@ -108,6 +108,7 @@ export class CategoriesService {
   }
 
   createCategory( data : any) : Observable<any>{
+
     return this.http.post<any>(`${this.apiUrl}Categoria`,data)
     .pipe(
       map((response : any)=>{
@@ -123,6 +124,7 @@ export class CategoriesService {
           ]
       })
     );
+    
   }
 
   updateCategory( data : any) : Observable<any>{

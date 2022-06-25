@@ -9,6 +9,7 @@
         <button mat-raised-button *ngIf="hasButtonSecundary" (click)="clickSecundaryBtn()" mat-button mat-dialog-close>{{this.data.secundaryButton?.name}}</button>
         <button 
             mat-raised-button 
+            [routerLink]="this.data.goBackLink"
             *ngIf="hasButtonPrimary" 
             mat-rised-button 
             color="primary" 
