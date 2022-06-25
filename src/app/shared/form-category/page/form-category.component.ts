@@ -29,13 +29,13 @@ export class FormCategoryComponent implements OnInit {
   urlOverlay : string = "admin/categoria/administrar";
 
   fileTmp : any;
-  photoSelected? : string | ArrayBuffer | null;
+  photoSelected : string | ArrayBuffer | null = "";
   submitted : boolean = false;
 
   constructor(
     private categoryService : CategoriesService,
     private primengConfig: PrimeNGConfig,
-    private _router : Router
+    private _router : Router,
   ) { }
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ export class FormCategoryComponent implements OnInit {
   }
 
   createCategory(){
-    this.category.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+    this.category.urlImage = this.photoSelected as string;
     this.category.subCategoria = this.selectedSubCategories;
     
     const data = this.category;
