@@ -13,7 +13,7 @@ export class LoadOverlayComponent implements OnInit {
   @Input() displayOverlay : boolean = false;
   @Input() labelOverlay : string = "";
   @Input() iconOverlay : string = "";
-  @Input() url : string = "";
+  @Input() urlOverlay : string = "";
   @Input() tittleOverlay = "";
 
   constructor(
@@ -26,6 +26,6 @@ export class LoadOverlayComponent implements OnInit {
   }
 
   redirectCategory(){
-    this._router.navigate([`${this.url}`]);
+    this._router.navigate([`${this.urlOverlay}`]);
   }
 }

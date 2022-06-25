@@ -2,7 +2,7 @@
     [draggable]="false" [resizable]="false">
     <div class="content_modal">
         <p><i class="pi pi-clock"></i> Oops! Ha ocurrido un problema, intente más tarde</p>
-        <button class="button__error" [routerLink]="'/'">
+        <button class="button__error" (click)="redirectHome()">
             <i class="pi pi-home"></i>
             Ir Inicio
         </button>

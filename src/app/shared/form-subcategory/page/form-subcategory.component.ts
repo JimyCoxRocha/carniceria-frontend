@@ -47,6 +47,21 @@ export class FormSubcategoryComponent implements OnInit {
     this._router.navigate(['admin/sub-categoria/administrar']);
   }
 
+  getAllCategories(){
+    this.categoryService.categoriesAdmin().subscribe((response : Category[]) =>{
+      this.categories = this.handleCategories(response)
+      this.selectedCategories = this.subCategory.categories;
+      this.isLoading = false;
+    })
+  }
+
+  handleCategories(response : any){
+    response.forEach((i : any) =>{
+      delete i.numSubCategories
+    })
+
+    return response;
+  }
 
   getPhotoSelected($event : any){
     if($event.target.files && $event.target.files[0]){
@@ -70,6 +85,7 @@ export class FormSubcategoryComponent implements OnInit {
 
     if(!this.validateInputs()) return ;
 
+    this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
     if(this.labelButton == "Crear"){
       this.createSubcategory();
       return ;
@@ -80,7 +96,6 @@ export class FormSubcategoryComponent implements OnInit {
 
   createSubcategory(){
     this.subCategory.urlImage = "https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
-    this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
     
     const data = this.subCategory;
     this.displayOverlay = true;
@@ -103,7 +118,24 @@ export class FormSubcategoryComponent implements OnInit {
   }
 
   updateSubcategory(){
-    console.log("ACTUALIZADO");
+    const data = this.subCategory;
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Editando subcategoría";
+
+    this.categoryService.updateSubcategory(data).subscribe((response) => {
+      this.isLoadingOverlay = false;
+
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    })
+
   }
 
   clearImage(){
@@ -114,16 +146,8 @@ export class FormSubcategoryComponent implements OnInit {
     this.isEdit = false;
   }
 
-  getAllCategories(){
-    this.categoryService.categories().subscribe((response : Category[]) =>{
-      this.categories = response;
-      this.isLoading = false;
-      this.selectedCategories = this.subCategory.categories;
-    })
-  }
-
   validateInputs(){
-    if(this.isObjEmpty(this.fileTmp) || !this.subCategory.titulo || !this.subCategory.descripcion){
+    if(this.isObjEmpty(this.fileTmp) && !this.subCategory.urlImage || !this.subCategory.titulo || !this.subCategory.descripcion){
       return false;
   }
 

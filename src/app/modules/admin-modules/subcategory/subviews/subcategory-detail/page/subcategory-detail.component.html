@@ -1,3 +1,4 @@
+<app-modal-error-primeng [displayModal]="displayModal"></app-modal-error-primeng>
 <section>
     <div class="header__detail">
         <div class="header__detail__description">
@@ -40,38 +41,29 @@
                 </div>
             </p-divider>
         </div>
-        <div class="mb-4">
-            <ng-template [ngIf]="isLoading" [ngIfElse]="addSubCategory">
-                <div class="skeleton__button__add__category">
-                    <p-skeleton width="12rem" height="3rem"></p-skeleton>
-                </div>
-            </ng-template>
-
-            <ng-template #addSubCategory>
-                <button class="button_add_subcategory" pRipple>
-                    <i class="pi pi-plus"></i>
-                    Agregar a una categoría
-                </button>
-            </ng-template>
-        </div>
         
         <div class="cards_body gap-3">
             <ng-template [ngIf]="isLoading">
                <app-card-skeleton-categories></app-card-skeleton-categories>
             </ng-template>
 
-            <div *ngFor="let category of categories" style="height: 100%;">
-                <p-card [header]="category.titulo" [style]="{width: '300px', height : '100%'}" styleClass="p-card-shadow">
-                    <ng-template pTemplate="header">
-                        <img alt="Card" [src]="!category.urlImage ? subCategory.urlImage : category.urlImage " height="200px">
-                    </ng-template>
-                    <p>{{category.descripcion}}</p>
-                    <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-pencil"></p-button>
-                        <p-button icon="pi pi-times" styleClass="p-button-danger" [style]="{'margin-left': '.5em'}"></p-button>
-                    </ng-template>
-                </p-card>
-            </div>
+            <ng-template [ngIf]="lengthSubcategory > 0 && !isLoading">
+                <div *ngFor="let category of categories" style="height: 100%;">
+                    <p-card [header]="category.titulo" [style]="{width: '300px', height : '100%'}" styleClass="p-card-shadow">
+                        <ng-template pTemplate="header">
+                            <img alt="Card" [src]="!category.urlImage ? subCategory.urlImage : category.urlImage " height="200px">
+                        </ng-template>
+                        <p>{{!category.descripcion ? subCategory.descripcion : category.descripcion}}</p>
+                    </p-card>
+                </div>
+            </ng-template>
+
+            <ng-template [ngIf]="lengthSubcategory == 0 && !isLoading">
+                <div class="imageNot">
+                    <i class="pi pi-search icon__not__image"></i>
+                    <p class="text__not__image">NO SE ENCONTRARON CATEGORIAS RELACIONADAS!</p>
+                </div>
+            </ng-template>
         </div>
 
     </div>

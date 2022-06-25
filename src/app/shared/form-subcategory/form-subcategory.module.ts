@@ -6,6 +6,7 @@ import { SharedModuleModule } from '../shared-module.module';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { LoadOverlayModule } from '../load-overlay/load-overlay.module';
+import { FormOverlayModule } from '../form-overlay/form-overlay.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoadOverlayModule } from '../load-overlay/load-overlay.module';
     SharedModuleModule,
     CheckboxModule,
     ProgressSpinnerModule,
-    LoadOverlayModule
+    LoadOverlayModule,
+    FormOverlayModule
   ],
   exports : [
     FormSubcategoryComponent

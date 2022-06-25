@@ -3,7 +3,11 @@
     [displayOverlay]="displayOverlay"
     [labelOverlay]="labelOverlay"
     [iconOverlay]="iconOverlay"
+    [tittleOverlay]="tittleOverlay"
+    [urlOverlay]="urlOverlay"
 ></app-load-overlay>
+
+<app-form-overlay [isLoading]="isLoading"></app-form-overlay>
 
 <div>
     <button class="buttonBack" pRipple (click)="buttonBack()"> 
@@ -86,7 +90,7 @@
     
             <ng-template #checkSubCategories>
                 <div class="field-checkbox"  *ngFor="let subCategory of subCategories">
-                    <p-checkbox [name]="subCategory.titulo" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
+                    <p-checkbox [name]="subCategory.titulo" value="subCategory" [value]="subCategory" [(ngModel)]="selectedSubCategories" [inputId]="subCategory.titulo" ></p-checkbox>
                     <label [for]="subCategory.titulo">{{subCategory.titulo}}</label>
                 </div>
             </ng-template>

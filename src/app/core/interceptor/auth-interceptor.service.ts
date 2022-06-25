@@ -26,10 +26,11 @@ export class AuthInterceptorService implements HttpInterceptor{
 
     getToken(){
       const auth = this.storage.getLocalStorage(AppConstants.LocalStorage.auth);
+
+      if(!auth) return;
+
       const menu = this.encryptService.decrypt(auth!);
-
       const token = menu.token;
-
       return token;
     }
   

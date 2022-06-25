@@ -4,8 +4,10 @@
     [labelOverlay]="labelOverlay"
     [iconOverlay]="iconOverlay"
     [tittleOverlay]="tittleOverlay"
-    [url]="urlOverlay"
+    [urlOverlay]="urlOverlay"
 ></app-load-overlay>
+
+<app-form-overlay [isLoading]="isLoading"></app-form-overlay>
 
 <div>
     <button class="buttonBack" pRipple (click)="buttonBack()"> 
@@ -39,6 +41,7 @@
             </div>
         </ng-template>
     </div>
+    <small id="username-help" class="p-error" *ngIf="submitted && !subCategory.urlImage && !isExistPhoto">Imagen es requerida</small>
 
     <ng-template [ngIf]="isExistPhoto">
        <div class="information_image">
@@ -63,6 +66,7 @@
     <div class="p-fluid grid">
         <div class="field col-12">
             <input type="text" pInputText [(ngModel)]="subCategory.titulo"> 
+            <small id="username-help" class="p-error" *ngIf="submitted && !subCategory.titulo">Título es requerido</small>
         </div>
     </div>
 
@@ -71,6 +75,7 @@
         <div class="field col-12">
             <span class="p-float-label">
                 <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="subCategory.descripcion" pInputTextarea></textarea>
+                <small id="username-help" class="p-error" *ngIf="submitted && !subCategory.descripcion">Descripción es requerida</small>
             </span>
         </div>
     </div>

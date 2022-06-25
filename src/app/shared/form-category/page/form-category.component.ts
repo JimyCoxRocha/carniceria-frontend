@@ -17,9 +17,10 @@ export class FormCategoryComponent implements OnInit {
   @Input() labelButton : string = "";
   
   isLoading : boolean = true;
-  subCategories : SubCategory[] = [];
-  selectedSubCategories : SubCategory[] = [];
-  
+  subCategories : any[] = [];
+  selectedSubCategories : any[] = [];
+
+
   isLoadingOverlay : boolean = false;
   displayOverlay : boolean = false;
   labelOverlay : string = "";
@@ -40,6 +41,7 @@ export class FormCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.primengConfig.ripple = true;
     this.getAllSubcategories();
+
   }
 
   buttonBack(){
@@ -47,11 +49,19 @@ export class FormCategoryComponent implements OnInit {
   }
 
   getAllSubcategories(){
-    this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{
-      this.subCategories = response;
-      this.isLoading = false;
+    this.categoryService.subCategories().subscribe((response : SubCategory[]) =>{    
+      this.subCategories = this.handleSubcategories(response);
       this.selectedSubCategories = this.category.subCategoria;
+      this.isLoading = false;
     })
+  }
+
+  handleSubcategories(response : any){
+    response.forEach((i : any) =>{
+      delete i.numCategories
+    })
+
+    return response;
   }
 
   getPhotoSelected($event : any){
@@ -108,7 +118,25 @@ export class FormCategoryComponent implements OnInit {
   }
 
   updateCategory(){
-    console.log("ACTUALIZADO");
+    this.category.subCategoria = this.selectedSubCategories;
+
+    const data = this.category;
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Editando categoría";
+
+    this.categoryService.updateCategory(data).subscribe((response) => {
+      this.isLoadingOverlay = false;
+
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    })
   }
 
   clearImage(){
@@ -120,7 +148,7 @@ export class FormCategoryComponent implements OnInit {
   }
 
   validateInputs(){
-    if(this.isObjEmpty(this.fileTmp) || !this.category.titulo || !this.category.descripcion){
+    if(this.isObjEmpty(this.fileTmp) && !this.category.urlImage || !this.category.titulo || !this.category.descripcion){
       return false;
   }
 
