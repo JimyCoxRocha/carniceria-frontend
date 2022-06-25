@@ -2,7 +2,8 @@ export interface ModalConfigurationInterface{
     title?: string,
     primaryButton?: ButtonModal,
     secundaryButton?: ButtonModal,
-    contentHtml?: string
+    contentHtml?: string,
+    goBackLink?: string
 }
 
 export interface ButtonModal {
