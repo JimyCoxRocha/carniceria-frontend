@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { Category, SubCategory } from 'src/app/core/interfaces';
+import { Category, IUploadImageRequest, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
+import { ImagesService } from 'src/app/core/services/images.service';
 
 @Component({
   selector: 'app-form-category',
@@ -36,6 +37,7 @@ export class FormCategoryComponent implements OnInit {
     private categoryService : CategoriesService,
     private primengConfig: PrimeNGConfig,
     private _router : Router,
+    private imageService : ImagesService
   ) { }
 
   ngOnInit(): void {
@@ -95,13 +97,46 @@ export class FormCategoryComponent implements OnInit {
   }
 
   createCategory(){
-    this.category.urlImage = this.photoSelected as string;
-    this.category.subCategoria = this.selectedSubCategories;
-    
-    const data = this.category;
+    const data = {
+      image : this.photoSelected as string,
+      contentType : this.fileTmp.fileRaw.type
+    };
+
     this.displayOverlay = true;
     this.isLoadingOverlay = true;
     this.tittleOverlay = "Creando categoría";
+
+    this.imageService.createCategory(data).subscribe((response : any) => {
+      this.requestCreateCategory(response.imageUrl);
+    })
+  }
+
+  updateCategory(){
+    if(!this.category.urlImage){
+      const dataImage = {
+        image : this.photoSelected as string,
+        contentType : this.fileTmp.fileRaw.type
+      };
+
+      this.displayOverlay = true;
+      this.isLoadingOverlay = true;
+      this.tittleOverlay = "Editando categoría";
+      
+      this.imageService.createCategory(dataImage).subscribe((response : any) => {
+        this.category.urlImage = response.imageUrl;
+        this.requestUpdateCategory();
+      })    
+      return ;
+    }
+    
+    this.requestUpdateCategory();
+  }
+
+  requestCreateCategory(urlImage : string){
+    this.category.urlImage = urlImage;
+    this.category.subCategoria = this.selectedSubCategories;
+  
+    const data = this.category;
 
     this.categoryService.createCategory([data]).subscribe((response : any)=>{
       this.isLoadingOverlay = false;
@@ -113,17 +148,13 @@ export class FormCategoryComponent implements OnInit {
 
       this.iconOverlay = "pi pi-check-circle icon_color_green";
       this.labelOverlay = response.message[0];
-      
-    })
+    });
   }
 
-  updateCategory(){
+  requestUpdateCategory(){
     this.category.subCategoria = this.selectedSubCategories;
 
     const data = this.category;
-    this.displayOverlay = true;
-    this.isLoadingOverlay = true;
-    this.tittleOverlay = "Editando categoría";
 
     this.categoryService.updateCategory(data).subscribe((response) => {
       this.isLoadingOverlay = false;
