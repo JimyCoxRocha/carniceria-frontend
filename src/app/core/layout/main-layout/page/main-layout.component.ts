@@ -57,7 +57,6 @@ export class MainLayoutComponent implements OnInit, AfterViewChecked {
     this.items = [];
     
     this.categoriesService.categories().subscribe(categories => {
-      console.log("Resultado");
       this.categories = categories;
       this._isLoadingCategory = false;
       this.items = categories.map(category => {

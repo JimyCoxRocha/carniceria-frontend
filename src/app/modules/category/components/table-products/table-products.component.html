@@ -29,20 +29,22 @@
     <ng-template let-product pTemplate="gridItem">
         <div class="col-12 md:col-6 lg:col-4">
             <div class="product-grid-item card">
-                <div class="product-grid-item-top">
-                    <div>
-                        <i class="pi pi-tag product-category-icon"></i>
-                        <span class="product-category">{{product.titulo}}</span>
+                <div class="card__product__item" (click)="viewDetailProduct(product)">
+                    <div class="product-grid-item-top">
+                        <div>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{product.titulo}}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="product-grid-item-content">
-                    <img [src]="product.imgUrl" [alt]="product.titulo"/>
-                    <div class="product-name">{{product.titulo}}</div>
-                    <div class="product-description">{{product.descripcion}}</div>
+                    <div class="product-grid-item-content">
+                        <img [src]="product.imgUrl" [alt]="product.titulo"/>
+                        <div class="product-name">{{product.titulo}}</div>
+                        <div class="product-description">{{product.descripcion}}</div>
+                    </div>
                 </div>
                 <div class="product-grid-item-bottom">
                     <span class="product-price">${{product.precio}}</span>
-                    <p-button icon="pi pi-shopping-cart"></p-button>
+                    <p-button class="button__add__cart" icon="pi pi-shopping-cart" (onClick)="addProductCart()"></p-button>
                 </div>
             </div>
         </div>
