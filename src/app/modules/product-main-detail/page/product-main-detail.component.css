@@ -5,8 +5,19 @@
     font-family: roboto;
 }
 
+:host ::ng-deep .p-button , .p-button{
+    background-color: #EFEFEF;
+    border: 1px solid #EFEFEF;
+    color: #5C5C5C;
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus, .p-inputtext:enabled:hover {
+    box-shadow: none;
+    border-color: #EFEFEF;
+}
+
 section{
-    padding: 5% 0px;
+    padding: 5% 0px 0px 0px;
 }
 
 .image__product__detail{
@@ -50,7 +61,7 @@ section{
     font-size: 30px;
     font-weight: 600;
     line-height: 41px;
-    color: #1F48BC;
+    color: #780000;
     margin: 20px 0px 0px 0px;
 }
 
@@ -79,14 +90,17 @@ section{
     padding: 12px 0px;
     color: white;
     opacity: 1;
+    font-weight: 500;
 }
 
 .add__button__cart{
-    background-color: orange;
+    background-color: #EFEFEF;
+    color: rgb(29, 29, 29);
+    border: 1px solid rgb(29, 29, 29);
 }
 
 .buy__button{
-    background-color: #780000;
+    background: #780000;
 }
 
 .add__button__cart:hover , .buy__button:hover{
@@ -120,6 +134,19 @@ section{
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.image__not__found{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+}
+
+.image__not__found img{
+    width: 350px;
 }
 
 @media screen and (max-width: 978px) {

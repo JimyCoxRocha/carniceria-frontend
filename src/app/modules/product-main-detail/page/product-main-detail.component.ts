@@ -15,6 +15,7 @@ export class ProductMainDetailComponent implements OnInit {
   idProducto : number = 0;
   isLoading : boolean = true;
   productResponse : ProductoResponse = {} as ProductoResponse;
+  urlImageNotFound : string = "../../../../assets/images/not_found.png";
 
   constructor(
     private route : ActivatedRoute,

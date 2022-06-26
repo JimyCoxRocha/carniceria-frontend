@@ -33,18 +33,18 @@
                         <div class="col-5 md:col-12 lg:col-4" style="padding: 0px;">
                             <div>
                                 <p-inputNumber [size]="1" [(ngModel)]="amountProduct" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
-                                    [min]="0" [max]="productResponse.product.stock" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                                    [min]="0" [max]="productResponse.product.stock" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
                                 </p-inputNumber>    
                             </div>
                         </div>
                         <div class="col-7 md:col-12 lg:col-8" style="padding: 0px;">
                             <div class="layout__button__add">
-                                <button class="add__button__cart" pRipple>AGREGAR AL CARRITO</button>
+                                <button class="add__button__cart" pRipple><i class="pi pi-shopping-cart"></i> AGREGAR AL CARRITO</button>
                             </div>
                         </div>
                         <div class="col-12" style="padding: 0px; margin-top: 10px;">
                             <div class="layout__button__add">
-                                <button class="buy__button" pRipple>COMPRAR</button>
+                                <button class="buy__button flex justify-content-center align-items-center" pRipple><i class="pi pi-box mr-1"></i> COMPRAR</button>
                             </div>
                         </div>
                     </div>
@@ -54,23 +54,33 @@
         <div class="information__image__product">
             <p-divider align="center">
                 <div class="inline-flex align-items-center">
-                    <i class="pi pi-th-large mr-2"></i>
+                    <i class="pi pi-bookmark-fill mr-2"></i>
                     <b class="tittle__detail__product">Detalles Del Producto</b>
                 </div>
             </p-divider>
     
             <div class="content__detail__product">
-                <div *ngFor="let detail of productResponse.detail">
-                    <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
-                        <ng-template pTemplate="header">
-                            <img class="img__product" [alt]="detail.tituloDetalle" [src]="productResponse.product.imgUrl" height="150px">
-                        </ng-template>
-    
-                        <p-scrollPanel [style]="{width: '100%', height: '100px'}">
-                            <p>{{detail.descripcion}}</p>
-                        </p-scrollPanel>
-                    </p-card>
-                </div>
+                <ng-template [ngIf]="productResponse.detail.length > 0" [ngIfElse]="notFound">
+                    <div *ngFor="let detail of productResponse.detail">
+                        <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
+                            <ng-template pTemplate="header">
+                                <img class="img__product" [alt]="detail.tituloDetalle" [src]="productResponse.product.imgUrl" height="150px">
+                            </ng-template>
+        
+                            <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+                                <p>{{detail.descripcion}}</p>
+                            </p-scrollPanel>
+                        </p-card>
+                    </div>
+                </ng-template>
+
+                <ng-template #notFound>
+                    <div class="image__not__found">
+                        <img [src]="urlImageNotFound" alt="Sin resultados">
+                    </div>
+                </ng-template>
+
+               
             </div>
         </div>
     </section>
