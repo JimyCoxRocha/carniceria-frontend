@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
-import { ProductoResponse } from 'src/app/core/interfaces';
+import { Product, ProductoResponse } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-table-products',
@@ -15,7 +16,9 @@ export class TableProductsComponent implements OnInit {
   sortOptions: SelectItem[];
   emptyMessage : string;
 
-  constructor() {
+  constructor(
+    private router : Router
+  ) {
     this.isLoading = true;
     this.emptyMessage = "Sin registros";
     this.sortOptions = [
@@ -45,5 +48,15 @@ export class TableProductsComponent implements OnInit {
     if(x.precio > y.precio) return -1;
     if(x.precio < y.precio) return 1;
     return 0;
+  }
+
+  viewDetailProduct(product : Product){
+    const id = product.idProducto;
+
+    this.router.navigate([`/detail-product/${id}`]);
+  }
+
+  addProductCart(){
+    console.log("Añadido");
   }
 }
