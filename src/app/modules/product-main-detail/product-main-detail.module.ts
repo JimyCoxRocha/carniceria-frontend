@@ -7,11 +7,15 @@ import { SharedModuleModule } from 'src/app/shared/shared-module.module';
 import {ImageModule} from 'primeng/image';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {DividerModule} from 'primeng/divider';
+import {CardModule} from 'primeng/card';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import { SkeletonProductMainDetailComponent } from './components/skeleton-product-main-detail.component';
 
 
 @NgModule({
   declarations: [
-    ProductMainDetailComponent
+    ProductMainDetailComponent,
+    SkeletonProductMainDetailComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,9 @@ import {DividerModule} from 'primeng/divider';
     SharedModuleModule,
     ImageModule,
     InputNumberModule,
-    DividerModule
+    DividerModule,
+    CardModule,
+    ScrollPanelModule
   ]
 })
 export class ProductMainDetailModule { }

@@ -1,3 +1,10 @@
+:host ::ng-deep .p-card .p-card-title {
+    font-size: 19px;
+    font-weight: 500;
+    color: #212121;
+    font-family: roboto;
+}
+
 section{
     padding: 5% 0px;
 }
@@ -9,20 +16,34 @@ section{
     flex-flow: column nowrap;
 }
 
+.tittle__description__product{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    height: 110px;
+    max-height: 100px;      /* fallback */
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
 .tittle__product{
-    font-size: 21px;
+    font-size: 24px;
     font-weight: 600;
     line-height: 29px;
     color: #000;
 }
 
+.description__product{
+    text-align: justify;
+}
+
 .brand__product{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 19px;
     color: #000;
-    margin: 0px;
-    padding-top: 8px;
+    margin: 3px 0px 0px 0px;
 }
 
 .price__product{
@@ -30,7 +51,7 @@ section{
     font-weight: 600;
     line-height: 41px;
     color: #1F48BC;
-    margin: 0px;
+    margin: 20px 0px 0px 0px;
 }
 
 .brand__price__product{
@@ -42,7 +63,7 @@ section{
     font-size: 11px;
     font-weight: 400;
     line-height: 15px;
-    padding-top: 10px;
+    padding-top: 5px;
     margin-bottom: 20px;
 }
 
@@ -52,11 +73,12 @@ section{
 
 .add__button__cart, .buy__button{
     border: none;
-    
+    border-radius: 3px;
     width: 100%;
     height: 100%;
     padding: 12px 0px;
     color: white;
+    opacity: 1;
 }
 
 .add__button__cart{
@@ -65,6 +87,10 @@ section{
 
 .buy__button{
     background-color: #780000;
+}
+
+.add__button__cart:hover , .buy__button:hover{
+    opacity: 0.8;
 }
 
 .layout__button__add{
@@ -76,7 +102,28 @@ section{
 }
 
 .tittle__detail__product{
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 500;
     line-height: 50px;
+    font-family: roboto;
+}
+
+.content__detail__product{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+.img__product{
+    object-fit: cover;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+@media screen and (max-width: 978px) {
+    .content__detail__product{
+       gap: 2em;
+    }
 }

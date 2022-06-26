@@ -1,51 +1,77 @@
-<section>
-    <div class="grid">
-        <div class="col-12 md:col-7">
-            <div class="image__product__detail">
-                <p-image src="https://computron.com.ec/pub/media/catalog/product/cache/c76236561964e7fb03cdd328a54ff569/f/0/f0eu00lgld-11.jpg" alt="Image" width="350" [preview]="true"></p-image>
+<ng-template [ngIf]="isLoading" [ngIfElse]="contentDetailProduct">
+    <app-skeleton-product-main-detail [isLoading]="isLoading"></app-skeleton-product-main-detail>
+</ng-template>
+
+<ng-template #contentDetailProduct>
+    <section>
+        <div class="grid">
+            <div class="col-12 md:col-7">
+                <div class="image__product__detail">
+                    <p-image [src]="productResponse.product.imgUrl" alt="Image" width="490" [preview]="true"></p-image>
+                </div>
             </div>
-        </div>
-        <div class="col-12 md:col-5">
-            <div class="detail__image__product">
-                <p class="tittle__product">
-                    COMPUTADOR AIO LENOVO 3 24IMB05 CI3-10100T 3.0GHZ-8GB-128GB SSD+1TB-NEGRO-23.8"FHD-W10-GRATIS PARLANTE XT-A9RD Y AUDIFONO+MICROFONO KSH-280
-                </p>
-                <div class="brand__price__product">
+            <div class="col-12 md:col-5">
+                <div class="detail__image__product">
+                    <div class="tittle__description__product">
+                        <p class="tittle__product">
+                            {{productResponse.product.titulo | uppercase}}
+                        </p>
+                        <span class="description__product">
+                            {{productResponse.product.descripcion}}
+                        </span>
+                    </div>
+                    <div class="brand__price__product">
+                        <p class="price__product">${{productResponse.product.precio}}</p>
+                    </div>
+                    
                     <p class="brand__product">Lenovo</p>
-                    <p class="price__product">$739.98</p>
-                </div>
-                <div class="available__stock__product flex gap-1">
-                    <p>Disponibilidad: </p> 
-                    <span>En Stock</span>
-                </div>
-                <div class="grid">
-                    <div class="col-5 md:col-12 lg:col-4" style="padding: 0px;">
-                        <div>
-                            <p-inputNumber [size]="1" [(ngModel)]="amountProduct" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
-                                [min]="0" [max]="100" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
-                            </p-inputNumber>    
-                        </div>
+                    <div class="available__stock__product flex gap-1">
+                        <p>Disponibilidad: </p> 
+                        <span>{{productResponse.product.stock > 0 ? 'En Stock' : 'Sin Existencias'}}</span>
                     </div>
-                    <div class="col-7 md:col-12 lg:col-8" style="padding: 0px;">
-                        <div class="layout__button__add">
-                            <button class="add__button__cart">AGREGAR AL CARRITO</button>
+                    <div class="grid">
+                        <div class="col-5 md:col-12 lg:col-4" style="padding: 0px;">
+                            <div>
+                                <p-inputNumber [size]="1" [(ngModel)]="amountProduct" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                                    [min]="0" [max]="productResponse.product.stock" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                                </p-inputNumber>    
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12" style="padding: 0px; margin-top: 10px;">
-                        <div class="layout__button__add">
-                            <button class="buy__button">COMPRAR</button>
+                        <div class="col-7 md:col-12 lg:col-8" style="padding: 0px;">
+                            <div class="layout__button__add">
+                                <button class="add__button__cart" pRipple>AGREGAR AL CARRITO</button>
+                            </div>
+                        </div>
+                        <div class="col-12" style="padding: 0px; margin-top: 10px;">
+                            <div class="layout__button__add">
+                                <button class="buy__button" pRipple>COMPRAR</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="information__image__product">
-        <p-divider align="center">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-th-large mr-2"></i>
-                <b class="tittle__detail__product">Detalles Del Producto</b>
+        <div class="information__image__product">
+            <p-divider align="center">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-th-large mr-2"></i>
+                    <b class="tittle__detail__product">Detalles Del Producto</b>
+                </div>
+            </p-divider>
+    
+            <div class="content__detail__product">
+                <div *ngFor="let detail of productResponse.detail">
+                    <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
+                        <ng-template pTemplate="header">
+                            <img class="img__product" [alt]="detail.tituloDetalle" [src]="productResponse.product.imgUrl" height="150px">
+                        </ng-template>
+    
+                        <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+                            <p>{{detail.descripcion}}</p>
+                        </p-scrollPanel>
+                    </p-card>
+                </div>
             </div>
-        </p-divider>
-    </div>
-</section>
+        </div>
+    </section>
+</ng-template>

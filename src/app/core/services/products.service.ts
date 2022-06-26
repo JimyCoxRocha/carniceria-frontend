@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AppConstants } from '../constants';
-import { Product, ProductoResponse, ErrorApiResponse } from '../interfaces';
+import { Product, ProductoResponse, ErrorApiResponse, ApiResponse } from '../interfaces';
 import { StorageService, HttpProcessService, CoreService } from '.';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable, of, map } from 'rxjs'; 
+import { IProductAdminDetail } from 'src/app/modules/admin-modules/producto/interfaces/product-admin.interface';
 
 export interface IProductsCar {
   id: number, 
@@ -25,6 +26,7 @@ export class ProductsService {
   _isLoading: boolean = false;
   _productsCar: IProductsCar[] = [];
   _productsInCar: IProductCarStore[] = [];
+  errorLoadingData : boolean = false;
   
   constructor(
     private storage: StorageService,
@@ -124,6 +126,28 @@ export class ProductsService {
       }),
       catchError((err: any) => {
         return [{openModal : true, error : err}]
+      })
+    );
+  }
+
+
+  getDetailProduct(idProduct: number): Observable<IProductAdminDetail>{
+    this._isLoading = true;
+
+    return this.httpClient.get<ApiResponse<IProductAdminDetail>>
+    (`${this.apiUrl}Producto/product-detail/${idProduct}`)
+    .pipe(
+      map((x: ApiResponse<IProductAdminDetail>) => {
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this._isLoading = false;
+        this.core.showErrorModal({
+          title: "Error al cargar la información",
+          contentHtml: err.error.message[0]
+        })
+        this.errorLoadingData = true;
+        throw err;
       })
     );
   }
