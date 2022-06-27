@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IProductAdminSimple } from '../interfaces/product-admin.interface';
 import { ProductoAdminService } from '../services/producto-admin.service';
 
 @Component({
@@ -8,15 +9,22 @@ import { ProductoAdminService } from '../services/producto-admin.service';
 })
 export class ProductoAdminComponent implements OnInit {
 
+  products : IProductAdminSimple[] = []
+  isLoading : boolean = true;
+
   constructor(
     private productoAdminService : ProductoAdminService
   ) { }
 
   ngOnInit(): void {
-    this.productoAdminService.getProductToTable();
+    this.getProductsToTable();
   }
 
   getProductsToTable(){
-    return this.productoAdminService.productsToTable;
+    return this.productoAdminService.getProductToTable().subscribe((response : IProductAdminSimple[])=>{
+      this.products = response;
+      console.log(this.products)
+      this.isLoading = false;
+    })
   }
 }

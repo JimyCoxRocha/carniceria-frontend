@@ -1,5 +1,11 @@
-<h1 class="m-0 text-center my-3">Productos</h1>
+<div class="card">
+    <p-toolbar class="mb-3">
+        <div class="p-toolbar-group-left">
+            <button class="button_add_category" [routerLink]="'create-category'" [disabled]="isLoading" pRipple>
+                <i class="pi pi-plus"></i> Crear Producto
+            </button>
+        </div>
+    </p-toolbar>
 
-<app-admin-table
-    [products] = "getProductsToTable()"
-></app-admin-table>
+    <app-admin-table [products]="products" [isLoading]="isLoading"></app-admin-table>
+</div>
