@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { ProductoRoutingModule } from './producto-routing.module';
 import { TableComponent } from './components/table/table.component';
-import { MaterialUIModule } from 'src/app/core/material-ui.module';
 import { ProductoAdminComponent } from './page/producto-admin.component';
 import { ProductDetailComponent } from './subviews/product-detail/product-detail.component';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CoreModule } from 'src/app/core/core.module';
+import { SharedModuleModule } from 'src/app/shared/shared-module.module';
+import { TableModule} from 'primeng/table';
+import { ToolbarModule} from 'primeng/toolbar';;
+import { DividerModule} from 'primeng/divider';
+import { CardModule} from 'primeng/card';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {TooltipModule} from 'primeng/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -18,9 +24,14 @@ import { CoreModule } from 'src/app/core/core.module';
   imports: [
     CommonModule,
     ProductoRoutingModule,
-    MaterialUIModule,
-    NgxSkeletonLoaderModule,
-    CoreModule
+    CoreModule,
+    SharedModuleModule,
+    TableModule,
+    ToolbarModule,
+    DividerModule,
+    ConfirmDialogModule,
+    CardModule,
+    TooltipModule
   ]
 })
 export class ProductoModule { }

@@ -1,111 +1,55 @@
-<div class="d-flex justify-content-center align-items-center">
-  <mat-form-field appearance="fill" color="primary" class="width-table">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo. pollo" #input>
-  </mat-form-field>
-</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>
 
-<div class="width-table mb-2 py-1 d-flex justify-content-end animate__animated animate__bounceIn"
-  *ngIf="this.selection.selected.length > 1">
-  <button (click)="delete()" mat-raised-button color="primary">
-    <p class="m-0">Eliminar Selección</p>
-  </button>
-</div>
+<p-table #dt [value]="products" [loading]="isLoading" [rows]="5" [paginator]="true" [globalFilterFields]="['idProducto','titulo']" responsiveLayout="stack"
+        [rowHover]="true" dataKey="idProducto" [rowsPerPageOptions]="[5,10,20]"
+        selectionMode="single" (onRowSelect)="onRowSelect($event)"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h3 class="m-0"><b>Administrar Productos</b></h3>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="idProducto" style="width: 120px;"><i class="pi pi-qrcode"></i> ID<p-sortIcon field="idProducto"></p-sortIcon></th>
+                <th ><i class="pi pi-image"></i> Imagen</th>
+                <th pSortableColumn="titulo" style="width: 250px;"><i class="pi pi-ticket"></i> Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
+                <th pSortableColumn="stock" style="width: 150px;"><i class="pi pi-box"></i> Stock <p-sortIcon field="stock"></p-sortIcon></th>
+                <th pSortableColumn="precio" style="width: 150px;"><i class="pi pi-dollar"></i> Precio <p-sortIcon field="precio"></p-sortIcon></th>
+                <th pSortableColumn="status"><i class="pi pi-history"></i> Estado <p-sortIcon field="status"></p-sortIcon></th>
+                <th><i class="pi pi-th-large"></i> Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr [pSelectableRow]="product">
+                <td style="width: 120px;"><span class="p-column-title"><b>ID: </b></span> {{product.idProducto}}</td>
+                <td><span class="p-column-title"><b>Imagen: </b></span> <img [src]="product.imgUrl" [alt]="product.titulo" width="100" class="shadow-4" /></td>
+                <td style="width: 250px;"><span class="p-column-title"><b>Título: </b></span> {{product.titulo}}</td>
+                <td style="width: 150px;"><span class="p-column-title"><b>Stock: </b></span> {{product.stock}}</td>
+                <td style="width: 150px;"><span class="p-column-title"><b>Precio: </b></span> {{product.precio}}</td>
+                <td>
+                  <span class="p-column-title"><b>Estado: </b></span>
+                  <p [class]="product.status == 0 ? 'product__inactive' : 'product__active'">{{product.status == 0 ? 'Inactivo' : 'Activo'}}</p>
+                </td>
+                <td>
+                  <ng-template [ngIf]="product.status==0" [ngIfElse]="buttonDeleteProduct">
+                    <button pButton pRipple type="button" class="p-button-info" pTooltip="Activar" tooltipPosition="left" icon="pi pi-cloud-upload" (click)="showModalActiveProduct(product)"></button>
+                  </ng-template>
 
-<div class="p-3 w-100 d-flex justify-content-center" *ngIf="productsToTable.length == 0;">
-  <mat-spinner diameter="40" color="primary" ></mat-spinner>
-</div>
-
-<div class="mat-elevation-z8 container-table">
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
-
-    <!--Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef class="selectColumn">
-        <mat-checkbox color="primary" *ngIf="selection.hasValue()" (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"
-          [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row" class="selectColumn">
-        <mat-checkbox color="primary" (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
-          [aria-label]="checkboxLabel(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="imgUrl">
-      <th mat-header-cell *matHeaderCellDef="imgUrl" class="d-none d-md-table-cell"> Imagen </th>
-      <td mat-cell *matCellDef="let row text-center" class="imgProduct d-none d-md-table-cell"> 
-        <img [src]="row.imgUrl" alt="imagen" class="img-fluid rounded img-fluid d-none d-md-table-cell"> 
-      </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="titulo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="titulo" class="text-center"> titulo </th>
-      <td mat-cell *matCellDef="let row text-center"> {{row.titulo}} </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </th>
-      <td mat-cell *matCellDef="let row"> {{row.status == 1 ? "Activo" : "Oculto"}} </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="stock">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="stock"> Stock </th>
-      <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="categorias">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="categorias" class="d-none d-md-table-cell"> Categorias </th>
-      <td mat-cell *matCellDef="let row" class="d-none d-md-table-cell"> {{row.nameCategories.join(', ')}} </td>
-    </ng-container>
-
-    <!--Column -->
-    <ng-container matColumnDef="promociones">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="promociones" class="d-none d-md-table-cell"> Promociones </th>
-      <td mat-cell *matCellDef="let row" class="d-none d-md-table-cell"> {{row.namePromotion || '-'}} </td>
-    </ng-container>
-
-    <!--Column -->
-    <!-- <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef
-        [class]="this.selection.selected.length <= 1 ? 'text-center animate__animated animate__bounceIn' : 'd-none'">
-        Acciones </th>
-      <td mat-cell *matCellDef="let row">
-        <div class="animate__animated animate__bounceIn d-flex justify-content-center" *ngIf="this.selection.selected.length <= 1">
-          <button (click)="delete()" mat-icon-button color="primary">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button (click)="edit()" mat-icon-button color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button (click)="viewMore()" mat-icon-button color="primary" class="d-none d-md-inline-block">
-            <mat-icon>visibility</mat-icon>
-          </button>
-        </div>
-      </td>
-    </ng-container> -->
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/admin/productos/', row.idProducto]"></tr>
-
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4" *ngIf="productsToTable.length > 0;">No encontramos coincidencia para: " {{input.value}} "</td>
-      
-      
-      
-    </tr>
-
-  </table>
-  <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[25, 50, 100]" aria-label="Pagina de productos">
-  </mat-paginator>
-</div>
+                  <ng-template #buttonDeleteProduct>
+                    <button pButton pRipple type="button" class="p-button-danger" pTooltip="Inactivar" tooltipPosition="left" icon="pi pi-trash" (click)="showModalDeleteProduct(product)"></button>
+                  </ng-template>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total existen {{products ? products.length : 0 }} categorías.
+            </div>
+        </ng-template>
+    </p-table>

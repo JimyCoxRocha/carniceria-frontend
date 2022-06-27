@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/core/interfaces';
-import {ConfirmationService, ConfirmEventType, MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import { CategoriesService } from 'src/app/core/services';
 
 

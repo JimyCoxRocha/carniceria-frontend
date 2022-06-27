@@ -1,0 +1,22 @@
+.card{
+    padding: 30px 20px;
+  }
+  
+  .button_add_category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #780000;
+    color: whitesmoke;
+    opacity: 1;
+    transition: all 0.2s;
+  }
+  
+  .button_add_category:hover{
+    opacity: 0.8;
+  }
