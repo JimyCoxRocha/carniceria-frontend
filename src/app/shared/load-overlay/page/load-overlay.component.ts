@@ -15,6 +15,7 @@ export class LoadOverlayComponent implements OnInit {
   @Input() iconOverlay : string = "";
   @Input() urlOverlay : string = "";
   @Input() tittleOverlay = "";
+  @Input() modalProductDetail : boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -26,6 +27,11 @@ export class LoadOverlayComponent implements OnInit {
   }
 
   redirectCategory(){
-    this._router.navigate([`${this.urlOverlay}`]);
+    if(!this.modalProductDetail){
+      this._router.navigate([`${this.urlOverlay}`]);
+      return ;
+    }
+
+    this.displayOverlay = false;
   }
 }

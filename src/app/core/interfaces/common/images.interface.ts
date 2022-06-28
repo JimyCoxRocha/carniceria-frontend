@@ -5,4 +5,5 @@ export interface IUploadImageRequest {
 
 export interface IUploadImageResponse {
     image: string;
+    message : string;
 }

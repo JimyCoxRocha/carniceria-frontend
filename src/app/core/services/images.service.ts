@@ -16,18 +16,14 @@ export class ImagesService {
     private core: CoreService
   ) {}
 
-  createCategory( data : IUploadImageRequest) : Observable<IUploadImageResponse>{
-    return this.http.post<ApiResponse<IUploadImageResponse>>(`${this.apiUrl}Blob/upload-image`,data)
+  uploadImage( data : IUploadImageRequest) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Blob/upload-image`,data)
     .pipe(
-      map((response : ApiResponse<IUploadImageResponse>)=>{
-        return response.data;
+      map((response : any)=>{
+        return response;
       }),
-      catchError((err: ErrorApiResponse) => {
-        this.core.showErrorModal({
-          title: "Error inesperado",
-          contentHtml: err.error.message[0]
-        })
-        return of({} as IUploadImageResponse)
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
       })
     );
   }

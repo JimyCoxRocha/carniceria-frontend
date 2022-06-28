@@ -26,7 +26,7 @@ export class TableComponent implements OnInit {
 
   onRowSelect(event : any) {
     let idProduct = event.data.idProducto;
-    this._router.navigate([`admin/productos/${idProduct}`]);
+    this._router.navigate([`admin/productos/detail-product/${idProduct}`]);
   }
 
   

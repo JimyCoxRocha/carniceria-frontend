@@ -106,7 +106,7 @@ export class FormCategoryComponent implements OnInit {
     this.isLoadingOverlay = true;
     this.tittleOverlay = "Creando categoría";
 
-    this.imageService.createCategory(data).subscribe((response : any) => {
+    this.imageService.uploadImage(data).subscribe((response : any) => {
       this.requestCreateCategory(response.imageUrl);
     })
   }
@@ -122,7 +122,7 @@ export class FormCategoryComponent implements OnInit {
       this.isLoadingOverlay = true;
       this.tittleOverlay = "Editando categoría";
       
-      this.imageService.createCategory(dataImage).subscribe((response : any) => {
+      this.imageService.uploadImage(dataImage).subscribe((response : any) => {
         this.category.urlImage = response.imageUrl;
         this.requestUpdateCategory();
       })    

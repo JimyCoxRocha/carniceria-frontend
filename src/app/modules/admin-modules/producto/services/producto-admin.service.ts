@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, ConnectableObservable, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces';
 import { CoreService } from 'src/app/core/services';
 import { environment } from 'src/environments/environment';
@@ -42,8 +42,6 @@ export class ProductoAdminService {
   }
 
   getDetailToTable(idProduct: number): Observable<IProductAdminDetail>{
-    this._isLoading = true;
-
     return this.http.get<ApiResponse<IProductAdminDetail>>
     (`${this.apiUrl}Producto/product-detail/${idProduct}`)
     .pipe(

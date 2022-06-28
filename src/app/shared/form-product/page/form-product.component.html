@@ -1,0 +1,139 @@
+<app-load-overlay 
+    [isLoadingOverlay]="isLoadingOverlay"
+    [displayOverlay]="displayOverlay"
+    [labelOverlay]="labelOverlay"
+    [iconOverlay]="iconOverlay"
+    [tittleOverlay]="tittleOverlay"
+    [urlOverlay]="urlOverlay"
+    [modalProductDetail]="true"
+></app-load-overlay>
+
+<!-- <app-form-overlay [isLoading]="isLoading"></app-form-overlay> -->
+
+<div>
+    <button class="buttonBack" pRipple (click)="buttonBack()"> 
+        <i class="pi pi-chevron-left"></i> 
+    </button>
+</div>
+
+<div class="create_product_body">
+    <p class="title_create_product"> <i class="pi pi-box"></i> Información General del Producto</p>
+    
+    <p class="mt-5 title_image">Imagen</p>
+    
+    <div class="imageSelect mb-3 mt-2" (click)="photoInput.click()">
+        <input class="file-input" accept="image/png, .jpeg, .jpg," (change)="getPhotoSelected($event)" type="file" name="file" hidden #photoInput>
+        <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
+            <div class="imgSelected">
+                <ng-template [ngIf]="isEdit" [ngIfElse]="photoSelectedImage">
+                    <img src="{{product.urlImage}}" alt="Image" height="250px">
+                </ng-template>
+                <ng-template #photoSelectedImage>
+                    <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #desingImage>
+            <div class="designeImagen">
+                <i class="pi pi-images"></i>
+                <p>Click Para Buscar Imagen</p>
+                <p>Tamaño máximo: 4MB</p>
+                <p>Tipo de imagen aceptado: (.png, .jpeg, .jpg)</p>
+            </div>
+        </ng-template>
+    </div>
+    <small id="username-help" class="p-error" *ngIf="submitted && !product.urlImage && !isExistPhoto">Imagen es requerida</small>
+
+    <ng-template [ngIf]="isExistPhoto">
+       <div class="information_image">
+           <div class="text_image">
+               <i class="pi pi-image"></i>
+               <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
+                   <p class="text_information_image">{{product.urlImage}}</p>
+               </ng-template>
+               <ng-template #informationPhotoSelected>
+                   <p class="text_information_image">{{fileTmp.fileName}}</p>
+               </ng-template>
+            </div>
+            <div >
+                <button class="button_clear" (click)="clearImage()" pRipple>
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+       </div>
+    </ng-template>
+
+    <p class="mt-5 title_image">Título</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <input type="text" pInputText [(ngModel)]="product.titulo" required> 
+            <small id="username-help" class="p-error" *ngIf="submitted && !product.titulo">Título es requerido</small>
+        </div>
+    </div>
+
+    <p class="mt-2 title_image">Descripción</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <span class="p-float-label">
+                <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="product.descripcion" pInputTextarea required></textarea>
+                <small id="username-help" class="p-error" *ngIf="submitted && !product.descripcion">Descripción es requerida</small>
+            </span>
+        </div>
+    </div>
+
+    <div class="grid p-fluid">
+        <div class="col-12 ">
+            <p class="mt-2 title_image">Precio</p>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Seleccionar la medida" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-4">
+            <p class="mt-5 title_image">Precio</p>
+            <div class="p-inputgroup">
+                <p-inputNumber [required]="true" id="price" [(ngModel)]="product.product_price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                <small id="username-help" class="p-error" *ngIf="submitted && !product.product_price">Precio es requerido</small>      
+            </div>
+        </div>
+
+        <div class="col-12 md:col-4">
+            <p class="mt-5 title_image">Stock</p>
+            <div class="p-inputgroup">
+                <p-inputNumber [(ngModel)]="product.stock" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100"></p-inputNumber>
+                <small id="username-help" class="p-error" *ngIf="submitted && !product.stock">Stock es requerido</small>      
+            </div>
+        </div>
+                
+        <div class="col-12 md:col-4">
+            <p class="mt-5 title_image">Unidad Mínima</p>
+            <div class="p-inputgroup">
+                <input type="text" pInputText [(ngModel)]="product.minimaUnidad" required> 
+                <small id="username-help" class="p-error" *ngIf="submitted && !product.minimaUnidad">Unidad mínima es requerido</small>      
+            </div>
+        </div>
+    </div>
+   
+    <div class="details__product__content mt-5">
+        <p class="title_create_product"> <i class="pi pi-comments"></i> Detalles del Producto</p>
+
+        <button class="add_detail_button" pRipple (click)="openModal()">
+            <i class="pi pi-plus"></i>
+            {{'Añadir detalle' | uppercase}}
+        </button>
+
+        <div>
+            <app-cards-detail-product [detailsProduct]="detailsProduct"></app-cards-detail-product>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex justify-content-center aling-items-center mb-5 mt-5">
+    <button class="create_button" pRipple (click)="selectFunctionProduct()">
+        <i class="pi pi-check"></i>
+        {{labelButton + " producto" | uppercase}}
+    </button>
+</div>
+
+<app-modal-detail-product [displayModal]="displayModal"></app-modal-detail-product>
