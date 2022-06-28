@@ -1,4 +1,17 @@
-<div style="width: 70%; margin: 0 auto;">
+<div class="pt-5">
+  <app-table 
+    [_products]="products" 
+    [isLoading]="_isLoading"
+    (deleteAll)="deleteAll()"
+    (removeProduct)="removeSelectedProduct($event)"
+    ></app-table>
+</div>
+
+
+
+
+
+<!-- <div style="width: 70%; margin: 0 auto;">
   <div class="card"> 
     <table class="table table-hover shopping-cart-wrap">
       <thead class="text-muted headMQ">
@@ -19,4 +32,4 @@
     </table>
   </div>
 
-</div>
+</div> -->

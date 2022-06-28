@@ -21,6 +21,7 @@ import { ChipModule } from 'primeng/chip';
 import {GalleriaModule} from 'primeng/galleria';
 import {CarouselModule} from 'primeng/carousel';
 import {BadgeModule} from 'primeng/badge';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [],
@@ -46,7 +47,8 @@ import {BadgeModule} from 'primeng/badge';
     ChipModule,
     GalleriaModule,
     CarouselModule,
-    BadgeModule
+    BadgeModule,
+    TableModule
   ],
   exports: [
     SidebarModule,
@@ -69,7 +71,8 @@ import {BadgeModule} from 'primeng/badge';
     ChipModule,
     GalleriaModule,
     CarouselModule,
-    BadgeModule
+    BadgeModule,
+    TableModule
   ]
 })
 export class PrimeNgModule { }

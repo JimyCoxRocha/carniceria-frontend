@@ -7,19 +7,23 @@ import { CarRoutingModule } from './car-routing.module';
 import { CarStoreComponent } from './page/car-store.component';
 import { CoreModule } from '../../core/core.module';
 import { ProductComponent } from './components/product/product.component';
+import { TableComponent } from './components/table/table.component';
+import { PrimeNgModule } from 'src/app/core/prime-ng.module';
 
 
 @NgModule({
   declarations: [
     CarStoreComponent,
-    ProductComponent
+    ProductComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
     CarRoutingModule,
     CoreModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    PrimeNgModule
   ],
   exports: [
     CarStoreComponent
