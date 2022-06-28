@@ -19,11 +19,12 @@
         ></button>
         <p class="m-0 text-center">Admin</p>
       </div>
-      <div *ngIf="!isAdminUser">
+      <div *ngIf="!isAdminUser" class="car-badge">
         <button pButton pRipple type="button" icon="pi pi-shopping-cart" 
           class="p-button-rounded p-button-success"
           >
         </button>
+        <p-badge *ngIf="productsInCar !== '0'" [value]="productsInCar" class="absolute right-0"></p-badge>
         <p class="m-0 text-center">Carrito</p>
       </div>
     </div>

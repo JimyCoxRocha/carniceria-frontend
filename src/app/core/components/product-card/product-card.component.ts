@@ -37,9 +37,9 @@ export class ProductCardComponent implements OnInit {
   }
 
   counterResult(counter: number){
-    this.totalPriceCard = counter * this.price;
-    this.counter = counter;
-    this.isCarItem && this.amountProduct(counter);
+    //this.totalPriceCard = counter * this.price;
+    //this.counter = counter;
+    //this.isCarItem && this.amountProduct(counter);
   }
 
   amountProduct(amount: number){
@@ -47,7 +47,6 @@ export class ProductCardComponent implements OnInit {
       amount,
       id: this.id
     });
-
   }
   removeSelectedProduct(){
     this.productsService.removeProductStorage(this.id);
@@ -55,6 +54,7 @@ export class ProductCardComponent implements OnInit {
 
   handleAddToCar(){
     this.isCarItem = !this.isCarItem;
+    //this.amountProduct(this.counter);
     this.isCarItem ? this.amountProduct(this.counter) : this.removeSelectedProduct();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SelectItem, MenuItem } from 'primeng/api';
-import { Category, ProductoResponse, SubCategory } from 'src/app/core/interfaces';
+import { Category, Product, ProductoResponse, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService, ProductsService } from 'src/app/core/services';
 import {finalize} from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import {finalize} from 'rxjs/operators';
 })
 export class CategoryComponent implements OnInit {
 
-  _products: ProductoResponse[] = [];
+  _products: Product[] = [];
   menuItems: MenuItem[] = [];
   _categories : Category[] = [];
   

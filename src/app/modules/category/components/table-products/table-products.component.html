@@ -44,7 +44,9 @@
                 </div>
                 <div class="product-grid-item-bottom">
                     <span class="product-price">${{product.precio}}</span>
-                    <p-button class="button__add__cart" icon="pi pi-shopping-cart" (onClick)="addProductCart()"></p-button>
+                    <p-button *ngIf="product.idProducto" [icon]="productExistInCar(product.idProducto) ? 'pi pi-trash' : 'pi pi-shopping-cart'" (click)="handleAddToCar(product.idProducto)"
+                        [styleClass]="productExistInCar(product.idProducto) ? 'p-button-success' : ''"
+                    ></p-button>
                 </div>
             </div>
         </div>

@@ -55,36 +55,46 @@ export class ProductsService {
     return JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
   }
 
-  setProductStorage( { id, amount }: IProductsCar ){
-    const products = this.getProductStorage();
-
-    const index = products.findIndex(x => x.id == id);
-    (index >= 0) 
-    ? (products[index].amount = amount)
-    : products.push({id, amount});
-
-    this._productsCar = products;
-    this.storage.setStorage(
-      {element: products,keyStorage: AppConstants.LocalStorage.product_list}
-    );
+  setProductStorage( { id, amount = 1 }: IProductsCar ){
+    try{
+      const products = this.getProductStorage();
+  
+      const index = products.findIndex(x => x.id == id);
+      
+      (index >= 0) 
+      ? (products[index].amount = amount)
+      : products.push({id, amount});
+  
+      this._productsCar = products;
+  
+      this.storage.setStorage(
+        {element: JSON.stringify(products), keyStorage: AppConstants.LocalStorage.product_list}
+      );
+    }catch(Exception){
+      this.removeAllProductStorage();
+    }
   }
 
   removeProductStorage( idProducto: number ){
-    const products = this.getProductStorage();
-    this._productsCar = products.filter(product => product.id != idProducto);
-    this.storage.setStorage(
-      {
-        element: this._productsCar,
-        keyStorage: AppConstants.LocalStorage.product_list
-      }
-    );
+    try{
+      const products = this.getProductStorage();
+      this._productsCar = products.filter(product => product.id != idProducto);
+      this.storage.setStorage(
+        {
+          element: JSON.stringify(this._productsCar),
+          keyStorage: AppConstants.LocalStorage.product_list
+        }
+      );
+    }catch(Exception){
+      this.removeAllProductStorage();
+    }
   }
 
   removeAllProductStorage( ){
     this._productsCar = [];
     this.storage.setStorage(
       {
-        element: [],
+        element: '[]',
         keyStorage: AppConstants.LocalStorage.product_list
       }
     );
