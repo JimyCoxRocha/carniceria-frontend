@@ -108,7 +108,7 @@ export class FormSubcategoryComponent implements OnInit {
     this.tittleOverlay = "Creando subcategoría";
 
     this.imageService.uploadImage(data).subscribe((response : any) => {
-      this.requestCreateSubCategory(response.imageUrl);
+      this.requestCreateSubCategory(response.data.imageUrl);
     })
   }
 
@@ -124,7 +124,7 @@ export class FormSubcategoryComponent implements OnInit {
       this.tittleOverlay = "Editando subcategoría";
       
       this.imageService.uploadImage(dataImage).subscribe((response : any) => {
-        this.subCategory.urlImage = response.imageUrl;
+        this.subCategory.urlImage = response.data.imageUrl;
         this.requestUpdateSubCategory();
       })    
       return ;

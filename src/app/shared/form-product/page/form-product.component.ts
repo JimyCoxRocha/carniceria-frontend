@@ -1,57 +1,81 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { DetailProduct } from 'src/app/core/interfaces';
+import { ApiResponse, DetailProduct, MeasureUnit } from 'src/app/core/interfaces';
+
 import { ImagesService } from 'src/app/core/services/images.service';
+import { MeasuresProductService } from 'src/app/core/services/measures-product.service';
+import { ProductoAdminService } from 'src/app/modules/admin-modules/producto/services/producto-admin.service';
+
+export interface IProductForm{
+  idProducto: number,
+  imgUrl: string,
+  descripcion: string,
+  precio: number,
+  titulo: string,
+  idUnidad: number,
+  stock: number,
+  minimaUnidad: string,
+  detail : DetailProduct[]
+}
 
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.component.html',
   styleUrls: ['./form-product.component.css']
 })
+
 export class FormProductComponent implements OnInit {
 
-  @Input() product : any = {};
+  @Input() product : IProductForm = {} as IProductForm;
   @Input() isExistPhoto : boolean = false;
   @Input() isEdit : boolean = false;
   @Input() labelButton : string = "";
   
+  measures : MeasureUnit[] = [];
+
   fileTmp : any;
   photoSelected : string | ArrayBuffer | null = "";
   submitted : boolean = false;
 
-  cities: any[] = [];
-  selectedCity1: any;
   displayModal : boolean = false;
 
   detailsProduct : DetailProduct[] = [];
+  detailProduct : DetailProduct = {} as DetailProduct;
+  isExistPhotoDetail : boolean = false;
 
   isLoadingOverlay : boolean = true;
+  isLoading : boolean = true;
   displayOverlay : boolean = false;
+  isEditDetail : boolean = false;
   labelOverlay : string = "";
   iconOverlay : string = "";
-  urlOverlay : string = "";
+  urlOverlay : string = "/admin/productos";
   tittleOverlay = "";
+  actionText : string = "";
 
   constructor(
     private primengConfig: PrimeNGConfig,
     private _router : Router,
-    private imageService : ImagesService
+    private imageService : ImagesService,
+    private measureService : MeasuresProductService,
+    private productService : ProductoAdminService
   ) { }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
+    this.getAllMeasures();
+  }
+
+  getAllMeasures(){
+    this.measureService.getAllMeasuresProduct().subscribe((response : ApiResponse<MeasureUnit[]>)=>{
+      this.measures = response.data;
+      this.isLoading = false;
+    })
   }
 
   selectFunctionProduct(){
-
+    this.addProduct();
   }
 
   getPhotoSelected($event : any){
@@ -72,15 +96,15 @@ export class FormProductComponent implements OnInit {
   }
 
   buttonBack(){
-    this._router.navigate(['admin/categoria/administrar']);
+    this._router.navigate(['/admin/productos']);
   }
 
   clearImage(){
-    // this.category.urlImage = "";
+    this.product.imgUrl = "";
     this.fileTmp = {};
     this.isExistPhoto = false;
     this.photoSelected = "";
-    // this.isEdit = false;
+    this.isEdit = false;
   }
 
   validateInputs(){
@@ -101,5 +125,53 @@ export class FormProductComponent implements OnInit {
 
   openModal(){
     this.displayModal = true;
+    this.actionText = 'Crear'
+    this.detailProduct = {} as DetailProduct;
+    this.isExistPhotoDetail = false;
+    this.isEditDetail = false;
+  }
+
+  setDetailProductEdit(detail : DetailProduct){
+    this.detailProduct = detail;
+    this.isExistPhotoDetail = true;
+    this.isEditDetail = true;
+  }
+
+  addProduct(){
+
+    const image = {
+      image : this.photoSelected as string,
+      contentType : this.fileTmp.fileRaw.type
+    }
+
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Creando Producto";
+
+    this.imageService.uploadImage(image).subscribe((response : any) => {
+      this.requestAddProduct(response.data.imageUrl);
+    })
+
+  }
+
+  requestAddProduct(image : string){
+    this.product.imgUrl = image;
+    this.product.detail = this.detailsProduct;
+
+    this.productService.createProduct(this.product).subscribe((response : any)=>{
+      this.isLoadingOverlay = false;
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    });
+  }
+
+  updateProduct(){
+
   }
 }

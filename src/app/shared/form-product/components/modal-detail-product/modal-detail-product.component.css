@@ -84,9 +84,10 @@
 }
 
 .text_information_image{
-    white-space: nowrap;
+    white-space: wrap;
     text-overflow: ellipsis;
     overflow: hidden;
+
 }
 
 .button_clear{

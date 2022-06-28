@@ -10,12 +10,11 @@ import { PrimeNGConfig } from 'primeng/api';
 export class LoadOverlayComponent implements OnInit {
 
   @Input() isLoadingOverlay : boolean = true;
-  @Input() displayOverlay : boolean = false;
+  @Input() displayOverlay : boolean = true;
   @Input() labelOverlay : string = "";
   @Input() iconOverlay : string = "";
   @Input() urlOverlay : string = "";
   @Input() tittleOverlay = "";
-  @Input() modalProductDetail : boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -27,11 +26,6 @@ export class LoadOverlayComponent implements OnInit {
   }
 
   redirectCategory(){
-    if(!this.modalProductDetail){
-      this._router.navigate([`${this.urlOverlay}`]);
-      return ;
-    }
-
-    this.displayOverlay = false;
+    this._router.navigate([`${this.urlOverlay}`]);
   }
 }

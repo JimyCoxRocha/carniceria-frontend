@@ -1,5 +1,5 @@
 <p-dialog header="Detalle del Producto" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
-    (onHide)="closeModal()" [autoZIndex]="false" [draggable]="false" [resizable]="false">
+    (onHide)="closeModal()" [baseZIndex]="1" [autoZIndex]="false" [draggable]="false" [resizable]="false">
         
     <p class="title_image">Imagen</p>
     
@@ -48,7 +48,7 @@
     <p class="mt-5 title_image">Título</p>
     <div class="p-fluid grid">
         <div class="field col-12">
-            <input type="text" pInputText [(ngModel)]="detailProduct.tituloDetalle" required> 
+            <input type="text" pInputText [(ngModel)]="detailProduct.tituloDetalle"> 
             <small id="username-help" class="p-error" *ngIf="submitted && !detailProduct.tituloDetalle">Título es requerido</small>
         </div>
     </div>
@@ -57,14 +57,14 @@
     <div class="p-fluid grid">
         <div class="field col-12">
             <span class="p-float-label">
-                <textarea inputId="textarea" style="resize: none;" [rows]="4"  [(ngModel)]="detailProduct.descripcion" pInputTextarea required></textarea>
+                <textarea inputId="textarea" style="resize: none;" [rows]="4"  [(ngModel)]="detailProduct.descripcion" pInputTextarea></textarea>
                 <small id="username-help" class="p-error" *ngIf="submitted && !detailProduct.descripcion">Descripción es requerida</small>
             </span>
         </div>
     </div>
-        
-        <ng-template pTemplate="footer">
-            <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar" styleClass="p-button-text p-button-danger"></p-button>
-            <p-button icon="pi pi-check" (click)="selectFunctionDetail()" label="Agregar" styleClass="p-button-text"></p-button>
-        </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar" styleClass="p-button-text p-button-danger"></p-button>
+        <p-button icon="pi pi-check" (click)="selectFunctionDetail()" [label]="actionText" styleClass="p-button-text"></p-button>
+    </ng-template>
 </p-dialog>

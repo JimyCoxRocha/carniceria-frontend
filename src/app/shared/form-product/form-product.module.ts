@@ -8,6 +8,11 @@ import { ModalDetailProductComponent } from './components/modal-detail-product/m
 import { CardsDetailProductComponent } from './components/cards-detail-product/cards-detail-product.component';
 import {DialogModule} from 'primeng/dialog';
 import { LoadOverlayModule } from '../load-overlay/load-overlay.module';
+import {CardModule} from 'primeng/card';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { FormOverlayModule } from '../form-overlay/form-overlay.module';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +26,11 @@ import { LoadOverlayModule } from '../load-overlay/load-overlay.module';
     InputNumberModule,
     DropdownModule,
     DialogModule,
-    LoadOverlayModule
+    LoadOverlayModule,
+    CardModule,
+    ScrollPanelModule,
+    ConfirmDialogModule,
+    FormOverlayModule
   ],
   exports : [
     FormProductComponent

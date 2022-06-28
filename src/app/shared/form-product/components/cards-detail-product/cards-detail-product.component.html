@@ -1,3 +1,30 @@
-<div *ngFor="let item of detailsProduct">
-    <p>{{item.tituloDetalle}}</p>
+<p-toast></p-toast>
+
+<div class="content__detail__product">
+    <ng-template [ngIf]="detailsProduct.length > 0" [ngIfElse]="notFound">
+        <div *ngFor="let detail of detailsProduct">
+            <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <img class="img__product" [alt]="detail.tituloDetalle" [src]="detail.urlImg" height="150px">
+                </ng-template>
+
+                <div class="text_description">
+                    <p>{{detail.descripcion}}</p>
+                </div>
+
+                <ng-template pTemplate="footer">
+                    <p-button icon="pi pi-pencil" [style]="{'margin-left': '.5em'}" (onClick)="editDetail(detail)"></p-button>
+                    <p-button icon="pi pi-trash" styleClass="p-button-danger" [style]="{'margin-left': '.5em'}" (onClick)="deleteDetailProduct(detail)"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </ng-template>
+    
+    <ng-template #notFound>
+        <div class="image__not__found">
+            <p>No se encotraron detalles!</p>
+        </div>
+    </ng-template>
 </div>
+
+<p-confirmDialog header="Confirmación" [style]="{width: '40vw'}" icon="pi pi-exclamation-triangle"></p-confirmDialog>

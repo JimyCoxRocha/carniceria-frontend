@@ -5,10 +5,9 @@
     [iconOverlay]="iconOverlay"
     [tittleOverlay]="tittleOverlay"
     [urlOverlay]="urlOverlay"
-    [modalProductDetail]="true"
 ></app-load-overlay>
 
-<!-- <app-form-overlay [isLoading]="isLoading"></app-form-overlay> -->
+<app-form-overlay [isLoading]="isLoading"></app-form-overlay>
 
 <div>
     <button class="buttonBack" pRipple (click)="buttonBack()"> 
@@ -26,7 +25,7 @@
         <ng-template [ngIf]="isExistPhoto" [ngIfElse]="desingImage" >
             <div class="imgSelected">
                 <ng-template [ngIf]="isEdit" [ngIfElse]="photoSelectedImage">
-                    <img src="{{product.urlImage}}" alt="Image" height="250px">
+                    <img src="{{product.imgUrl}}" alt="Image" height="250px">
                 </ng-template>
                 <ng-template #photoSelectedImage>
                     <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
@@ -42,14 +41,14 @@
             </div>
         </ng-template>
     </div>
-    <small id="username-help" class="p-error" *ngIf="submitted && !product.urlImage && !isExistPhoto">Imagen es requerida</small>
+    <small id="username-help" class="p-error" *ngIf="submitted && !product.imgUrl && !isExistPhoto">Imagen es requerida</small>
 
     <ng-template [ngIf]="isExistPhoto">
        <div class="information_image">
            <div class="text_image">
                <i class="pi pi-image"></i>
                <ng-template [ngIf]="isEdit" [ngIfElse]="informationPhotoSelected">
-                   <p class="text_information_image">{{product.urlImage}}</p>
+                   <p class="text_information_image">{{product.imgUrl}}</p>
                </ng-template>
                <ng-template #informationPhotoSelected>
                    <p class="text_information_image">{{fileTmp.fileName}}</p>
@@ -83,8 +82,15 @@
 
     <div class="grid p-fluid">
         <div class="col-12 ">
-            <p class="mt-2 title_image">Precio</p>
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Seleccionar la medida" optionLabel="name" [showClear]="true"></p-dropdown>
+            <p class="mt-2 title_image">Unidades de Medida</p>
+            <p-dropdown [options]="measures" [(ngModel)]="product.idUnidad" placeholder="Seleccionar la medida" optionLabel="unidad" optionValue="idUnidad" [showClear]="true">
+                <ng-template let-option pTemplate="item">
+                    <div class="flex flex-row justify-content-start align-items-center">
+                        <i class="pi pi-bookmark mr-2"></i>
+                        <span>{{option.unidad}}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
         </div>
     </div>
 
@@ -92,8 +98,8 @@
         <div class="col-12 md:col-4">
             <p class="mt-5 title_image">Precio</p>
             <div class="p-inputgroup">
-                <p-inputNumber [required]="true" id="price" [(ngModel)]="product.product_price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-                <small id="username-help" class="p-error" *ngIf="submitted && !product.product_price">Precio es requerido</small>      
+                <p-inputNumber [required]="true" id="price" [(ngModel)]="product.precio" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                <small id="username-help" class="p-error" *ngIf="submitted && !product.precio">Precio es requerido</small>      
             </div>
         </div>
 
@@ -136,4 +142,10 @@
     </button>
 </div>
 
-<app-modal-detail-product [displayModal]="displayModal"></app-modal-detail-product>
+<app-modal-detail-product 
+    [actionText]="actionText" 
+    [isEditDetail]="isEditDetail" 
+    [detailProduct]="detailProduct" 
+    [displayModal]="displayModal"
+    [isExistPhotoDetail]="isExistPhotoDetail"
+></app-modal-detail-product>

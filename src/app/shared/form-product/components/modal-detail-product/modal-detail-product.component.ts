@@ -13,8 +13,9 @@ export class ModalDetailProductComponent implements OnInit {
   @Input() displayModal : boolean = false;
   @Input() detailProduct : DetailProduct = {} as DetailProduct;
   @Input() isEditDetail : boolean = false;
+  @Input() actionText : string = "";
+  @Input() isExistPhotoDetail : boolean = false;
 
-  isExistPhotoDetail : boolean = false;
   fileTmp : any;
   photoSelected : string | ArrayBuffer | null = "";
   submitted : boolean = false;
@@ -49,7 +50,10 @@ export class ModalDetailProductComponent implements OnInit {
   }
 
   clearImage(){
-    this.detailProduct.urlImg = "";
+    if(this.actionText === "Editar"){
+      this.detailProduct.urlImg = "";  
+    }
+
     this.fileTmp = {};
     this.isExistPhotoDetail = false;
     this.photoSelected = "";
@@ -73,7 +77,12 @@ export class ModalDetailProductComponent implements OnInit {
   }
 
   selectFunctionDetail(){
-    this.addDetail();
+    if(this.actionText == 'Crear'){
+      this.addDetail();
+      return;
+    }
+
+    this.editDetail();
   }
 
   addDetail(){
@@ -84,33 +93,63 @@ export class ModalDetailProductComponent implements OnInit {
 
     this._formProductComponent.displayOverlay = true;
     this._formProductComponent.isLoadingOverlay = true;
-    this._formProductComponent.tittleOverlay = "Creando Detalle del Producto";
+    this._formProductComponent.tittleOverlay = "Añadiendo Detalle del Producto";
 
     this.imageService.uploadImage(data).subscribe((response : any) => {
-      console.log(response)
-      
-      this._formProductComponent.isLoadingOverlay = false;
-      if(response.toastError){
-        this._formProductComponent.labelOverlay = response.messageToast;
-        this._formProductComponent.iconOverlay = "pi pi-times-circle icon_color_red";
-        return ;
-      }
-      
-      this._formProductComponent.iconOverlay = "pi pi-check-circle icon_color_green";
-      this._formProductComponent.labelOverlay = response.message[0];
       this._formProductComponent.displayModal = false;
+      this._formProductComponent.displayOverlay = false;
       
-      this.requestAddDetail(response.imageUrl);
+      this.requestAddDetail(response.data.imageUrl);
     })
   }
 
   requestAddDetail(urlImageDetail : string){
     this.detailProduct.urlImg = urlImageDetail;
     this._formProductComponent.detailsProduct.push(this.detailProduct);
+    this.clearImage();
   }
 
   editDetail(){
+    this._formProductComponent.displayOverlay = true;
+    this._formProductComponent.isLoadingOverlay = true;
+    this._formProductComponent.tittleOverlay = "Editando Detalle del Producto";
 
+    if(!this.detailProduct.urlImg){
+      const dataImage = {
+        image : this.photoSelected as string,
+        contentType : this.fileTmp.fileRaw.type
+      };
+
+      this.imageService.uploadImage(dataImage).subscribe((response : any) => {
+        this.fileTmp = {};
+        this.photoSelected = "";
+        this.isEditDetail = true;
+        this.requestEditDetail(response.data.imageUrl);
+      })    
+      return ;
+    }
+
+    this.requestEditDetail(this.detailProduct.urlImg);
   }
 
+  requestEditDetail(urlImageDetail : string){
+    this.detailProduct.urlImg = urlImageDetail;
+
+    console.log(this.detailProduct)
+    const detailTittle = this.detailProduct.tituloDetalle;
+    let index = 0;
+
+    this._formProductComponent.detailsProduct.forEach((x : DetailProduct)=>{
+      if(x.tituloDetalle === detailTittle) {
+        index = this._formProductComponent.detailsProduct.indexOf(x);
+      }
+    })
+
+    this._formProductComponent.detailsProduct[index] = this.detailProduct;
+
+    setTimeout(() => {
+      this._formProductComponent.displayModal = false;
+      this._formProductComponent.displayOverlay = false;
+    }, 2000);
+  }
 }
