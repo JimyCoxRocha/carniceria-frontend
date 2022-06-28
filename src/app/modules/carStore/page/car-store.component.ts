@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
 import { ProductsService } from 'src/app/core/services';
 
+interface productTable extends Product {
+  amount: number
+}
 
 @Component({
   selector: 'app-car-store',
@@ -10,7 +13,7 @@ import { ProductsService } from 'src/app/core/services';
 })
 export class CarStoreComponent implements OnInit {
   _products: Product[] = [];
-  //isCarItem: number[] = [];
+  _productsTable : productTable[] = [];
   _isLoading: boolean = false;
   
   constructor(private productsService: ProductsService) {
@@ -29,14 +32,14 @@ export class CarStoreComponent implements OnInit {
         this._isLoading = false;
         response.forEach(element => {
           if(this.productsService.findProductStorage(element.product.idProducto))  
-            this._products.push(element.product);
+            this._productsTable.push({...element.product, amount: 1});
         });
 
       });
   }
 
-  get products(){
-    return this._products;
+  get productsTable(){
+    return this._productsTable;
   }
 
   deleteAll(){
@@ -46,9 +49,11 @@ export class CarStoreComponent implements OnInit {
 
   removeSelectedProduct(idProduct: number){
     this.productsService.removeProductStorage(idProduct);
-    this._products = this.products.filter(x => x.idProducto !== idProduct);
+    this._products = this.productsTable.filter(x => x.idProducto !== idProduct);
   }
 
-
+  sendData(){
+    console.log(this._productsTable);
+  }
 
 }

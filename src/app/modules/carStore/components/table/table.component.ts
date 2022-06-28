@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
 
+
+
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -12,12 +15,21 @@ export class TableComponent implements OnInit, OnChanges {
   @Output() deleteAll: EventEmitter<boolean> = new EventEmitter();
   @Output('removeProduct') _removeProduct: EventEmitter<number> = new EventEmitter();
 
+  
+
   constructor(
     
   ) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes['_products'])
-  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes['_products']);
+    /* if(changes['_products'] && changes['_products'].currentValue && changes['_products'].currentValue.length > 0){
+      const product: Product[] = changes['_products'].currentValue as Product[];
+       product.forEach(element => {
+         this._productsTable.push({...element, amount: 1});
+       });
+    } */
+ }
 
   ngOnInit(): void {
   }
@@ -33,6 +45,7 @@ export class TableComponent implements OnInit, OnChanges {
   removeProduct(idProduct: number){
     this._removeProduct.emit(idProduct);
   }
+  
   /* productCar(){
     return this.productsService.getProducts().subscribe((response)=>{
       //this.isOpenModal(response);

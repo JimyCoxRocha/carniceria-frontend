@@ -1,12 +1,13 @@
 <div class="pt-5">
   <app-table 
-    [_products]="products" 
+    [_products]="productsTable" 
     [isLoading]="_isLoading"
     (deleteAll)="deleteAll()"
     (removeProduct)="removeSelectedProduct($event)"
     ></app-table>
 </div>
 
+<button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger" (click)="sendData()"></button>
 
 
 
