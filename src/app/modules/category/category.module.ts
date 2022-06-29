@@ -13,6 +13,7 @@ import { TableProductsComponent } from './components/table-products/table-produc
 import { OverlayCardCategoriesComponent } from './components/overlay-card-categories/overlay-card-categories.component';
 import {DialogModule} from 'primeng/dialog';
 import { ModalErrorPrimengModule } from 'src/app/shared/modal-error-primeng/modal-error-primeng.module';
+import { PrimeNgModule } from 'src/app/core/prime-ng.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ModalErrorPrimengModule } from 'src/app/shared/modal-error-primeng/moda
     CardModule,
     DialogModule,
     ModalErrorPrimengModule,
+    PrimeNgModule
   ]
 })
 export class CategoryModule { }

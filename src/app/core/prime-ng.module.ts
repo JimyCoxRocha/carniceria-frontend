@@ -20,6 +20,9 @@ import {DividerModule} from 'primeng/divider';
 import { ChipModule } from 'primeng/chip';
 import {GalleriaModule} from 'primeng/galleria';
 import {CarouselModule} from 'primeng/carousel';
+import {BadgeModule} from 'primeng/badge';
+import {TableModule} from 'primeng/table';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [],
@@ -44,7 +47,10 @@ import {CarouselModule} from 'primeng/carousel';
     DividerModule,
     ChipModule,
     GalleriaModule,
-    CarouselModule
+    CarouselModule,
+    BadgeModule,
+    TableModule,
+    InputNumberModule
   ],
   exports: [
     SidebarModule,
@@ -66,7 +72,10 @@ import {CarouselModule} from 'primeng/carousel';
     DividerModule,
     ChipModule,
     GalleriaModule,
-    CarouselModule
+    CarouselModule,
+    BadgeModule,
+    TableModule,
+    InputNumberModule
   ]
 })
 export class PrimeNgModule { }

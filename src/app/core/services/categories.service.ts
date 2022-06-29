@@ -68,12 +68,13 @@ export class CategoriesService {
   }
 
   categories(): Observable<Category[]>{
-  const categoryObservable: Observable<Category[]> = this._categories.length !== 0 
-    ? new Observable<Category[]>(subscriber => {
-        subscriber.next(this._categories);
-        subscriber.complete()
-      })
-    : this.getCategories();
+  const categoryObservable: Observable<Category[]> = 
+    this._categories.length !== 0 
+      ? new Observable<Category[]>(subscriber => {
+          subscriber.next(this._categories);
+          subscriber.complete()
+        })
+      : this.getCategories();
     return categoryObservable;
   }
 

@@ -24,7 +24,7 @@
                         <p class="price__product">${{productResponse.product.precio}}</p>
                     </div>
                     
-                    <p class="brand__product">Lenovo</p>
+                    <p class="brand__product">Stock: {{productResponse.product.stock}}</p>
                     <div class="available__stock__product flex gap-1">
                         <p>Disponibilidad: </p> 
                         <span>{{productResponse.product.stock > 0 ? 'En Stock' : 'Sin Existencias'}}</span>

@@ -52,39 +52,54 @@ export class ProductsService {
   }
 
   getProductStorage(){
-    return JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
+    try{
+      const products = JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
+      return products;
+    }catch(Exception){
+      return [];
+    }
   }
 
-  setProductStorage( { id, amount }: IProductsCar ){
-    const products = this.getProductStorage();
-
-    const index = products.findIndex(x => x.id == id);
-    (index >= 0) 
-    ? (products[index].amount = amount)
-    : products.push({id, amount});
-
-    this._productsCar = products;
-    this.storage.setStorage(
-      {element: products,keyStorage: AppConstants.LocalStorage.product_list}
-    );
+  setProductStorage( { id, amount = 1 }: IProductsCar ){
+    try{
+      const products = this.getProductStorage();
+  
+      const index = products.findIndex(x => x.id == id);
+      
+      (index >= 0) 
+      ? (products[index].amount = amount)
+      : products.push({id, amount});
+  
+      this._productsCar = products;
+  
+      this.storage.setStorage(
+        {element: JSON.stringify(products), keyStorage: AppConstants.LocalStorage.product_list}
+      );
+    }catch(Exception){
+      this.removeAllProductStorage();
+    }
   }
 
   removeProductStorage( idProducto: number ){
-    const products = this.getProductStorage();
-    this._productsCar = products.filter(product => product.id != idProducto);
-    this.storage.setStorage(
-      {
-        element: this._productsCar,
-        keyStorage: AppConstants.LocalStorage.product_list
-      }
-    );
+    try{
+      const products = this.getProductStorage();
+      this._productsCar = products.filter(product => product.id != idProducto);
+      this.storage.setStorage(
+        {
+          element: JSON.stringify(this._productsCar),
+          keyStorage: AppConstants.LocalStorage.product_list
+        }
+      );
+    }catch(Exception){
+      this.removeAllProductStorage();
+    }
   }
 
   removeAllProductStorage( ){
     this._productsCar = [];
     this.storage.setStorage(
       {
-        element: [],
+        element: '[]',
         keyStorage: AppConstants.LocalStorage.product_list
       }
     );
@@ -94,16 +109,40 @@ export class ProductsService {
     return this.getProductStorage().find(x => x.id == idProduct);
   }
 
+  getAllProducts(){
+    console.log("PRoductos");
+    return this.httpClient.get<ApiResponse<ProductoResponse[]>>(`${this.apiUrl}Producto`)
+    .pipe(
+      map((x: ApiResponse<ProductoResponse[]>) => {
+        this._products = x.data;
+        return x.data
+      }),
+      catchError((err: ErrorApiResponse) => {
+        this.core.showErrorModal({
+          title: "Error inesperado",
+          contentHtml: err.error.message[0]
+        })
+        return of([] as ProductoResponse[])
+      })
+    );
+  }
 
   getProducts(){
-    if(this._isLoading || this._products.length > 0) return;
-    this._isLoading = true;
-    
-    this.http.requestProducts<ProductoResponse[]>("Producto")
+    console.log("GET products: ", this._products.length);
+    const products: Observable<ProductoResponse[]> = 
+    this._products.length !== 0 
+      ? new Observable<ProductoResponse[]>(subscriber => {
+          subscriber.next(this._products);
+          subscriber.complete()
+        })
+      : this.getAllProducts();
+    return products;
+
+    /* this.http.requestProducts<ProductoResponse[]>("Producto")
     .subscribe(x => {
       this._products = x;
       this._isLoading = false;
-    })
+    }) */
   }
 
   getProductsByIdCategoryAndSubCategory(idCategory : number, idSubcategory : number) : Observable<any>{

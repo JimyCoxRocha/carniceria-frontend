@@ -1,0 +1,66 @@
+<p-table #dt [value]="products" [loading]="isLoading" layout="grid" [rowHover]="true" styleClass="p-datatable-customers"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" 
+    [filterDelay]="0" [globalFilterFields]="['product.titulo']"
+    
+    >
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            Productos
+            <p-button 
+                [label]="(products && products.length > 0) ? '' : 'Comprar'" 
+                [icon]="(products && products.length > 0) ? 'pi pi-trash' : ''"
+                (click)="(products && products.length > 0) && handleDeleteAll()"
+            ></p-button>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Imagen</th>
+            <th>Artículo</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th class="text-center">Cantidad</th>
+            <th>Eliminar</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-product>
+
+        <tr *ngIf="products" class="p-selectable-row">
+            <td><img [src]="product.imgUrl" [alt]="product.titulo" width="100" class="shadow-4" /></td>
+            <td>
+                <span class="p-column-title"><strong>Artículo</strong></span>
+                {{product.titulo}}
+            </td>
+            <td>
+                <span class="p-column-title"><strong>Precio</strong></span>
+                {{product.precio | currency:'USD'}}
+            </td>
+            <td>
+                <span class="p-column-title"><strong>Stock</strong></span>
+                {{product.stock}}
+            </td>
+            <td>
+                <span class="p-column-title"><strong>Cantidad</strong></span>
+                <div class="flex justify-content-end md:justify-content-center">
+                    <div>
+                        <p-inputNumber value="2" [size]="1" [(ngModel)]="product.amount" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                            [min]="0" [max]="product.stock" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                        </p-inputNumber>    
+                    </div>
+                </div>
+            </td>
+            <td>
+                <span class="p-column-title"><strong>Eliminar</strong></span>
+                <p-button icon="pi pi-times" (click)="removeProduct(product.idProducto)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            Total de artículos, {{products ? products.length : 0 }} productos.
+        </div>
+    </ng-template>
+</p-table>

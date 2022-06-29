@@ -12,6 +12,8 @@ import { CommunicationService } from '../services/communication.service';
 export class HomeComponent implements OnInit {
   url: string = "categoria/";
   categories : Category[] = [];
+  _products: ProductoResponse[] = [];
+
   responsiveOptions = [
     {
         breakpoint: '1024px',
@@ -40,11 +42,15 @@ export class HomeComponent implements OnInit {
     this.categoriesService.categories().subscribe(x => {this.categories = x;});
     this.productsService.getProducts();
     this.communicationService.getCommunications();
+    this.productsService.getProducts().subscribe((response)=>{
+      /* this._isLoading = false; */
+      this._products = response;
+    });
   }
 
 
   get allProducts(): ProductoResponse[] {
-    return this.productsService._products;
+    return this._products;
   }
   get communications() {
     const data: ICarouselCommunication[] = this.communicationService
