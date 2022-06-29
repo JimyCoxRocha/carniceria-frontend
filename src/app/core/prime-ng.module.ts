@@ -25,6 +25,8 @@ import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {AccordionModule} from 'primeng/accordion';
 import {DropdownModule} from 'primeng/dropdown';
+import {StepsModule} from 'primeng/steps';
+import {MenuItem} from 'primeng/api';
 
 @NgModule({
   declarations: [],
@@ -54,7 +56,8 @@ import {DropdownModule} from 'primeng/dropdown';
     TableModule,
     InputNumberModule,
     AccordionModule,
-    DropdownModule
+    DropdownModule,
+    StepsModule,
   ],
   exports: [
     SidebarModule,
@@ -81,7 +84,8 @@ import {DropdownModule} from 'primeng/dropdown';
     TableModule,
     InputNumberModule,
     AccordionModule,
-    DropdownModule
+    DropdownModule,
+    StepsModule
   ]
 })
 export class PrimeNgModule { }

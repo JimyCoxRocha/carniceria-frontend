@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../../guards/auth.guard';
+import { SaleGuard } from '../../guards/sale.guard';
 import { MainLayoutComponent } from './page/main-layout.component';
 
 const routes: Routes = [
@@ -29,6 +30,13 @@ const routes: Routes = [
         path: 'detail-product',
         loadChildren: () => import('../../../modules/product-main-detail/product-main-detail.module')
                             .then(m => m.ProductMainDetailModule)
+      },
+      {
+        path: 'venta',
+        loadChildren: () => import('../../../modules/sale/sale.module')
+                            .then(m => m.SaleModule),
+        canLoad: [ SaleGuard ],
+        canActivate: [ SaleGuard ]
       },
       {
         path: '',
