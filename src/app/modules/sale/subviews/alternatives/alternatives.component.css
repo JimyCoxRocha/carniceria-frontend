@@ -1,0 +1,19 @@
+.image-comprobante{
+    background-image: url('../../../../../assets/images/papel-comprobante.png');
+    background-size: cover;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    /* padding: 1rem 1.5rem 2rem 1.5rem; */
+}
+
+.item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.lines{
+    border-bottom: 1px solid rgb(70, 70, 70);
+    display: flex;
+    width: 100%;
+    margin-bottom: 2rem;
+}
