@@ -54,7 +54,6 @@ export class ProductDetailComponent implements OnInit {
       this.categorySelect = this.productCategory[0];
       this.product = this.productResponse.product;
       this.isLoading = false;
-      console.log(this.productResponse)
     })
   }
   

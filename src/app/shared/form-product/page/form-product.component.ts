@@ -31,6 +31,7 @@ export class FormProductComponent implements OnInit {
   @Input() isExistPhoto : boolean = false;
   @Input() isEdit : boolean = false;
   @Input() labelButton : string = "";
+  @Input() detailsProduct : DetailProduct[] = [];
   
   measures : MeasureUnit[] = [];
 
@@ -40,7 +41,6 @@ export class FormProductComponent implements OnInit {
 
   displayModal : boolean = false;
 
-  detailsProduct : DetailProduct[] = [];
   detailProduct : DetailProduct = {} as DetailProduct;
   isExistPhotoDetail : boolean = false;
 
@@ -53,6 +53,7 @@ export class FormProductComponent implements OnInit {
   urlOverlay : string = "/admin/productos";
   tittleOverlay = "";
   actionText : string = "";
+  idProduct : number = 0;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -75,7 +76,7 @@ export class FormProductComponent implements OnInit {
   }
 
   selectFunctionProduct(){
-    this.addProduct();
+    this.updateProduct();
   }
 
   getPhotoSelected($event : any){
@@ -172,6 +173,43 @@ export class FormProductComponent implements OnInit {
   }
 
   updateProduct(){
+    this.product.detail = this.detailsProduct;
 
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Editando categoría";
+
+    if(this.product.imgUrl == ""){
+      const image = {
+        image : this.photoSelected as string,
+        contentType : this.fileTmp.fileRaw.type
+      }
+
+      this.imageService.uploadImage(image).subscribe((response : any) => {
+        this.product.imgUrl = response.data.imageUrl;
+        this.requestUpdateProduct();
+      })    
+      return ;
+    }
+
+    this.requestUpdateProduct();
+  }
+
+  requestUpdateProduct(){
+    const data = this.product;
+
+    console.log(data)
+    this.productService.updateProduct(data).subscribe((response) => {
+      this.isLoadingOverlay = false;
+
+      if(response.toastError){
+        this.labelOverlay = response.messageToast;
+        this.iconOverlay = "pi pi-times-circle icon_color_red";
+        return ;
+      }
+
+      this.iconOverlay = "pi pi-check-circle icon_color_green";
+      this.labelOverlay = response.message[0];
+    })
   }
 }

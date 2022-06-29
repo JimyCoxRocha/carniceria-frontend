@@ -22,6 +22,7 @@
                 <th pSortableColumn="stock" style="width: 150px;"><i class="pi pi-box"></i> Stock <p-sortIcon field="stock"></p-sortIcon></th>
                 <th pSortableColumn="precio" style="width: 150px;"><i class="pi pi-dollar"></i> Precio <p-sortIcon field="precio"></p-sortIcon></th>
                 <th pSortableColumn="status"><i class="pi pi-history"></i> Estado <p-sortIcon field="status"></p-sortIcon></th>
+                <th><i class="pi pi-database"></i> Actualizar Stock</th>
                 <th><i class="pi pi-th-large"></i> Acción</th>
             </tr>
         </ng-template>
@@ -37,6 +38,11 @@
                   <p [class]="product.status == 0 ? 'product__inactive' : 'product__active'">{{product.status == 0 ? 'Inactivo' : 'Activo'}}</p>
                 </td>
                 <td>
+                    <span class="p-column-title"><b>Actualizar Stock: </b></span>
+                    <button pButton pRipple type="button" class="p-button-success" pTooltip="Activar" tooltipPosition="left" icon="pi pi-paperclip" (click)="showModalUpdateStock(product)"></button> 
+                </td>
+                <td>
+                    <span class="p-column-title"><b>Acciones: </b></span>
                   <ng-template [ngIf]="product.status==0" [ngIfElse]="buttonDeleteProduct">
                     <button pButton pRipple type="button" class="p-button-info" pTooltip="Activar" tooltipPosition="left" icon="pi pi-cloud-upload" (click)="showModalActiveProduct(product)"></button>
                   </ng-template>
@@ -53,3 +59,18 @@
             </div>
         </ng-template>
     </p-table>
+
+
+<p-dialog header="Actualizar Stock" [(visible)]="displayModalUpdateStock" [modal]="true" [style]="{width: '30vw'}" [maximizable]="true"
+[draggable]="false" [resizable]="false">
+
+    <div class="p-inputgroup">
+        <p-inputNumber [(ngModel)]="currentStock" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100"></p-inputNumber>
+        <small id="username-help" class="p-error" *ngIf="submitted && !currentStock">Stock es requerido</small>      
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModalUpdateStock=false" label="Cancelar" styleClass="p-button-text p-button-danger"></p-button>
+        <p-button icon="pi pi-check" (click)="updateStock()" label="Actualizar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

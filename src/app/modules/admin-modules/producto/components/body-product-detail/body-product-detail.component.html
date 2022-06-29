@@ -14,7 +14,7 @@
                         <div *ngFor="let detail of productDetail">
                             <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
                                 <ng-template pTemplate="header">
-                                    <img class="img__product" [alt]="asd" [src]="asd" height="150px">
+                                    <img class="img__product" [alt]="detail.tituloDetalle" [src]="detail.urlImg" height="150px">
                                 </ng-template>
             
                                 <p-scrollPanel [style]="{width: '100%', height: '100px'}">
@@ -23,41 +23,43 @@
                             </p-card>
                         </div>
                     </ng-template>
-                    
-                    <ng-template #notFound>
-                        <div class="image__not__found">
-                            <img [src]="urlImageNotFound" alt="Sin resultados">
-                        </div>
-                    </ng-template>
                 </div>
             </p-tabPanel>
     
             <p-tabPanel header="Categorías">
-                <div class="head__categories">
-                    <div *ngFor="let category of productCategory">
-                        <div class="field-radiobutton">
-                            <p-radioButton [name]="category.titulo" [id]="category.idCategoria" (onClick)="changeValue($event)" [value]="category" [(ngModel)]="categorySelected" [inputId]="(category.idCategoria).toString()"></p-radioButton>
-                            <label [for]="category.titulo">{{category.titulo}}</label>
+                <ng-template [ngIf]="productCategory.length > 0" [ngIfElse]="notFound">
+                    <div class="head__categories">
+                        <div *ngFor="let category of productCategory">
+                            <div class="field-radiobutton">
+                                <p-radioButton [name]="category.titulo" [id]="category.idCategoria" (onClick)="changeValue($event)" [value]="category" [(ngModel)]="categorySelected" [inputId]="(category.idCategoria).toString()"></p-radioButton>
+                                <label [for]="category.titulo">{{category.titulo}}</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-    
-                <div class="body__subcategories" >
-                    <div *ngFor="let subCategory of categorySelected.subCategoria">
-                        <p-card [header]="subCategory.titulo" [style]="{width: '310px'}" styleClass="p-card-shadow">
-                            <ng-template pTemplate="header">
-                                <img class="img__product" [alt]="subCategory.titulo" [src]="subCategory.urlImage" height="150px">
-                            </ng-template>
         
-                            <p-scrollPanel [style]="{width: '100%', height: '100px'}">
-                                <p>{{subCategory.descripcion}}</p>
-                            </p-scrollPanel>
-                        </p-card>
+                    <div class="body__subcategories" >
+                        <div *ngFor="let subCategory of categorySelected.subCategoria">
+                            <p-card [header]="subCategory.titulo" [style]="{width: '310px'}" styleClass="p-card-shadow">
+                                <ng-template pTemplate="header">
+                                    <img class="img__product" [alt]="subCategory.titulo" [src]="subCategory.urlImage" height="150px">
+                                </ng-template>
+            
+                                <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+                                    <p>{{subCategory.descripcion}}</p>
+                                </p-scrollPanel>
+                            </p-card>
+                        </div>
+        
                     </div>
-    
-                </div>
+                </ng-template>
             </p-tabPanel>
         </p-tabView>
     </ng-template>
     
 </div>
+
+<ng-template #notFound>
+    <div class="image__not__found">
+        <img [src]="urlImageNotFound" alt="Sin resultados">
+    </div>
+</ng-template>

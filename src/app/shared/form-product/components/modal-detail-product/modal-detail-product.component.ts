@@ -15,6 +15,7 @@ export class ModalDetailProductComponent implements OnInit {
   @Input() isEditDetail : boolean = false;
   @Input() actionText : string = "";
   @Input() isExistPhotoDetail : boolean = false;
+  @Input() idProduct : number = 0;
 
   fileTmp : any;
   photoSelected : string | ArrayBuffer | null = "";
@@ -104,6 +105,10 @@ export class ModalDetailProductComponent implements OnInit {
   }
 
   requestAddDetail(urlImageDetail : string){
+    if(this.idProduct){
+      this.detailProduct.idProducto = this.idProduct;
+    }
+
     this.detailProduct.urlImg = urlImageDetail;
     this._formProductComponent.detailsProduct.push(this.detailProduct);
     this.clearImage();

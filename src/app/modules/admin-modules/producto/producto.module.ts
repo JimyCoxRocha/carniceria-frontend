@@ -18,6 +18,8 @@ import {TabViewModule} from 'primeng/tabview';
 import { BodyProductDetailComponent } from './components/body-product-detail/body-product-detail.component';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {DialogModule} from 'primeng/dialog';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     TooltipModule,
     TabViewModule,
     ScrollPanelModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DialogModule,
+    InputNumberModule,
   ]
 })
 export class ProductoModule { }

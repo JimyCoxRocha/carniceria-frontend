@@ -73,8 +73,34 @@ export class ProductoAdminService {
     );
   }
   
-  updateProduct(idProduct : number){
-   
+  updateProduct(data : any) : Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}Producto/update`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
+  }
+
+  updateProductStock(currentStock : number , idProduct : number) : Observable<any>{
+    return this.http.patch<any>(`${this.apiUrl}Producto/stock/${idProduct}/${currentStock}`,currentStock)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    ); 
   }
 
   activeProduct(idProduct : number){
