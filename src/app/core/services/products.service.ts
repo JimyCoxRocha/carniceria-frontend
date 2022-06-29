@@ -54,6 +54,7 @@ export class ProductsService {
   getProductStorage(){
     try{
       const products = JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
+      this._productsCar = products;
       return products;
     }catch(Exception){
       return [];
@@ -137,12 +138,6 @@ export class ProductsService {
         })
       : this.getAllProducts();
     return products;
-
-    /* this.http.requestProducts<ProductoResponse[]>("Producto")
-    .subscribe(x => {
-      this._products = x;
-      this._isLoading = false;
-    }) */
   }
 
   getProductsByIdCategoryAndSubCategory(idCategory : number, idSubcategory : number) : Observable<any>{

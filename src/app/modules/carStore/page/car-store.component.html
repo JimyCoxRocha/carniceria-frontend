@@ -1,36 +1,22 @@
+
 <div class="pt-5">
-  <app-table 
-    [_products]="productsTable" 
-    [isLoading]="_isLoading"
-    (deleteAll)="deleteAll()"
-    (removeProduct)="removeSelectedProduct($event)"
-    ></app-table>
-</div>
-
-<button pButton pRipple type="button" label="Danger" class="p-button-raised p-button-danger" (click)="sendData()"></button>
-
-
-
-
-<!-- <div style="width: 70%; margin: 0 auto;">
-  <div class="card"> 
-    <table class="table table-hover shopping-cart-wrap">
-      <thead class="text-muted headMQ">
-        <tr>
-          <th scope="col" class="text-center">Producto</th>
-          <th scope="col" width="120" class="text-center">Cantidad</th>
-          <th scope="col" width="120" class="text-center">Precio</th>
-          <th scope="col" width="200" class="text-center">Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr app-product *ngFor="let product of productsInCar"
-            [product] = "product"
-            class="car-products"
-          >
-          </tr>
-      </tbody>
-    </table>
+  <div class="flex flex-wrap flex-wrap-reverse md:flex-wrap grid">
+    <div class="col-12 md:col-8">
+      <app-table 
+        [_products]="productsTable" 
+        [isLoading]="_isLoading"
+        (deleteAll)="deleteAll()"
+        (removeProduct)="removeSelectedProduct($event)"
+        (productEdited)="updateProductInStorage($event)"
+        ></app-table>
+    </div>
+    <div class="col-12 md:col-4">
+      <div *ngIf="productsTable.length > 0">
+        <app-order-summary 
+        (buyProducts) = "sendData()" 
+        [_products]="productsTable" 
+        ></app-order-summary>
+      </div>
+    </div>
   </div>
-
-</div> -->
+</div>

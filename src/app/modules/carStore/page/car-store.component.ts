@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
-import { ProductsService } from 'src/app/core/services';
+import { IProductsCar, ProductsService } from 'src/app/core/services';
+import { ValidatorService } from 'src/app/core/services/validator.service';
 
-interface productTable extends Product {
+export interface ICardProductTable extends Product {
   amount: number
 }
 
@@ -13,10 +14,13 @@ interface productTable extends Product {
 })
 export class CarStoreComponent implements OnInit {
   _products: Product[] = [];
-  _productsTable : productTable[] = [];
+  _productsTable : ICardProductTable[] = [];
   _isLoading: boolean = false;
   
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService, 
+    private validatorService: ValidatorService
+  ) {
     this.productsService.getProductInCar();
   }
 
@@ -27,12 +31,23 @@ export class CarStoreComponent implements OnInit {
     }
   }
 
+  getRangeProducts(element: Product, productInStorage: IProductsCar){
+    const productAmount = productInStorage.amount ? productInStorage.amount : 1;
+    return this.validatorService.validateRange(productAmount, {
+                max: element.stock,
+                min: 1
+    })
+  }
+
   productCar(){
       this.productsService.getProducts().subscribe((response)=>{
         this._isLoading = false;
         response.forEach(element => {
-          if(this.productsService.findProductStorage(element.product.idProducto))  
-            this._productsTable.push({...element.product, amount: 1});
+          const productInStorage = this.productsService.findProductStorage(element.product.idProducto);
+          if(productInStorage)  
+            this._productsTable.push({...element.product, 
+              amount: this.getRangeProducts(element.product, productInStorage)
+            });
         });
 
       });
@@ -43,17 +58,25 @@ export class CarStoreComponent implements OnInit {
   }
 
   deleteAll(){
-    this._products = [];
+    this._productsTable = [];
     this.productsService.removeAllProductStorage();
   }
 
   removeSelectedProduct(idProduct: number){
     this.productsService.removeProductStorage(idProduct);
-    this._products = this.productsTable.filter(x => x.idProducto !== idProduct);
+    this._productsTable = this.productsTable.filter(x => x.idProducto !== idProduct);
   }
 
   sendData(){
     console.log(this._productsTable);
+  }
+  
+  updateProductInStorage(product: ICardProductTable){
+    
+    this.productsService.setProductStorage({
+      amount: product.amount,
+      id: product.idProducto
+    });
   }
 
 }

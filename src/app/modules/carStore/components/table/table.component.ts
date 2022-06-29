@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
+import { ValidatorService } from 'src/app/core/services/validator.service';
+import { ICardProductTable } from '../../page/car-store.component';
 
 
 
@@ -10,15 +12,15 @@ import { Product, ProductoResponse } from 'src/app/core/interfaces';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-  @Input('_products') _products: Product[] = [];
+  @Input('_products') _products: ICardProductTable[] = [];
   @Input('isLoading') isLoading : boolean = true;
   @Output() deleteAll: EventEmitter<boolean> = new EventEmitter();
   @Output('removeProduct') _removeProduct: EventEmitter<number> = new EventEmitter();
-
+  @Output("productEdited") productEdited: EventEmitter<ICardProductTable> = new EventEmitter();
   
 
   constructor(
-    
+    private validatorService: ValidatorService
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -46,36 +48,9 @@ export class TableComponent implements OnInit, OnChanges {
     this._removeProduct.emit(idProduct);
   }
   
-  /* productCar(){
-    return this.productsService.getProducts().subscribe((response)=>{
-      //this.isOpenModal(response);
-      this._products = response;
-    });
+  changeValue(event: ICardProductTable){
+    console.log(event.amount);
+    this.productEdited.emit(event);
   }
-
-  
-
-  handleAddToCar(idProduct: number){
-    !this.productExistInCar(idProduct)
-    ? this.addProductCar(idProduct)
-    : this.removeSelectedProduct(idProduct);
-  }
-
-  productExistInCar(idProduct: number){
-    return this.isCarItem.findIndex(x => x == idProduct) >= 0;
-  }
-
-  removeSelectedProduct(idProduct: number){
-    this.productsService.removeProductStorage(idProduct);
-    this.isCarItem = this.isCarItem.filter(x => x !== idProduct);
-  }
-
-  addProductCar(idProduct: number){
-    this.productsService.setProductStorage({
-      amount: 1,
-      id: idProduct
-    });
-    this.isCarItem.push(idProduct);
-  } */
 
 }

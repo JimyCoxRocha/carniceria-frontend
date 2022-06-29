@@ -23,6 +23,8 @@ import {CarouselModule} from 'primeng/carousel';
 import {BadgeModule} from 'primeng/badge';
 import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {AccordionModule} from 'primeng/accordion';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [],
@@ -50,7 +52,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CarouselModule,
     BadgeModule,
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    DropdownModule
   ],
   exports: [
     SidebarModule,
@@ -75,7 +79,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CarouselModule,
     BadgeModule,
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    DropdownModule
   ]
 })
 export class PrimeNgModule { }
