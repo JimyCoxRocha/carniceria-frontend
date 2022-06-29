@@ -1,0 +1,70 @@
+<p-dialog header="Detalle del Producto" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
+    (onHide)="closeModal()" [baseZIndex]="1" [autoZIndex]="false" [draggable]="false" [resizable]="false">
+        
+    <p class="title_image">Imagen</p>
+    
+    <div class="imageSelect mb-3 mt-2" (click)="photoInput.click()">
+        <input class="file-input" accept="image/png, .jpeg, .jpg," (change)="getPhotoSelected($event)" type="file" name="file" hidden #photoInput>
+        <ng-template [ngIf]="isExistPhotoDetail" [ngIfElse]="desingImage" >
+            <div class="imgSelected">
+                <ng-template [ngIf]="isEditDetail" [ngIfElse]="photoSelectedImage">
+                    <img src="{{detailProduct.urlImg}}" alt="Image" height="250px">
+                </ng-template>
+                <ng-template #photoSelectedImage>
+                    <img src="{{photoSelected}}" alt="Imagen Seleccionada" height="250px">
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #desingImage>
+            <div class="designeImagen">
+                <i class="pi pi-images"></i>
+                <p>Click Para Buscar Imagen</p>
+                <p>Tamaño máximo: 4MB</p>
+                <p>Tipo de imagen aceptado: (.png, .jpeg, .jpg)</p>
+            </div>
+        </ng-template>
+    </div>
+    <small id="username-help" class="p-error" *ngIf="submitted && !detailProduct.urlImg && !isExistPhotoDetail">Imagen es requerida</small>
+
+    <ng-template [ngIf]="isExistPhotoDetail">
+       <div class="information_image">
+           <div class="text_image">
+               <i class="pi pi-image"></i>
+               <ng-template [ngIf]="isEditDetail" [ngIfElse]="informationPhotoSelected">
+                   <p class="text_information_image">{{detailProduct.urlImg}}</p>
+               </ng-template>
+               <ng-template #informationPhotoSelected>
+                   <p class="text_information_image">{{fileTmp.fileName}}</p>
+               </ng-template>
+            </div>
+            <div >
+                <button class="button_clear" (click)="clearImage()" pRipple>
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+       </div>
+    </ng-template>
+
+    <p class="mt-5 title_image">Título</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <input type="text" pInputText [(ngModel)]="detailProduct.tituloDetalle"> 
+            <small id="username-help" class="p-error" *ngIf="submitted && !detailProduct.tituloDetalle">Título es requerido</small>
+        </div>
+    </div>
+
+    <p class="mt-2 title_image">Descripción</p>
+    <div class="p-fluid grid">
+        <div class="field col-12">
+            <span class="p-float-label">
+                <textarea inputId="textarea" style="resize: none;" [rows]="4"  [(ngModel)]="detailProduct.descripcion" pInputTextarea></textarea>
+                <small id="username-help" class="p-error" *ngIf="submitted && !detailProduct.descripcion">Descripción es requerida</small>
+            </span>
+        </div>
+    </div>
+    
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar" styleClass="p-button-text p-button-danger"></p-button>
+        <p-button icon="pi pi-check" (click)="selectFunctionDetail()" [label]="actionText" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

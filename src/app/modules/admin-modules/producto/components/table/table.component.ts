@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Host, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IProductAdminSimple } from '../../interfaces/product-admin.interface';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import { ProductoAdminService } from '../../services/producto-admin.service';
+import { ProductoAdminComponent } from '../../page/producto-admin.component';
+import { Product } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-admin-table',
@@ -14,10 +17,17 @@ export class TableComponent implements OnInit {
   @Input() products : IProductAdminSimple[] = []
   @Input() isLoading : boolean = false;
 
+  displayModalUpdateStock : boolean = false;
+  currentStock : number = 0 ;
+  idProduct : number = 0;
+  submitted : boolean = false;
+
   constructor(
     private _router : Router,
     private confirmationService: ConfirmationService, 
     private messageService: MessageService,
+    private productService : ProductoAdminService,
+    @Host() private productAdminComponent : ProductoAdminComponent
   ) 
   {}
 
@@ -26,7 +36,13 @@ export class TableComponent implements OnInit {
 
   onRowSelect(event : any) {
     let idProduct = event.data.idProducto;
-    this._router.navigate([`admin/productos/${idProduct}`]);
+    this._router.navigate([`admin/productos/detail-product/${idProduct}`]);
+  }
+
+  showModalUpdateStock(product : IProductAdminSimple){
+    this.displayModalUpdateStock = true;
+    this.currentStock = product.stock;
+    this.idProduct = product.idProducto;
   }
 
   
@@ -59,12 +75,50 @@ export class TableComponent implements OnInit {
     });
   }
 
+  updateStock(){
+    this.productAdminComponent.isLoading = true;
+    this.displayModalUpdateStock = false;
+
+    this.productService.updateProductStock(this.currentStock, this.idProduct).subscribe((response : any) =>{
+      if(response.toastError){
+        this.productAdminComponent.isLoading = false;
+        this.messageService.add({severity:'error', summary: 'Error', detail: `${response.messageToast}`});
+        return ;
+      }
+
+      this.productAdminComponent.getProductsToTable();
+      this.messageService.add({severity:'success', summary: 'Completado', detail: 'Stock actualizado con éxito', life : 3000});
+    })
+  }
+
   activateProduct(idProduct : number){
-    console.log('Activado');
+    this.productAdminComponent.isLoading = true;
+
+    this.productService.activeProduct(idProduct).subscribe((response : any) => {
+      if(response.toastError){
+        this.productAdminComponent.isLoading = false;
+        this.messageService.add({severity:'error', summary: 'Error', detail: `${response.messageToast}`});
+        return ;
+      }
+
+      this.productAdminComponent.getProductsToTable();
+      this.messageService.add({severity:'success', summary: 'Completado', detail: 'Producto activado con éxito', life : 3000});
+    })
   }
 
   deleteProduct(idProduct : number){
-    console.log('Eliminaod');
+    this.productAdminComponent.isLoading = true;
+
+    this.productService.deleteProduct(idProduct).subscribe((response : any) => {
+      if(response.toastError){
+        this.productAdminComponent.isLoading = false;
+        this.messageService.add({severity:'error', summary: 'Error', detail: `${response.messageToast}`});
+        return ;
+      }
+
+      this.productAdminComponent.getProductsToTable();
+      this.messageService.add({severity:'success', summary: 'Completado', detail: 'Producto inactivado con éxito', life : 3000});
+    })
   }
 }
   

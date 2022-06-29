@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,13 +14,20 @@ import { DividerModule} from 'primeng/divider';
 import { CardModule} from 'primeng/card';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {TooltipModule} from 'primeng/tooltip';
+import {TabViewModule} from 'primeng/tabview';
+import { BodyProductDetailComponent } from './components/body-product-detail/body-product-detail.component';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {DialogModule} from 'primeng/dialog';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 @NgModule({
   declarations: [
     TableComponent,
     ProductoAdminComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    BodyProductDetailComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +39,15 @@ import {TooltipModule} from 'primeng/tooltip';
     DividerModule,
     ConfirmDialogModule,
     CardModule,
-    TooltipModule
+    TooltipModule,
+    TabViewModule,
+    ScrollPanelModule,
+    RadioButtonModule,
+    DialogModule,
+    InputNumberModule,
   ]
 })
 export class ProductoModule { }
+
+
+

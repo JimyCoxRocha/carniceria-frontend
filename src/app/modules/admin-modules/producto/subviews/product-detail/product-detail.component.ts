@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { filter } from 'rxjs';
-import { IAdminElementExtraDetail, IAdminElementExtraDetailMixed } from 'src/app/core/components/admin-components/interfaces';
-import { IHeaderAdminEdit } from 'src/app/core/components/admin-components/interfaces/header.interface';
-import { Category } from 'src/app/core/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IAdminElementExtraDetail, IAdminElementExtraDetailMixed, ICardElementExtraDetail } from 'src/app/core/components/admin-components/interfaces';
+import { Category, DetailProduct, Product } from 'src/app/core/interfaces';
 import { IProductAdminDetail } from '../../interfaces/product-admin.interface';
 import { ProductoAdminService } from '../../services/producto-admin.service';
-
-interface RouteParams {
-  id: string;
-}
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,121 +13,55 @@ interface RouteParams {
 })
 export class ProductDetailComponent implements OnInit {
   
-  product: IProductAdminDetail | null = null;
-  productDetail!: IAdminElementExtraDetail;
-  productCategory!: IAdminElementExtraDetailMixed;
+  productResponse: IProductAdminDetail | null = null;
+  product : Product = {} as Product;
+
+
+  productDetail : DetailProduct[] = [];
+  productCategory : Category[] = [];
+  categorySelect : Category = {} as Category;
+
+  idProduct : number = 0;
+
+  isLoading : boolean = true;
 
   constructor(private route: ActivatedRoute, 
-    private detailService : ProductoAdminService) {
+    private detailService : ProductoAdminService,
+    private primengConfig: PrimeNGConfig,
+    private _router : Router,
+    ) {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    try{
-      const idProduct = parseInt(id!);
-      idProduct && this.detailService.getDetailToTable(idProduct).subscribe(data => {
-        this.product = data;
-        this.productExtraDetail();
-      });
-    }catch(Err){}
+    this.primengConfig.ripple = true;
+    this.getIdProduct();
   }
 
-  addDetail(){
+  getIdProduct(){
+    this.route.params.subscribe((param : any) =>{
+      this.idProduct = param['id'];
 
+      this.getDetailProduct();
+    })
   }
 
-  deleteSubCategory(idProductDetail: number){
-    console.log("Click en delete category: ");
-  }
-
-  deleteDetail(idProductDetail: number){
-    console.log("Click en delete detalle: ");
-  }
-
-  editDetail(idProductDetail: number){
-    console.log("Click on edit detail: ");
-  }
-
-  detail(){
-    const detail = this.product?.detail || [];
-
-    const productDetail: IAdminElementExtraDetail | undefined = {
-        title: 'Detalles del Producto',
-        actionAdd: {
-          title: 'Agregar Detalle',
-          action: () => this.addDetail()
-        },
-        card: detail.map(detail => ({
-          image: detail.urlImg,
-          title: detail.tituloDetalle,
-          description: detail.descripcion,
-          actionDelete: () => this.deleteDetail(detail.idDetalleProducto),
-          actionEdit: () => this.editDetail(detail.idDetalleProducto)
-      }))
-    };
-
-    return productDetail;
+  
+  getDetailProduct(){
+    this.detailService.getDetailToTable(this.idProduct).subscribe((response : IProductAdminDetail) => {
+      this.productResponse = response;
+      this.productDetail = this.productResponse.detail;
+      this.productCategory = this.productResponse.categories;
+      this.categorySelect = this.productCategory[0];
+      this.product = this.productResponse.product;
+      this.isLoading = false;
+    })
   }
   
-  getCategory(category: Category){
-
-    const valore = {
-        title: category.titulo,
-        card: category.subCategoria.map(subCategory => ({
-          image: subCategory.urlImage,
-          title: subCategory.titulo,
-          description: subCategory.descripcion,
-          actionDelete: () => this.deleteSubCategory(subCategory.idSubcategoria)
-      }))
-    } as IAdminElementExtraDetail;
-    console.log(valore);
-    return valore;
+  buttonBack(){
+    this._router.navigate(['admin/productos']);
   }
 
-  categories(){
-    const categories = this.product?.categories;
-
-    const productDetail: IAdminElementExtraDetail[]  = 
-      (categories && categories.length > 0) ? 
-      categories.map( category => (
-        this.getCategory(category)
-      )) : [];
-
-      return {
-        title: "Categorias",
-        elements: productDetail,
-        actionAdd: {
-          title: 'Agregar Sub Categoria',
-          action: () => this.addDetail()
-        }
-      } as IAdminElementExtraDetailMixed
-  }
-
-  get contentHeader(){
-    const product = this.product?.product;
-    return {
-      title: product?.titulo,
-      description: product?.descripcion,
-      price: product?.precio,
-      minimumUnit: product?.minimaUnidad,
-      unit: this.product?.unidadMedida.unidad,
-      imgUrl: product?.imgUrl,
-    } as IHeaderAdminEdit
-  }
-
-  productExtraDetail(){
-      if(!this.product) return;
-
-      const detail = this.detail();
-      if(detail !== undefined) 
-        this.productDetail = detail;
-
-
-      this.productCategory = this.categories();
-  }
-
-
-  get isLoading(){
-    return this.product == null || this.detailService.errorLoadingData;
+  redirectEditPage(){
+    this._router.navigate([`admin/productos/edit-product/${this.idProduct}`])
   }
 }

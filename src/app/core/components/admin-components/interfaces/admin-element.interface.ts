@@ -20,6 +20,4 @@ export interface ICardElementExtraDetail {
     image?: string,
     title: string,
     description: string,
-    actionDelete?: () => void,
-    actionEdit?: () => void
 }

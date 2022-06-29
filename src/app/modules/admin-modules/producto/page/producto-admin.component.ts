@@ -23,7 +23,6 @@ export class ProductoAdminComponent implements OnInit {
   getProductsToTable(){
     return this.productoAdminService.getProductToTable().subscribe((response : IProductAdminSimple[])=>{
       this.products = response;
-      console.log(this.products)
       this.isLoading = false;
     })
   }

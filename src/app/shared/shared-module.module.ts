@@ -8,6 +8,8 @@ import {ToastModule} from 'primeng/toast';
 import {SkeletonModule} from 'primeng/skeleton';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     SkeletonModule,
     InputTextareaModule,
     FormsModule,
+    ProgressSpinnerModule
   ]
 })
 export class SharedModuleModule { }

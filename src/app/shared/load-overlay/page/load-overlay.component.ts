@@ -10,7 +10,7 @@ import { PrimeNGConfig } from 'primeng/api';
 export class LoadOverlayComponent implements OnInit {
 
   @Input() isLoadingOverlay : boolean = true;
-  @Input() displayOverlay : boolean = false;
+  @Input() displayOverlay : boolean = true;
   @Input() labelOverlay : string = "";
   @Input() iconOverlay : string = "";
   @Input() urlOverlay : string = "";

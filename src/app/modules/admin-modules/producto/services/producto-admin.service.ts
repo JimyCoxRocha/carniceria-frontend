@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, ConnectableObservable, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces';
 import { CoreService } from 'src/app/core/services';
+import { IProductForm } from 'src/app/shared/form-product/page/form-product.component';
 import { environment } from 'src/environments/environment';
 import { IProductAdminSimple, IProductAdminDetail } from '../interfaces/product-admin.interface';
 
@@ -42,8 +43,6 @@ export class ProductoAdminService {
   }
 
   getDetailToTable(idProduct: number): Observable<IProductAdminDetail>{
-    this._isLoading = true;
-
     return this.http.get<ApiResponse<IProductAdminDetail>>
     (`${this.apiUrl}Producto/product-detail/${idProduct}`)
     .pipe(
@@ -60,5 +59,71 @@ export class ProductoAdminService {
         throw err;
       })
     );
+  }
+
+  createProduct( data : IProductForm) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}Producto`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [{ toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    );
+  }
+  
+  updateProduct(data : any) : Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}Producto/update`,data)
+    .pipe(
+      map((response : any)=>{
+        return response;
+      }),
+      catchError((err: any) => {
+        return [
+            {
+              toastError : true, 
+              messageToast : "Ha ocurrido un problema, intentalo más tarde!", 
+              error : err
+            }
+          ]
+      })
+    );
+  }
+
+  updateProductStock(currentStock : number , idProduct : number) : Observable<any>{
+    return this.http.patch<any>(`${this.apiUrl}Producto/stock/${idProduct}/${currentStock}`,currentStock)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    ); 
+  }
+
+  activeProduct(idProduct : number){
+    return this.http.put<any>(`${this.apiUrl}Producto/enable/${idProduct}`,'')
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    ); 
+  }
+
+  deleteProduct(idProduct : number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}Producto/${idProduct}`)
+    .pipe(
+      map((response : any)=>{
+        return response.message;
+      }),
+      catchError((err: any) => {
+        return [{toastError : true, messageToast : "Ha ocurrido un problema, intentalo más tarde!", error : err}]
+      })
+    ); 
   }
 }
