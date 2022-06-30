@@ -14,7 +14,7 @@
       <div *ngIf="productsTable.length > 0">
         <app-order-summary 
         (buyProducts) = "sendData()" 
-        [_products]="productsTable" 
+        [_products]="productsTable"
         ></app-order-summary>
       </div>
     </div>

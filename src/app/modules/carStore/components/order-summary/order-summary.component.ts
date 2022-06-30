@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {SelectItemGroup, SelectItem} from 'primeng/api';
-import { ICardProductTable } from '../../page/car-store.component';
+import { IProductCarStore } from '../../../../core/services';
 
 interface ItemGroupSelected {
   label: string,
@@ -14,7 +14,7 @@ interface ItemGroupSelected {
 })
 export class OrderSummaryComponent implements OnInit {
   @Output() buyProducts = new EventEmitter<Boolean>();
-  @Input('_products') _products: ICardProductTable[] = [];
+  @Input('_products') _products: IProductCarStore[] = [];
 
   province: number = 0;
   groupedCities: SelectItemGroup[] = [

@@ -5,7 +5,72 @@
         [(activeIndex)]="activeIndex"
     ></p-steps>
     
-    <div class="mt-6">
-        <app-alternatives></app-alternatives>
+    <div class=" mt-6" *ngIf="!isLoadingProducts; else skeleton">
+        
+        <app-alternatives
+            *ngIf="activeIndex == 0"
+            [products] = "getProductsInCar"
+            (shippingProducts) = "step(1)"
+            [quotation] = "getQuotation"
+        ></app-alternatives>
+
+        <div class="grid" *ngIf="activeIndex == 1">
+            <div class="col-12 md:col-8">
+                <app-shipment-products
+                    (setProvince)="setProvince($event)"
+                    [groupedCities]="groupedCities"
+                    (formStore) = "formStore = $event"
+                    (step) = "step($event)"
+                >
+                </app-shipment-products>
+
+            </div>
+            
+            <div class="col-12 md:col-4">
+                <app-summary
+                    [quotation]="getQuotation"
+                    [products]="getProductsInCar"
+                >
+                </app-summary>
+            </div>
+        </div>
+
+        <app-payment
+            *ngIf="activeIndex == 2"
+            [formStore]="formStore"
+            [products]="getProductsInCar"
+            [quotation]="getQuotation"
+        >
+
+        </app-payment>
     </div>
+    
+    <ng-template #skeleton>
+        <div class="p-field p-col-12 p-md-6 mt-5">
+            <p-skeleton styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton
+            width="10rem"
+            styleClass="mb-2"
+            borderRadius="16px"
+            ></p-skeleton>
+            <p-skeleton
+            width="5rem"
+            styleClass="mb-2"
+            borderRadius="16px"
+            ></p-skeleton>
+            <p-skeleton
+            height="4rem"
+            styleClass="mb-2"
+            borderRadius="16px"
+            ></p-skeleton>
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <p-skeleton width="100%" height="10rem" borderRadius="16px"></p-skeleton>
+                </div>
+                <div class="col-12 md:col-6">
+                    <p-skeleton width="100%" height="10rem" borderRadius="16px"></p-skeleton>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 </div>

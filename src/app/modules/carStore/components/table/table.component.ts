@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
+import { IProductCarStore } from 'src/app/core/services';
 import { ValidatorService } from 'src/app/core/services/validator.service';
-import { ICardProductTable } from '../../page/car-store.component';
 
 
 
@@ -12,11 +12,11 @@ import { ICardProductTable } from '../../page/car-store.component';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-  @Input('_products') _products: ICardProductTable[] = [];
+  @Input('_products') _products: IProductCarStore[] = [];
   @Input('isLoading') isLoading : boolean = true;
   @Output() deleteAll: EventEmitter<boolean> = new EventEmitter();
   @Output('removeProduct') _removeProduct: EventEmitter<number> = new EventEmitter();
-  @Output("productEdited") productEdited: EventEmitter<ICardProductTable> = new EventEmitter();
+  @Output("productEdited") productEdited: EventEmitter<IProductCarStore> = new EventEmitter();
   
 
   constructor(
@@ -48,7 +48,7 @@ export class TableComponent implements OnInit, OnChanges {
     this._removeProduct.emit(idProduct);
   }
   
-  changeValue(event: ICardProductTable){
+  changeValue(event: IProductCarStore){
     console.log(event.amount);
     this.productEdited.emit(event);
   }

@@ -10,7 +10,7 @@
             </div><!-- INGRESAR AQUÍ COTIZACIÓN -->
 
             <div class="flex justify-content-evenly" style="width: 100%;">
-                <p-button label="Realizar Pedido" icon="pi pi-chevron-right" iconPos="right"></p-button>
+                <p-button (click)="sendDetailBuy()" label="Realizar Pedido" icon="pi pi-chevron-right" iconPos="right"></p-button>
             </div>
         </div>
     </div>
@@ -31,12 +31,13 @@
                     <div >
                             <div class="mb-7">
                                 <h3  style="color: #541313"><strong>Productos</strong></h3>
-                                <div class="grid">
+
+                                <div class="grid" *ngFor="let product of products">
                                     <div class="col-9">
-                                        <p class="mb-0 text-start">Producto Nombre:</p>
+                                        <p class="mb-0 text-start">{{product.titulo}}<strong>({{product.amount}})</strong></p>
                                     </div>
                                     <div class="col-3 text-end">
-                                        <p class="mb-0"><strong>{{'1' | currency}}</strong></p>
+                                        <p class="mb-0"><strong>{{product.precio | currency}}</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +51,7 @@
                                         <p class="mb-0 text-start"><strong>Descuento Total (sobre productos):</strong></p>
                                     </div>
                                     <div class="col-3">
-                                        <p class="mb-0 text-end">{{'1' | currency}}</p>
+                                        <p class="mb-0 text-end">{{quotation.discount | currency}}</p>
                                     </div>
                                 </div>
                                 <div class="lines"></div>
@@ -59,7 +60,7 @@
                             <div>
                                 <div class="item">
                                     <p class="mb-0"><strong>Subtotal:</strong></p>
-                                    <p class="mb-0">{{'2' | currency}}</p>
+                                    <p class="mb-0">{{quotation.subTotal | currency}}</p>
                                 </div>
                                 <div class="lines"></div>
                             </div>
@@ -67,7 +68,7 @@
                             <div>
                                 <div class="item">
                                     <p class="mb-0"><strong>Total:</strong></p>
-                                    <p class="mb-0">{{'4' | currency}}</p>
+                                    <p class="mb-0">{{quotation.total | currency}}</p>
                                 </div>
                                 <div class="lines"></div>
                             </div>

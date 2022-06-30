@@ -1,0 +1,56 @@
+<p-card
+    *ngIf="products.length > 0"
+    header="Resumen de Orden"
+    [style]="{width: '100%'}" 
+    styleClass="p-card-shadow"
+>
+
+    <div class="mb-7">
+        <div class="grid" *ngFor="let product of products">
+            <div class="col-9">
+                <p class="mb-0 text-start">{{product.titulo}}<strong>({{product.amount}})</strong></p>
+            </div>
+            <div class="col-3 text-end">
+                <p class="mb-0"><strong>{{product.precio | currency}}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="quotation.provinceName">
+        <div class="grid">
+            <p class="mb-0 col-9 text-start"><strong>Envío</strong>({{quotation.provinceName}}):</p>
+            <p class="mb-0 col-3 text-end">{{quotation.provinceAmount | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="grid">
+            <p class="mb-0 col-9 text-start"><strong>Descuento Total (sobre productos):</strong></p>
+            <p class="mb-0 col-3 text-end">{{quotation.discount | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="grid">
+            <p class="mb-0 col-9 text-start"><strong>Subtotal:</strong></p>
+            <p class="mb-0 col-3 text-end">{{quotation.subTotal | currency}}</p>
+        </div>
+        <div class="grid pt-2">
+            <p class="mb-0 col-9 text-start"><strong>Envío del Producto:</strong></p>
+            <p class="mb-0 col-3 text-end">{{quotation.provinceAmount | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="grid">
+            <p class="mb-0 col-9 text-start"><strong>Total:</strong></p>
+            <p class="mb-0 col-3 text-end">{{quotation.total | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+</p-card>
+

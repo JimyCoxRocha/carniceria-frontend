@@ -26,7 +26,10 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {AccordionModule} from 'primeng/accordion';
 import {DropdownModule} from 'primeng/dropdown';
 import {StepsModule} from 'primeng/steps';
-import {MenuItem} from 'primeng/api';
+import {InputMaskModule} from 'primeng/inputmask';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
   declarations: [],
@@ -58,6 +61,10 @@ import {MenuItem} from 'primeng/api';
     AccordionModule,
     DropdownModule,
     StepsModule,
+    InputMaskModule,
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule
   ],
   exports: [
     SidebarModule,
@@ -85,7 +92,11 @@ import {MenuItem} from 'primeng/api';
     InputNumberModule,
     AccordionModule,
     DropdownModule,
-    StepsModule
+    StepsModule,
+    InputMaskModule,
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class PrimeNgModule { }

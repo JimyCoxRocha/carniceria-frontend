@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
-import { IProductsCar, ProductsService } from 'src/app/core/services';
+import { IProductCarStore, IProductsCar, ProductsService } from 'src/app/core/services';
 import { ValidatorService } from 'src/app/core/services/validator.service';
 
-export interface ICardProductTable extends Product {
-  amount: number
-}
 
 @Component({
   selector: 'app-car-store',
@@ -14,7 +11,7 @@ export interface ICardProductTable extends Product {
 })
 export class CarStoreComponent implements OnInit {
   _products: Product[] = [];
-  _productsTable : ICardProductTable[] = [];
+  _productsTable : IProductCarStore[] = [];
   _isLoading: boolean = false;
   
   constructor(
@@ -71,7 +68,7 @@ export class CarStoreComponent implements OnInit {
     console.log(this._productsTable);
   }
   
-  updateProductInStorage(product: ICardProductTable){
+  updateProductInStorage(product: IProductCarStore){
     
     this.productsService.setProductStorage({
       amount: product.amount,
