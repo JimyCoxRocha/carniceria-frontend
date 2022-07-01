@@ -1,3 +1,7 @@
+:host ::ng-deep .p-scrollpanel.custombar1 .p-scrollpanel-bar{
+    background-color: rgb(180, 180, 180);
+}
+
 .body__detail{
     padding: 30px 30px;
 }
