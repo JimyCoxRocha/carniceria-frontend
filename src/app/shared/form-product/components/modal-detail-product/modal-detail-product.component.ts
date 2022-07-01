@@ -20,6 +20,7 @@ export class ModalDetailProductComponent implements OnInit {
   fileTmp : any;
   photoSelected : string | ArrayBuffer | null = "";
   submitted : boolean = false;
+  prueba :string = "<ol><li><strong>Pruebas del Detalle</strong></li></ol>";
 
   constructor(
     @Host() private _formProductComponent : FormProductComponent,
@@ -51,6 +52,7 @@ export class ModalDetailProductComponent implements OnInit {
   }
 
   clearImage(){
+    console.log(this.actionText)
     if(this.actionText === "Editar"){
       this.detailProduct.urlImg = "";  
     }

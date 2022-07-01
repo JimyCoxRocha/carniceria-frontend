@@ -1,3 +1,8 @@
+:host ::ng-deep p-dialog{
+    z-index: 150;
+    position: absolute;
+}
+
 .title_image{
     font-weight: 500;
     font-size: 16px;

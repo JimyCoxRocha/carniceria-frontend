@@ -48,8 +48,44 @@
     text-align: justify;
 }
 
+:host ::ng-deep .p-scrollpanel.custombar1 .p-scrollpanel-bar{
+    background-color: rgb(180, 180, 180);
+}
+
 section{
     padding: 5% 0px 0px 0px;
+}
+
+.carousel{
+    width: 100%;
+}
+
+.detail__content{
+    color: #000;
+    border: 1px solid #DEE2E6;
+    padding: 10px;
+    margin: .3rem;
+}
+
+.image__detail__carousel img{ 
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
+}
+
+.tittle__description__detail__carousel{
+    padding: 20px;
+}
+
+.tittle__detail__carousel{
+    font-size: 21px;
+    font-weight: 500;
+    font-family: roboto;
+}
+
+.description__detail__carousel{
+    padding-top: 10px;
+    text-align: justify;
 }
 
 .image__product__detail{

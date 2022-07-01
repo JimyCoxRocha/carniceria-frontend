@@ -100,6 +100,7 @@
                     </div>
                 </ng-template>
             </p-dropdown>
+            <small id="username-help" class="p-error" *ngIf="submitted && !product.idUnidad">Unidad de medida es requerida</small>
         </div>
     </div>
 
@@ -108,24 +109,24 @@
             <p class="mt-5 title_image">Precio</p>
             <div class="p-inputgroup">
                 <p-inputNumber [required]="true" id="price" [(ngModel)]="product.precio" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-                <small id="username-help" class="p-error" *ngIf="submitted && !product.precio">Precio es requerido</small>      
             </div>
+            <small id="username-help" class="p-error" *ngIf="submitted && product.precio == null">Precio es requerido</small>      
         </div>
 
         <div class="col-12 md:col-4">
             <p class="mt-5 title_image">Stock</p>
             <div class="p-inputgroup">
                 <p-inputNumber [(ngModel)]="product.stock" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100"></p-inputNumber>
-                <small id="username-help" class="p-error" *ngIf="submitted && !product.stock">Stock es requerido</small>      
             </div>
+            <small id="username-help" class="p-error" *ngIf="submitted && product.stock == null">Stock es requerido</small>      
         </div>
                 
         <div class="col-12 md:col-4">
             <p class="mt-5 title_image">Unidad Mínima</p>
             <div class="p-inputgroup">
                 <input type="text" pInputText [(ngModel)]="product.minimaUnidad" required> 
-                <small id="username-help" class="p-error" *ngIf="submitted && !product.minimaUnidad">Unidad mínima es requerido</small>      
             </div>
+            <small id="username-help" class="p-error" *ngIf="submitted && product.minimaUnidad == null || !product.minimaUnidad">Unidad mínima es requerido</small>      
         </div>
     </div>
    
