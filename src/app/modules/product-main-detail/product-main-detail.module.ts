@@ -10,6 +10,7 @@ import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import { SkeletonProductMainDetailComponent } from './components/skeleton-product-main-detail.component';
+import {CarouselModule} from 'primeng/carousel';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { SkeletonProductMainDetailComponent } from './components/skeleton-produc
     InputNumberModule,
     DividerModule,
     CardModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    CarouselModule
   ]
 })
 export class ProductMainDetailModule { }

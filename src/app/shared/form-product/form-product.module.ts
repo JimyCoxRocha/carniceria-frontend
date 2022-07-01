@@ -12,6 +12,8 @@ import {CardModule} from 'primeng/card';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { FormOverlayModule } from '../form-overlay/form-overlay.module';
+import {EditorModule} from 'primeng/editor';
+import {TabViewModule} from 'primeng/tabview';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FormOverlayModule } from '../form-overlay/form-overlay.module';
     CardModule,
     ScrollPanelModule,
     ConfirmDialogModule,
-    FormOverlayModule
+    FormOverlayModule,
+    EditorModule,
+    TabViewModule
   ],
   exports : [
     FormProductComponent
