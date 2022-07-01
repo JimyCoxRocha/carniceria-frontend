@@ -73,10 +73,19 @@
     <p class="mt-2 title_image">Descripción</p>
     <div class="p-fluid grid">
         <div class="field col-12">
-            <span class="p-float-label">
+            <p-editor [(ngModel)]="prueba">
+                <ng-template pTemplate="header">
+                    <span class="ql-formats">
+                        <button type="button" class="ql-bold" aria-label="Bold"></button>
+                        <button type="button" class="ql-italic" aria-label="Italic"></button>
+                        <button type="button" class="ql-underline" aria-label="Underline"></button>
+                    </span>
+                </ng-template>
+            </p-editor>
+            <!-- <span class="p-float-label">
                 <textarea inputId="textarea" rows="3" style="resize: none;" [rows]="6"  [(ngModel)]="product.descripcion" pInputTextarea required></textarea>
                 <small id="username-help" class="p-error" *ngIf="submitted && !product.descripcion">Descripción es requerida</small>
-            </span>
+            </span> -->
         </div>
     </div>
 
