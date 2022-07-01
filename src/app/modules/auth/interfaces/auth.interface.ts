@@ -4,6 +4,7 @@ import { IMenu } from "./menu.interface";
 export interface IUserLoggedIn {
     token: string,
     username: string,
+    idUser: string,
     isAdminUser: Boolean,
     menu: IMenu[]
 }
@@ -24,4 +25,16 @@ export interface IPersonRegistration {
 export interface IRegistration {
     usuario: ILogin,
     persona: IPersonRegistration
+}
+
+export interface IUserInformation {
+    idPersona: number,
+    email: string,
+    nombre: string,
+    apellido: string,
+    idSexo: number,
+    cedula: string,
+    direccion1: string,
+    direccion2: string,
+    idCiudad: number
 }

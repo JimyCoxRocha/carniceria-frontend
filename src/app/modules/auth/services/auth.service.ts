@@ -7,7 +7,7 @@ import { ApiResponse, ErrorApiResponse } from 'src/app/core/interfaces';
 import { CoreService, StorageService } from 'src/app/core/services';
 import { EncryptService } from 'src/app/core/services/encrypt.service';
 import { environment } from 'src/environments/environment';
-import { ILogin, IRegistration, IUserLoggedIn } from '../interfaces/auth.interface';
+import { ILogin, IRegistration, IUserInformation, IUserLoggedIn } from '../interfaces/auth.interface';
 
 
 @Injectable({
@@ -16,6 +16,7 @@ import { ILogin, IRegistration, IUserLoggedIn } from '../interfaces/auth.interfa
 export class AuthService {
   userLogin: IUserLoggedIn | null = null;
   _isLoading: boolean = false;
+  userSimpleData: IUserInformation | null = null;
   
   apiUrl = environment.API_URL;
   
@@ -67,7 +68,6 @@ export class AuthService {
   register( user: IRegistration ){
     if(this._isLoading) return; this._isLoading = true;
 
-    console.log(user);
     this.http.post<ApiResponse<IUserLoggedIn>>
     (`${this.apiUrl}Autenticacion/register`, user)
     .pipe(
@@ -131,6 +131,23 @@ export class AuthService {
     }catch(err){}
     
     return false;
+  }
+
+  getSimpleDataUser(){
+    this._isLoading = true;
+    console.log(this.userName);
+    return this.http.get<ApiResponse<IUserInformation>>
+    (`${this.apiUrl}User/${this.userName}`)
+    .pipe(
+      catchError((err: ErrorApiResponse) => {
+        this._isLoading = false;
+        this.core.showErrorModal({
+          title: "No pudo obtener información del usuario",
+          contentHtml: err.error.message[0]
+        })
+        throw err;
+      })
+    );
   }
 
   getMenu(){

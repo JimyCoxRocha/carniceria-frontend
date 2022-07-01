@@ -3,6 +3,11 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import { Message, MessageService, PrimeNGConfig, SelectItemGroup } from 'primeng/api';
 import { ValidatorService } from 'src/app/core/services/validator.service';
 import { IFormDetail, IItemGroupSelected } from '../../interfaces/store-detail.interface';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { SaleService } from '../../services/sale.service';
+import { IUserInformation } from 'src/app/modules/auth/interfaces/auth.interface';
+import { IProductCarStore } from 'src/app/core/services';
+import { ISaleDetail } from '../../interfaces/sale.interface';
 
 interface IFormBlur {
   emailBlur: boolean;
@@ -35,41 +40,32 @@ interface IFormBlur {
   providers: [MessageService]
 })
 export class ShipmentProductsComponent implements OnInit {
-
-  @Input() groupedCities: SelectItemGroup[] = [];
   @Output() setProvince = new EventEmitter<IItemGroupSelected>();
   @Output() formStore = new EventEmitter<IFormDetail>();
   @Output() step = new EventEmitter<number>();
+  @Input() products: IProductCarStore[] = [];
 
-showViaService() {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-}
+  isLoadingProvinces: boolean = false;
+  isLoadingDetailClient: boolean = false;
+  useDataSimple: IUserInformation | null = null;
 
+  groupedCities: SelectItemGroup[] = [];
   province: number = 0;
   
-  get provinceSelected() : IItemGroupSelected{
-    let city: IItemGroupSelected = { label: '', value: 2 }; //parametrizar precio mínimo
-    
-    const citySelected: IItemGroupSelected[] = this.groupedCities[0].items as IItemGroupSelected[];
-    const itemSelected = citySelected.find(province => province.value === this.province) || city;
-    
-    return itemSelected;
-  }
-
-    emailRegex: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
-    onlyLetterSpacesRegex: RegExp = /^[A-Za-z ]+$/; 
-    onlyNumbersRegex: RegExp = /^[0-9]+$/; 
-
-    formBlur: IFormBlur = {
-      emailBlur: false,
-      identityBlur: false,
-      name: false,
-      surname: false,
-      direction1: false,
-      direction2: false,
-      cellphone:  false 
-    };  
-
+  emailRegex: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
+  onlyLetterSpacesRegex: RegExp = /^[A-Za-z ]+$/; 
+  onlyNumbersRegex: RegExp = /^[0-9]+$/; 
+  noSpecial: RegExp = /^[^<>*!]+$/
+  
+  formBlur: IFormBlur = {
+    emailBlur: false,
+    identityBlur: false,
+    name: false,
+    surname: false,
+    direction1: false,
+    direction2: false,
+    cellphone:  false 
+  };  
 
   email: string = "";
   identity: string = "";
@@ -79,11 +75,51 @@ showViaService() {
   direction2: string = "";
   cellphone: string = '';
 
-  noSpecial: RegExp = /^[^<>*!]+$/
+  get provinceSelected() : IItemGroupSelected  | undefined{
+    const citySelected: IItemGroupSelected[] = this.groupedCities[0].items as IItemGroupSelected[];
+    const itemSelected = citySelected.find(province => province.value === this.province);
+    return itemSelected;
+  }
 
-  constructor(private messageService: MessageService, private validatorService: ValidatorService) {}
+  constructor(
+    private validatorService: ValidatorService,
+    private authService: AuthService,
+    private saleService: SaleService
+    ) {
+      
+      this.isLoadingProvinces = true;
+      this.saleService.getProvinces().subscribe(provinces => {
+        this.isLoadingProvinces = false;
+        this.groupedCities = provinces.data;
+        if( this.hasOnlyOneCity){
+           this.province = this.groupedCities[0].items[0].value;
+           this.changeProvince();
+        }
+      });
+
+    if(this.authService.isAuthUser()){
+      this.isLoadingDetailClient = true;
+        this.authService.getSimpleDataUser().subscribe(data => {
+          this.useDataSimple = data.data;
+
+          this.isLoadingDetailClient = false;
+          this.email = data.data.email,
+          this.identity = data.data.cedula,
+          this.surname = data.data.apellido,
+          this.name = data.data.nombre,
+          this.direction1 = data.data.direccion1 ? data.data.direccion1 : '',
+          this.direction1 = data.data.direccion2 ? data.data.direccion2 : ''
+        });
+      }
+  }
 
   ngOnInit(): void {
+  }
+
+  get hasOnlyOneCity(){
+    return this.groupedCities.length == 1 
+    && this.groupedCities[0].items
+    && this.groupedCities[0].items.length == 1
   }
 
   setBlur(
@@ -121,7 +157,8 @@ showViaService() {
   }
 
   changeProvince(){
-    this.setProvince.emit(this.provinceSelected);
+    if(this.provinceSelected)
+      this.setProvince.emit(this.provinceSelected);
   }
 
   identityPress(event: any){
@@ -137,9 +174,8 @@ showViaService() {
   }
 
   nextStep(){
-    
     if(this.isValidNextStep){
-      this.formStore.emit({
+      const form : IFormDetail = {
         email: this.email,
         identity: this.identity,
         name: this.name,
@@ -147,10 +183,46 @@ showViaService() {
         direction1: this.direction1,
         direction2: this.direction2,
         cellphone: this.cellphone,
-      });
-  
+      }
+
+      if(this.useDataSimple){
+        this.buyProducts(form);
+        return;
+      }
+      
+      this.formStore.emit(form);
       this.step.emit(2);
     }
+  }
+
+  buyProducts(form : IFormDetail){
+    const saleDetail: ISaleDetail[] = this.products.map(
+      product => {
+        console.log(product)
+        return { cantidad: product.amount, idProducto: product.idProducto }
+      }
+    );
+
+    this.saleService.setSale({
+      cliente: {
+        email: this.email,
+        nombre: this.name,
+        apellido: this.surname,
+        idSexo:1 ,
+        cedula: this.identity,
+        direccion1: this.direction1,
+        direccion2: this.direction2,
+        idCiudad: this.province
+      } as IUserInformation,
+      detalleVenta: saleDetail,
+      motivoCostosAdicional: "Costos de Transporte",
+      direccion: this.direction1,
+      referencia: this.direction2,
+      idCiudad: this.provinceSelected?.title,
+    }).subscribe(x => {
+      this.formStore.emit(form);
+      this.step.emit(2);
+    })
   }
 
   goBack(){

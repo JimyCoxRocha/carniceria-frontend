@@ -24,13 +24,6 @@ export class TableComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['_products']);
-    /* if(changes['_products'] && changes['_products'].currentValue && changes['_products'].currentValue.length > 0){
-      const product: Product[] = changes['_products'].currentValue as Product[];
-       product.forEach(element => {
-         this._productsTable.push({...element, amount: 1});
-       });
-    } */
  }
 
   ngOnInit(): void {
@@ -49,7 +42,6 @@ export class TableComponent implements OnInit, OnChanges {
   }
   
   changeValue(event: IProductCarStore){
-    console.log(event.amount);
     this.productEdited.emit(event);
   }
 

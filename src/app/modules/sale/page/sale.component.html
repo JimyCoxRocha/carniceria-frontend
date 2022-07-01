@@ -18,9 +18,8 @@
             <div class="col-12 md:col-8">
                 <app-shipment-products
                     (setProvince)="setProvince($event)"
-                    [groupedCities]="groupedCities"
                     (formStore) = "formStore = $event"
-                    (step) = "step($event)"
+                    [products]="getProductsInCar"
                 >
                 </app-shipment-products>
 

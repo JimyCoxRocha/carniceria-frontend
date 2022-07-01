@@ -138,7 +138,6 @@ export class ProductsService {
   }
 
   getProducts(){
-    console.log("GET products: ", this._products.length);
     const products: Observable<ProductoResponse[]> = 
     this._products.length !== 0 
       ? new Observable<ProductoResponse[]>(subscriber => {

@@ -8,7 +8,8 @@ export interface IQuotation{
 
 export interface IItemGroupSelected{
     label: string,
-    value: number
+    value: number,
+    title: any
 }
 
 export interface IFormDetail{
