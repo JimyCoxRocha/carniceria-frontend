@@ -3,6 +3,22 @@
     text-align: justify;
 }
 
+:host ::ng-deep .p-card .p-card-footer{
+    padding: 0px;
+}
+
+:host ::ng-deep .p-scrollpanel.custombar1 .p-scrollpanel-bar{
+    background-color: rgb(180, 180, 180);
+}
+
+:host ::ng-deep .p-scrollpanel-content{
+    z-index: -9999;
+}
+
+.text_description{
+    z-index: -9999;
+}
+
 .content__detail__product{
     display: flex;
     justify-content: space-evenly;
@@ -34,7 +50,7 @@
 }
 
 .text_description{
-    height: 70px; 
+    height: 100px; 
     width: 100%;
     word-break: break-all;
 }
