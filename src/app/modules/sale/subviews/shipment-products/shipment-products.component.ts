@@ -47,6 +47,7 @@ export class ShipmentProductsComponent implements OnInit {
 
   isLoadingProvinces: boolean = false;
   isLoadingDetailClient: boolean = false;
+  isLoadingSendSale: boolean = false;
   useDataSimple: IUserInformation | null = null;
 
   groupedCities: SelectItemGroup[] = [];
@@ -174,6 +175,7 @@ export class ShipmentProductsComponent implements OnInit {
   }
 
   nextStep(){
+    
     if(this.isValidNextStep){
       const form : IFormDetail = {
         email: this.email,
@@ -185,17 +187,12 @@ export class ShipmentProductsComponent implements OnInit {
         cellphone: this.cellphone,
       }
 
-      if(this.useDataSimple){
-        this.buyProducts(form);
-        return;
-      }
-      
-      this.formStore.emit(form);
-      this.step.emit(2);
+      this.buyProducts(form);
     }
   }
 
   buyProducts(form : IFormDetail){
+    this.isLoadingSendSale = true;
     const saleDetail: ISaleDetail[] = this.products.map(
       product => {
         console.log(product)
@@ -203,7 +200,7 @@ export class ShipmentProductsComponent implements OnInit {
       }
     );
 
-    this.saleService.setSale({
+    const detailOfSale = {
       cliente: {
         email: this.email,
         nombre: this.name,
@@ -212,17 +209,31 @@ export class ShipmentProductsComponent implements OnInit {
         cedula: this.identity,
         direccion1: this.direction1,
         direccion2: this.direction2,
-        idCiudad: this.province
+        idCiudad: this.provinceSelected?.title,
       } as IUserInformation,
       detalleVenta: saleDetail,
       motivoCostosAdicional: "Costos de Transporte",
       direccion: this.direction1,
       referencia: this.direction2,
       idCiudad: this.provinceSelected?.title,
-    }).subscribe(x => {
-      this.formStore.emit(form);
-      this.step.emit(2);
-    })
+    };
+
+    if(this.authService.isAuthUser()){
+      this.saleService.setSaleUser(detailOfSale).subscribe(x => {
+        this.isLoadingSendSale = false;
+        this.emitValuesSales(form);
+      })
+    }else{
+      this.saleService.setSaleNoUser(detailOfSale).subscribe(x => {
+        this.isLoadingSendSale = false;
+        this.emitValuesSales(form);
+      })
+    }
+  }
+
+  emitValuesSales(form : IFormDetail){
+    this.formStore.emit(form);
+    this.step.emit(2);
   }
 
   goBack(){

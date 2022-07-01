@@ -33,9 +33,28 @@ export class SaleService {
     );
   }
 
-  setSale(user: ISendSale){
+  setSaleUser(user: ISendSale){
+    console.log("setSaleUser: ", user);
+    
     return this.http.post<ApiResponse<string>>
     (`${this.apiUrl}Sales/user`, user)
+    .pipe(
+      catchError((err: ErrorApiResponse) => {
+        this._isLoading = false;
+        this.core.showErrorModal({
+          title: "Tuvimos un error",
+          contentHtml: err.error.message[0]
+        })
+        throw err;
+      })
+    );
+
+  }
+
+  setSaleNoUser(user: ISendSale){
+    console.log("setSaleNoUser");
+    return this.http.post<ApiResponse<string>>
+    (`${this.apiUrl}Sales/no-user`, user)
     .pipe(
       catchError((err: ErrorApiResponse) => {
         this._isLoading = false;

@@ -12,7 +12,7 @@ import { IFormDetail, IItemGroupSelected, IQuotation } from '../interfaces/store
   styleUrls: ['./sale.component.css']
 })
 export class SaleComponent implements OnInit {
-  activeIndex: number = 1;
+  activeIndex: number = 0;
   quotation: IQuotation = {} as IQuotation;
   provinceSelected: IItemGroupSelected = {label: '', value: 0 } as IItemGroupSelected;
   

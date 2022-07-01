@@ -30,6 +30,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [],
@@ -64,7 +65,8 @@ import {MessageModule} from 'primeng/message';
     InputMaskModule,
     KeyFilterModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ProgressBarModule
   ],
   exports: [
     SidebarModule,
@@ -96,7 +98,8 @@ import {MessageModule} from 'primeng/message';
     InputMaskModule,
     KeyFilterModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ProgressBarModule
   ]
 })
 export class PrimeNgModule { }
