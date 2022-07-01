@@ -32,14 +32,14 @@
                     <div class="grid">
                         <div class="col-5 md:col-12 lg:col-4" style="padding: 0px;">
                             <div>
-                                <p-inputNumber [size]="1" [(ngModel)]="amountProduct" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
-                                    [min]="0" [max]="productResponse.product.stock" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                                <p-inputNumber [size]="1" (onInput)="setProductInStorage(productResponse.product)" (onBlur)="setProductInStorage(productResponse.product)" [(ngModel)]="amountProduct" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                                    [min]="1" [max]="productResponse.product.stock" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
                                 </p-inputNumber>    
                             </div>
                         </div>
                         <div class="col-7 md:col-12 lg:col-8" style="padding: 0px;">
                             <div class="layout__button__add">
-                                <button class="add__button__cart" pRipple><i class="pi pi-shopping-cart"></i> AGREGAR AL CARRITO</button>
+                                <button (click)="isInCar ? removeSelectedProduct(productResponse.product.idProducto) : setProductInStorage(productResponse.product)" class="add__button__cart" pRipple><i [class]="isInCar ? 'pi pi-trash' : 'pi pi-shopping-cart'"></i>{{ isInCar ? 'QUITAR DEL CARRITO' : 'AGREGAR AL CARRITO' }}</button>
                             </div>
                         </div>
                         <div class="col-12" style="padding: 0px; margin-top: 10px;">

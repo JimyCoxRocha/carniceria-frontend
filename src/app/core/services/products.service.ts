@@ -36,9 +36,19 @@ export class ProductsService {
   ) { }
 
   getProductInCar(){
-    if (this._products.length > 0) return;
+    this._isLoading = true;
+    this.getAllProducts().subscribe(product => {
+      this._isLoading = false;
+      this._productsInCar = [];
+      this.getProductStorage().forEach(x => {
+        product.forEach(y => {
+          (x.id == y.product.idProducto)
+          && this._productsInCar.push({...(y.product), amount: x.amount});
+        })
+      })
+    });
 
-    this.http.requestProducts<ProductoResponse[]>("Producto")
+/*     this.http.requestProducts<ProductoResponse[]>("Producto")
       .subscribe(product => {
 
         this.getProductStorage().forEach(x => {
@@ -47,13 +57,14 @@ export class ProductsService {
             && this._productsInCar.push({...(y.product), amount: x.amount});
           })
         })
-    });
+    }); */
       
   }
 
   getProductStorage(){
     try{
       const products = JSON.parse(this.storage.getLocalStorage(AppConstants.LocalStorage.product_list) || '[]') as IProductsCar[];
+      this._productsCar = products;
       return products;
     }catch(Exception){
       return [];
@@ -110,7 +121,6 @@ export class ProductsService {
   }
 
   getAllProducts(){
-    console.log("PRoductos");
     return this.httpClient.get<ApiResponse<ProductoResponse[]>>(`${this.apiUrl}Producto`)
     .pipe(
       map((x: ApiResponse<ProductoResponse[]>) => {
@@ -137,12 +147,6 @@ export class ProductsService {
         })
       : this.getAllProducts();
     return products;
-
-    /* this.http.requestProducts<ProductoResponse[]>("Producto")
-    .subscribe(x => {
-      this._products = x;
-      this._isLoading = false;
-    }) */
   }
 
   getProductsByIdCategoryAndSubCategory(idCategory : number, idSubcategory : number) : Observable<any>{

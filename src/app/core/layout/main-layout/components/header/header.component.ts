@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.productsService.getProductInCar();
   }
   
   brakpoint(point: string){

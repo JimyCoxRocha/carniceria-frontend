@@ -1,0 +1,65 @@
+
+
+    <div class="p-grid p-fluid">
+        <div class="p-col-12">
+            <form #form="ngForm">
+                <label for="cc" style="display:block;margin-bottom:4px">Correo</label>
+                <input id="cc" (blur)="setBlur('emailBlur')" type="text" name="email" [(ngModel)]="email" pInputText [pKeyFilter]="emailRegex" [pValidateOnly]="true" placeholder="micorreo@correo.com">
+                <p-message *ngIf="form.dirty && (!form.valid && formBlur.emailBlur)" severity="error" text="El correo no es válido" [@errorState]="form.dirty && (!form.valid && formBlur.emailBlur) ? 'visible' : 'hidden'"></p-message>
+            </form>
+        </div>
+        <div class="p-col-12">
+            <label for="name" style="display:block;margin-bottom:4px">Nombre</label>
+            <input (blur)="setBlur('name')" id="name" type="text" name="name" [(ngModel)]="name" pInputText [pKeyFilter]="onlyLetterSpacesRegex" placeholder="nombre" style="margin-right: .5em">
+            <p-message [severity]="isValidField('name') ? '' : 'error'" text="El nombre debe tener más de 3 caracteres"></p-message>
+        </div>
+        <div class="p-col-12">
+            <label for="surname" style="display:block;margin-bottom:4px">Apellido</label>
+            <input (blur)="setBlur('surname')" id="surname" type="text" name="surname" [(ngModel)]="surname" pInputText [pKeyFilter]="onlyLetterSpacesRegex" placeholder="apellidos" style="margin-right: .5em">
+            <p-message [severity]="isValidField('surname') ? '' : 'error'" text="El apellido debe tener más de 3 caracteres"></p-message>
+        </div>
+        <div class="p-col-12">
+            <div class="p-mt-4">
+                <label for="identity" style="display:block;margin-bottom:4px">Cédula</label>
+                <input (blur)="setBlur('identityBlur')" (keypress)="identityPress($event)" type="text" pInputText [(ngModel)]="identity" [pKeyFilter]="onlyNumbersRegex" placeholder="cédula" class="ng-dirty p-mr-2">
+                <p-message [severity]="isValidField('identityBlur') ? '' : 'error'" text="La cédula es incorrecta"></p-message>
+            </div>
+        </div>
+        <div class="p-col-12">
+            <div class="p-mt-4">
+                <label for="identity" style="display:block;margin-bottom:4px">Dirección 1</label>
+                <input (blur)="setBlur('direction1')" type="text" pInputText [(ngModel)]="direction1" placeholder="dirección" class="ng-dirty p-mr-2">
+                <p-message [severity]="isValidField('direction1') ? '' : 'error'" text="La dirección debe tener más de 4 caracteres"></p-message>
+            </div>
+        </div>
+        <div class="p-col-12">
+            <div class="p-mt-4">
+                <label for="direction2" style="display:block;margin-bottom:4px">Dirección 2</label>
+                <input  type="text" pInputText [(ngModel)]="direction2" placeholder="dirección 2" class="ng-dirty p-mr-2">
+                
+            </div>
+        </div>
+        <div class="p-col-12">
+            <div class="p-mt-4">
+                <label for="identity" style="display:block;margin-bottom:4px">Teléfono Celular</label>
+                <p-inputMask (onBlur)="setBlur('cellphone')" mask="9999999999" [(ngModel)]="cellphone" placeholder="(09) 99999999"></p-inputMask>
+                <p-message [severity]="isValidField('cellphone') ? '' : 'error'" text="Ingrese correctamente el teléfono celular (10 dígitos)"></p-message>
+            </div>
+        </div>
+        <div class="p-col-12">
+            <label for="identity" style="display:block;margin-bottom:4px">Provincia de entrega</label>
+            <p-dropdown [options]="groupedCities" (onChange)="changeProvince()" [(ngModel)]="province" placeholder="Seleccionar provincia" [group]="true">
+                <ng-template let-group pTemplate="group">
+                    <div class="p-d-flex p-ai-center">
+                        <span>{{group.label}}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        
+    </div>
+
+    <div class="mt-3 flex justify-content-evenly">
+        <p-button label="Regresar" icon="pi pi-angle-left" (click)="goBack()"></p-button>
+        <p-button [disabled]="!isValidNextStep" label="Continuar" icon="pi pi-angle-right" iconPos="right"  styleClass="p-button-success" (click)="nextStep()"></p-button>
+    </div>

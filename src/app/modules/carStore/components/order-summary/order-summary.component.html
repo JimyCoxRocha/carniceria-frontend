@@ -1,0 +1,61 @@
+<p-card 
+    header="Resumen de Orden"
+    [style]="{width: '100%'}" 
+    styleClass="p-card-shadow"
+>
+    <ng-template pTemplate="header">
+        <!-- <img alt="Card" src="assets/showcase/images/usercard.png"> -->
+    </ng-template>
+
+    <div>
+        <p-accordion>
+            <p-accordionTab header="Estimación de envío">
+                <div class="flex flex-wrap flex-wrap-reverse justify-content-between align-items-center">
+                    <p-dropdown [options]="groupedCities" [(ngModel)]="province" placeholder="Select a City" [group]="true">
+                        <ng-template let-group pTemplate="group">
+                            <div class="p-d-flex p-ai-center">
+                                <span>{{group.label}}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                    <p class="mb-0"><strong>{{provinceSelected.value | currency}}</strong></p>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="item">
+            <p class="mb-0"><strong>Descuento Total (sobre productos):</strong></p>
+            <p class="mb-0">{{discount | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="item">
+            <p class="mb-0"><strong>Subtotal:</strong></p>
+            <p class="mb-0">{{subTotal | currency}}</p>
+        </div>
+        <div class="item pt-2">
+            <p class="mb-0"><strong>Envío del Producto:</strong></p>
+            <p class="mb-0">{{provinceSelected.value | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <div>
+        <div class="item">
+            <p class="mb-0"><strong>Total:</strong></p>
+            <p class="mb-0">{{total | currency}}</p>
+        </div>
+        <p-divider></p-divider>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <div class="text-center" routerLink="/venta">
+            <p-button label="Terminar Compra" icon="pi pi-check"></p-button>
+        </div>
+    </ng-template>
+</p-card>

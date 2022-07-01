@@ -23,6 +23,13 @@ import {CarouselModule} from 'primeng/carousel';
 import {BadgeModule} from 'primeng/badge';
 import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {AccordionModule} from 'primeng/accordion';
+import {DropdownModule} from 'primeng/dropdown';
+import {StepsModule} from 'primeng/steps';
+import {InputMaskModule} from 'primeng/inputmask';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
   declarations: [],
@@ -50,7 +57,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CarouselModule,
     BadgeModule,
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    DropdownModule,
+    StepsModule,
+    InputMaskModule,
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule
   ],
   exports: [
     SidebarModule,
@@ -75,7 +89,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
     CarouselModule,
     BadgeModule,
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    DropdownModule,
+    StepsModule,
+    InputMaskModule,
+    KeyFilterModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class PrimeNgModule { }

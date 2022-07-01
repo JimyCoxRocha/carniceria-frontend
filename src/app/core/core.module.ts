@@ -22,6 +22,7 @@ import { CardDetailComponent } from './components/admin-components/card-detail/c
 import { PrimeNgModule } from './prime-ng.module';
 import { ItemComponent } from './components/item/item.component';
 
+
 @NgModule({
   declarations: [
     ImageCardComponent,

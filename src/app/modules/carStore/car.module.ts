@@ -9,13 +9,15 @@ import { CoreModule } from '../../core/core.module';
 import { ProductComponent } from './components/product/product.component';
 import { TableComponent } from './components/table/table.component';
 import { PrimeNgModule } from 'src/app/core/prime-ng.module';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 
 @NgModule({
   declarations: [
     CarStoreComponent,
     ProductComponent,
-    TableComponent
+    TableComponent,
+    OrderSummaryComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,89 @@
+<div class="grid">
+    <div class="col-12 md:col-6">
+        <div class="flex align-items-center flex-column px-5 mt-7 md:mt-0">
+            <p-divider align="center" type="dashed">
+                <h1 class="text-center mb-0" style="width: 100%;">Directo a Mi Casa</h1>
+            </p-divider>
+
+            <div class="px-5">
+                <img src="assets/images/delivery-logo.png" alt="delivery" style="width: 100%;">
+            </div><!-- INGRESAR AQUÍ COTIZACIÓN -->
+
+            <div class="flex justify-content-evenly" style="width: 100%;">
+                <p-button (click)="sendDetailBuy()" label="Realizar Pedido" icon="pi pi-chevron-right" iconPos="right"></p-button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 md:col-6">
+        <div class="flex align-items-center flex-column px-0">
+            <p-divider align="center" type="dashed">
+                <h1 class="text-center mb-4" style="width: 100%;">Iré al Local</h1>
+                <div class="image-comprobante" id="comprobante"
+                    [ngStyle]="{'padding': 
+                                breakpoint('lg') 
+                                    ? '2rem 3rem 4rem 3.2rem' 
+                                    : breakpoint('md') 
+                                        ? '1rem 1.5rem 2rem 1.7rem'
+                                        : '1.5rem 1.8rem 2.5rem 2rem'
+                            }"
+                >
+                    <div >
+                            <div class="mb-7">
+                                <h3  style="color: #541313"><strong>Productos</strong></h3>
+
+                                <div class="grid" *ngFor="let product of products">
+                                    <div class="col-9">
+                                        <p class="mb-0 text-start">{{product.titulo}}<strong>({{product.amount}})</strong></p>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <p class="mb-0"><strong>{{product.precio | currency}}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-7">
+                                <h3  style="color: #541313"><strong>Detalles</strong></h3>
+                            
+                            <div>
+                                <div class="grid">
+                                    <div class="col-9">
+                                        <p class="mb-0 text-start"><strong>Descuento Total (sobre productos):</strong></p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="mb-0 text-end">{{quotation.discount | currency}}</p>
+                                    </div>
+                                </div>
+                                <div class="lines"></div>
+                            </div>
+                        
+                            <div>
+                                <div class="item">
+                                    <p class="mb-0"><strong>Subtotal:</strong></p>
+                                    <p class="mb-0">{{quotation.subTotal | currency}}</p>
+                                </div>
+                                <div class="lines"></div>
+                            </div>
+                        
+                            <div>
+                                <div class="item">
+                                    <p class="mb-0"><strong>Total:</strong></p>
+                                    <p class="mb-0">{{quotation.total | currency}}</p>
+                                </div>
+                                <div class="lines"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <p-image src="assets/images/papel-comprobante.png" alt="Image" width="250"></p-image> -->
+            </p-divider>
+
+            <div></div><!-- INGRESAR AQUÍ COTIZACIÓN -->
+
+            <div class="flex justify-content-evenly" style="width: 100%;">
+                <p-button label="Imprimir" icon="pi pi-print"></p-button>
+                <p-button (click)="downloadImage()" label="Descargar" icon="pi pi-download" styleClass="p-button-success"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

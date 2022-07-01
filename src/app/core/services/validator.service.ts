@@ -84,4 +84,14 @@ export class ValidatorService {
 
     return (regla - resto).toString();
   }
+
+
+  validateRange(value: number, number: {max: number, min: number}){
+    const sanitize = value > number.max 
+    ? number.max
+    : value < number.min
+      ? number.min
+      : value;
+    return sanitize
+  }
 }

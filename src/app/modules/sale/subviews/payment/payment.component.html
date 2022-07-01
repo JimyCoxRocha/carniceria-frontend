@@ -1,0 +1,136 @@
+<div class="card-payment pb-5" id="comprobante">
+    <div class="header-color-card"></div>
+    <p-divider align="left" type="dashed"></p-divider>
+    <h3 class="text-center mb-0"><strong>Gracias por Preferirnos</strong></h3>
+    <p-divider align="left" type="dashed"></p-divider>
+
+    <div class="grid">
+        <div class="col-12 md:col-6">
+            <p-divider align="left">
+                <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-id-card p-mr-2"></i>
+                <b> Mis Datos</b>
+                </div>
+            </p-divider>
+        
+            <div class="px-4">
+                <div class="grid">
+        
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p class="mb-0"><strong>Mi nombre:</strong> {{formStore.name}}</p>
+                    </div>
+                    
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p class="mb-0"><strong>Cédula:</strong> {{formStore.identity}}</p>
+                    </div>
+                    
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p class="mb-0"><strong>Teléfono Celular:</strong> {{formStore.cellphone}}</p>
+                    </div>
+                
+                    <div class="col-12 md:col-6 lg:col-3">
+                        <p class="mb-0"><strong>Mi correo:</strong> {{formStore.email}}</p>
+                    </div>
+                
+                    <div class="col-12 md:col-6 lg:col-3" *ngIf="quotation.provinceName">
+                        <p class="mb-0"><strong>Provincia:</strong> {{quotation.provinceName}}</p>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-3" *ngIf="formStore.direction1">
+                        <p class="mb-0"><strong>Dirección 1:</strong> {{formStore.direction1}}</p>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3" *ngIf="formStore.direction2">
+                        <p class="mb-0"><strong>Dirección 2:</strong> {{formStore.direction2}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 md:col-6">
+            <p-divider align="left">
+                <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-thumbs-up p-mr-2"></i>
+                <b> Nuestra Carnicería</b>
+                </div>
+            </p-divider>
+            
+            <div class="px-4">
+                <p class="mb-0"><strong>Cédula:</strong> 0958657843001</p>
+                <p class="mb-0"><strong>Nombre:</strong> Carnicería Zamorano</p>
+                <p class="mb-0"><strong>Correo:</strong> carniceriazamorano@gmail.com</p>
+        
+                <div class="my-3" *ngIf="accounts.length > 0">
+                    <p-table [value]="accounts" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th><p class="text-xs mb-0">Banco</p></th>
+                                <th><p class="text-xs mb-0">Tipo Cuenta</p></th>
+                                <th><p class="text-xs mb-0">Numero de Cuenta</p></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-account>
+                            <tr>
+                                <td>{{account.banco}}</td>
+                                <td>{{account.tipoCuenta}}</td>
+                                <td>{{account.numCuenta}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p-divider align="center">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-question-circle p-mr-2"></i>
+                <b> Información</b>
+            </div>
+        </p-divider>
+        <div class="px-4">
+            <p>{{formStore.name}}, por favor, envia el respaldo de tu pago a nuestro correo electrónico <strong>carniceriazamorano@gmail.com</strong>.</p>
+            <p>Gracias por tu compra, tu pedido se ha registrado como: <strong>{{code}}</strong>, por un valor de <strong>{{quotation.total | currency}}</strong></p>
+            <p><strong>Envíamos a tu correo estos detalles</strong></p>
+        </div>
+    </div>
+
+    <div>
+        <p-divider align="center">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-shopping-cart p-mr-2"></i>
+                <b> Detalle</b>
+            </div>
+        </p-divider>
+        <div class="px-4">
+            <div class="grid">
+
+                <div class="col-12 md:col-6">
+                    <div class="grid">
+                
+                        <div class="col-12 md:col-6" *ngFor="let product of products">
+                            <p class="mb-0">{{product.titulo | titlecase}}<strong>({{product.amount}}): </strong> <strong>{{product.precio | currency}}</strong></p>
+                        </div>
+        
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    
+                    <p *ngIf="quotation.provinceName" class="mb-0"><strong>Envío ({{quotation.provinceName}}): </strong>{{quotation.provinceAmount | currency}}</p>
+                    <p class="mb-0"><strong>Descuento <strong>(sobre producto): </strong> </strong>{{quotation.discount | currency}}</p>
+                    <p ><strong>Subtotal: </strong>{{quotation.subTotal | currency}}</p>
+                    <div class="divider-amount"></div>
+                    <p class="mb-0"><strong>Monto Final: </strong>{{quotation.total | currency}}</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex justify-content-evenly mt-3" style="width: 100%;">
+    <p-button label="Seguir Comprando" [routerLink]="'/'" icon="pi pi-shopping-bag"></p-button>
+    <p-button (click)="downloadImage()" label="Descargar" icon="pi pi-download" styleClass="p-button-success"></p-button>
+</div>
