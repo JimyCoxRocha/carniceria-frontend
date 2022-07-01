@@ -77,6 +77,15 @@ export class FormProductComponent implements OnInit {
   }
 
   selectFunctionProduct(){
+    this.submitted = true;
+
+    if(!this.validateInputs()) return;
+
+    if(this.labelButton == "Crear"){
+      this.addProduct();
+      return;
+    }
+
     this.updateProduct();
   }
 
@@ -110,11 +119,19 @@ export class FormProductComponent implements OnInit {
   }
 
   validateInputs(){
-    // if(this.isObjEmpty(this.fileTmp) && !this.category.urlImage || !this.category.titulo || !this.category.descripcion){
-    //   return false;
-    // }
+    if(
+      this.isObjEmpty(this.fileTmp) && !this.product.imgUrl || 
+      !this.product.titulo || 
+      !this.product.descripcion || 
+      !this.product.idUnidad || 
+      this.product.minimaUnidad  == null || !this.product.minimaUnidad ||
+      this.product.precio  == null ||
+      this.product.stock  == null
+      ){
+      return false;
+    }
 
-    // return true;
+    return true;
   }
 
 
@@ -140,7 +157,6 @@ export class FormProductComponent implements OnInit {
   }
 
   addProduct(){
-
     const image = {
       image : this.photoSelected as string,
       contentType : this.fileTmp.fileRaw.type
@@ -153,7 +169,6 @@ export class FormProductComponent implements OnInit {
     this.imageService.uploadImage(image).subscribe((response : any) => {
       this.requestAddProduct(response.data.imageUrl);
     })
-
   }
 
   requestAddProduct(image : string){

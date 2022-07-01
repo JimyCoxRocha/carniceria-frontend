@@ -134,6 +134,10 @@ section{
     font-family: roboto;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 @media screen and (max-width: 978px) {
     .content__detail__product{
        gap: 2em;
