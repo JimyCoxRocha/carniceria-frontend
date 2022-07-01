@@ -105,10 +105,7 @@ section{
 }
 
 .content__detail__product{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-flow: row wrap;
+    width: 100%;
 }
 
 .img__product{
@@ -117,6 +114,26 @@ section{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
+
+.detail__content{
+    color: #000;
+    border: 1px solid #DEE2E6;
+    padding: 10px;
+    margin: .3rem;
+}
+
+.image__detail__carousel img{ 
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
+}
+
+.tittle__detail__carousel{
+    font-size: 21px;
+    font-weight: 500;
+    font-family: roboto;
+}
+
 
 @media screen and (max-width: 978px) {
     .content__detail__product{

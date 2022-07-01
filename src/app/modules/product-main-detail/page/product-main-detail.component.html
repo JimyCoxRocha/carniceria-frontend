@@ -61,27 +61,33 @@
     
             <div class="content__detail__product">
                 <ng-template [ngIf]="productResponse.detail.length > 0" [ngIfElse]="notFound">
-                    <div *ngFor="let detail of productResponse.detail">
-                        <p-card [header]="detail.tituloDetalle" [style]="{width: '310px'}" styleClass="p-card-shadow">
-                            <ng-template pTemplate="header">
-                                <img class="img__product" [alt]="detail.tituloDetalle" [src]="productResponse.product.imgUrl" height="150px">
+                    <div class="carousel">
+                        <p-carousel [value]="productResponse.detail" [circular]="true" [autoplayInterval]="3000" [numVisible]="1" [numScroll]="1" [circular]="false">
+                            <ng-template let-detail pTemplate="item">
+                                <div class="detail__content grid">
+                                    <div class="image__detail__carousel col-12 md:col-12 lg:col-5 ">
+                                        <img [src]="!detail.urlImg ? productResponse.product.imgUrl || null : detail.urlImg">
+                                    </div>
+                                    <div class="tittle__description__detail__carousel col-12 md:col-12 lg:col-7 ">
+                                        <div class="tittle__detail__carousel">
+                                            <p>{{detail.tituloDetalle}}</p>
+                                        </div>
+                                        <div class="description__detail__carousel">
+                                            <p>{{detail.descripcion}}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </ng-template>
-        
-                            <p-scrollPanel [style]="{width: '100%', height: '100px'}">
-                                <p>{{detail.descripcion}}</p>
-                            </p-scrollPanel>
-                        </p-card>
+                        </p-carousel>
                     </div>
                 </ng-template>
-
-                <ng-template #notFound>
-                    <div class="image__not__found">
-                        <img [src]="urlImageNotFound" alt="Sin resultados">
-                    </div>
-                </ng-template>
-
-               
             </div>
         </div>
     </section>
+</ng-template>
+
+<ng-template #notFound>
+    <div class="image__not__found">
+        <img [src]="urlImageNotFound" alt="Sin resultados">
+    </div>
 </ng-template>

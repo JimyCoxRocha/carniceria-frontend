@@ -13,7 +13,7 @@
                     </p>
                     <span class="description__product">
                         <p-skeleton height="15px" borderRadius="16px"></p-skeleton>
-                        <p-skeleton height="15px" styleClass="mt-1" borderRadius="16px"></p-skeleton>
+                        <p-skeleton height="15px"  styleClass="mt-2" borderRadius="16px"></p-skeleton>
                     </span>
                 </div>
 
@@ -48,16 +48,21 @@
         </p-divider>
 
         <div class="content__detail__product">
-            <div class="card" style="width: 300px;" *ngFor="let n of numSequence(3);">
-                <div class="custom-skeleton p-4">
-                    <p-skeleton width="100%" height="150px"></p-skeleton>
-                    <div class="mt-3" >
-                        <p-skeleton width="8rem" height="2rem" styleClass="mb-3"></p-skeleton>
+            <div class="detail__content grid">
+                <div class="image__detail__carousel col-12 md:col-12 lg:col-5 ">
+                    <p-skeleton width="100%" height="300px"></p-skeleton>
+                </div>
+                <div class="tittle__description__detail__carousel col-12 md:col-12 lg:col-7 ">
+                    <div class="tittle__detail__carousel">
+                        <p-skeleton width="30%" height="30px"></p-skeleton>
                     </div>
-                    <div class="mb-2">
-                        <p-skeleton width="100%" height="1rem"></p-skeleton>
+                    <div class="description__detail__carousel mt-3">
+                        <p-skeleton styleClass="mt-2" width="100%" height="13px"></p-skeleton>
+                        <p-skeleton styleClass="mt-2" width="100%" height="13px"></p-skeleton>
+                        <p-skeleton styleClass="mt-2" width="100%" height="13px"></p-skeleton>
+                        <p-skeleton styleClass="mt-2" width="100%" height="13px"></p-skeleton>
+                        <p-skeleton styleClass="mt-2" width="100%" height="13px"></p-skeleton>
                     </div>
-                    <p-skeleton width="100%" height="1rem"></p-skeleton>         
                 </div>
             </div>
         </div>

@@ -177,7 +177,7 @@ export class FormProductComponent implements OnInit {
 
     this.displayOverlay = true;
     this.isLoadingOverlay = true;
-    this.tittleOverlay = "Editando categoría";
+    this.tittleOverlay = "Editando Producto";
 
     if(this.product.imgUrl == ""){
       const image = {
