@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Product, ProductoResponse } from 'src/app/core/interfaces';
 import { IProductsCar, ProductsService } from 'src/app/core/services';
@@ -23,7 +23,8 @@ export class ProductMainDetailComponent implements OnInit {
     private route : ActivatedRoute,
     private productService : ProductsService,
     private primengConfig: PrimeNGConfig,
-    private validatorService: ValidatorService
+    private validatorService: ValidatorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -69,5 +70,10 @@ export class ProductMainDetailComponent implements OnInit {
                 max: element.stock,
                 min: 1
     })
+  }
+
+  handleBuy(product: Product){
+    this.router.navigateByUrl('/carrito');
+    this.setProductInStorage(product);
   }
 }
