@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { Category, SubCategory } from 'src/app/core/interfaces';
+import { Category, SimpleProductInSubCategory, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 import { ImagesService } from 'src/app/core/services/images.service';
 
@@ -10,18 +10,20 @@ import { ImagesService } from 'src/app/core/services/images.service';
   templateUrl: './form-subcategory.component.html',
   styleUrls: ['./form-subcategory.component.css']
 })
-export class FormSubcategoryComponent implements OnInit {
+export class FormSubcategoryComponent implements OnInit, OnChanges {
 
   @Input() subCategory : SubCategory = {} as SubCategory;
   @Input() selectedCategories : Category[] = [];
   @Input() isExistPhoto : boolean = false;
   @Input() isEdit : boolean = false;
   @Input() labelButton : string = ""
-
+  
+  products: SimpleProductInSubCategory[] = [];
+  productsSelected: SimpleProductInSubCategory[] = [];
   isLoading : boolean = true;
+  isLoadingProducts: boolean = true;
   categories : Category[] = [];
 
-  
   isLoadingOverlay : boolean = false;
   displayOverlay : boolean = false;
   labelOverlay : string = "";
@@ -57,6 +59,21 @@ export class FormSubcategoryComponent implements OnInit {
     })
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes['subCategory'].currentValue.idSubcategoria, this.isLoadingProducts);
+    if(changes['subCategory'] && changes['subCategory'].currentValue && changes['subCategory'].currentValue.idSubcategoria){
+      console.log("Reponse");
+      this.categoryService.getProductsStatusInSubcategory(this.subCategory.idSubcategoria).subscribe((response : SimpleProductInSubCategory[]) =>{
+        this.isLoadingProducts = false;
+        this.products = response;
+      })
+    }
+ }
+ 
+  get productsSelectedInSubcategory(){
+    return this.products.filter(x => x.isActivated);
+  }
+  
   handleCategories(response : any){
     response.forEach((i : any) =>{
       delete i.numSubCategories
@@ -65,6 +82,7 @@ export class FormSubcategoryComponent implements OnInit {
     return response;
   }
 
+  
   getPhotoSelected($event : any){
     if($event.target.files && $event.target.files[0]){
       const [ file ] = $event.target.files;
@@ -86,7 +104,7 @@ export class FormSubcategoryComponent implements OnInit {
     this.submitted = true;
 
     if(!this.validateInputs()) return ;
-
+    this.subCategory.products = !this.productsSelected ? [] : this.productsSelected;
     this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
 
     if(this.labelButton == "Crear"){

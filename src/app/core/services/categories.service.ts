@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResponse, ErrorApiResponse, Category, Product, SubCategory } from '../interfaces';
+import { ApiResponse, ErrorApiResponse, Category, Product, SubCategory, SimpleProductInSubCategory } from '../interfaces';
 import { CoreService, StorageService } from '.';
+
 
 @Injectable({
   providedIn: 'root'
@@ -240,50 +241,18 @@ export class CategoriesService {
     );
   }
 
-/* 
-  get productosCart(): Observable<ApiProductos>{
-    return this.http.get<ApiProductos>
-    (`${this.apiUrl}VHozaS85TU9uUnhTR2FpMWh0eUJCZz09=gAAAAABgAGpunQZzKslbNqIL71S6nhjanaqWYmni6w7Bv_i0nc49t4WyDc3X6fPWVYzx2Lg_3b8PabFJ5RUF2rS43OGWXQ-Yuw==&id_sucursal=20&id_categoria=485&id_subcategoria=0&offset=0&limit=100`)
+  getProductsStatusInSubcategory(idSubcategory : number) : Observable<any>{
+    console.log("GET");
+    return this.http.get<ApiResponse<SimpleProductInSubCategory[]>>
+    (`${this.apiUrl}Producto/product-to-subcategory/${idSubcategory}`)
     .pipe(
-      switchMap( resp =>  of({ 
-        productos: [...this.mappingInitData(resp.productos)],
-        estado: resp.estado 
-      }))
+      map((x: ApiResponse<SimpleProductInSubCategory[]>) => {
+        return x.data
+      }),
+      catchError((err: any) => {
+        return [{openModal : true, error : err}]
+      })
     );
   }
 
-  get onlyProductInCart(): Observable<ApiProductos>{
-    return this.http.get<ApiProductos>
-    (`${this.apiUrl}VHozaS85TU9uUnhTR2FpMWh0eUJCZz09=gAAAAABgAGpunQZzKslbNqIL71S6nhjanaqWYmni6w7Bv_i0nc49t4WyDc3X6fPWVYzx2Lg_3b8PabFJ5RUF2rS43OGWXQ-Yuw==&id_sucursal=20&id_categoria=485&id_subcategoria=0&offset=0&limit=100`)
-    .pipe(
-      switchMap( resp =>  of({ 
-        productos: [...this.productInCart(resp.productos)],
-        estado: resp.estado 
-      }))
-    );
-  }
-
-  private productInCart(productos: Productos[] ): Productos[]{
-    const listStorage = JSON.parse(this.storage.getLocalStorage(LocalStorage.product_list) || '[]') as string[];
-
-    const products = productos.filter( x => listStorage.includes(`${x.id_producto}`) )
-
-    return this.mappingInitData(products);
-  }
-  
-  private mappingInitData( productos: Productos[] ): Productos[]{
-    const localProducts = this.storage.getLocalStorage(LocalStorage.product_list);
-
-    const productList = productos.map( e => ({
-      ...e,
-      isSelected: localProducts ? this.productoIsInCart(e.id_producto, localProducts) : false,
-      imagenes: e.imagenes.map( image => `https://gestion.promo.ec${image}`)
-    }))
-    return productList;
-  }
-  
-  private productoIsInCart( idProduct: number, listLS: string ){
-    const list = JSON.parse(listLS) as string [];
-    return list.includes(`${idProduct}`);
-  } */
 }

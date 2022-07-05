@@ -14,4 +14,11 @@ export interface SubCategory{
     status: string,
     urlImage: string
     categories : Category[],
+    products: SimpleProductInSubCategory[]
 }
+
+export interface SimpleProductInSubCategory {
+    idProducto: number,
+    titulo: string,
+    isActivated: boolean
+  }
