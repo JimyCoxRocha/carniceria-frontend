@@ -34,6 +34,7 @@ export class TableSubcategoryComponent implements OnInit {
   }
 
   onRowSelect(event : any) {
+    if(this.isDelete) return;
     let idSubcategory = event.data.idSubcategoria;
     this._router.navigate([`admin/sub-categoria/administrar/detail-subcategory/${idSubcategory}`]);
   }

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { Category, SimpleProductInSubCategory, SubCategory } from 'src/app/core/interfaces';
 import { CategoriesService } from 'src/app/core/services';
 import { ImagesService } from 'src/app/core/services/images.service';
@@ -8,7 +8,8 @@ import { ImagesService } from 'src/app/core/services/images.service';
 @Component({
   selector: 'app-form-subcategory',
   templateUrl: './form-subcategory.component.html',
-  styleUrls: ['./form-subcategory.component.css']
+  styleUrls: ['./form-subcategory.component.css'],
+  providers: [MessageService]
 })
 export class FormSubcategoryComponent implements OnInit, OnChanges {
 
@@ -17,8 +18,8 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
   @Input() isExistPhoto : boolean = false;
   @Input() isEdit : boolean = false;
   @Input() labelButton : string = ""
-  
-  products: SimpleProductInSubCategory[] = [];
+  @Input() products: SimpleProductInSubCategory[] = [];
+
   productsSelected: SimpleProductInSubCategory[] = [];
   isLoading : boolean = true;
   isLoadingProducts: boolean = true;
@@ -39,7 +40,8 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
     private categoryService : CategoriesService,
     private primengConfig: PrimeNGConfig,
     private _router : Router,
-    private imageService : ImagesService
+    private imageService : ImagesService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -53,20 +55,19 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
 
   getAllCategories(){
     this.categoryService.categoriesAdmin().subscribe((response : Category[]) =>{
-      this.categories = this.handleCategories(response)
-      this.selectedCategories = this.subCategory.categories;
       this.isLoading = false;
+      this.categories = this.handleCategories(response)
+      this.selectedCategories = this.subCategory.categories || [];
     })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['subCategory'].currentValue.idSubcategoria, this.isLoadingProducts);
-    if(changes['subCategory'] && changes['subCategory'].currentValue && changes['subCategory'].currentValue.idSubcategoria){
-      console.log("Reponse");
-      this.categoryService.getProductsStatusInSubcategory(this.subCategory.idSubcategoria).subscribe((response : SimpleProductInSubCategory[]) =>{
-        this.isLoadingProducts = false;
-        this.products = response;
-      })
+    if(changes['products'] && changes['products'].currentValue){
+      try{
+        this.productsSelected = (changes['products'].currentValue as SimpleProductInSubCategory[])?.filter(x => x.isActivated)
+      }catch(Exception){
+        this.productsSelected = []
+      }
     }
  }
  
@@ -103,7 +104,15 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
   selectFunctionCategory(){
     this.submitted = true;
 
-    if(!this.validateInputs()) return ;
+    if(!this.validateInputs() || 
+        (this.selectedCategories.length > 0 && this.productsSelected.length == 0)
+    ){
+      console.log(this.selectedCategories.length > 0 && this.productsSelected.length == 0);
+      if(this.selectedCategories.length > 0 && this.productsSelected.length == 0){
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Ingrese Los productos de la SubCategoría'});
+      }
+      return;
+    }
     this.subCategory.products = !this.productsSelected ? [] : this.productsSelected;
     this.subCategory.categories = !this.selectedCategories ? [] : this.selectedCategories;
 
@@ -131,15 +140,15 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
   }
 
   updateSubcategory(){
+    this.displayOverlay = true;
+    this.isLoadingOverlay = true;
+    this.tittleOverlay = "Editando subcategoría";
+
     if(!this.subCategory.urlImage){
       const dataImage = {
         image : this.photoSelected as string,
         contentType : this.fileTmp.fileRaw.type
       };
-
-      this.displayOverlay = true;
-      this.isLoadingOverlay = true;
-      this.tittleOverlay = "Editando subcategoría";
       
       this.imageService.uploadImage(dataImage).subscribe((response : any) => {
         this.subCategory.urlImage = response.data.imageUrl;
@@ -149,6 +158,7 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
     }
     
     this.requestUpdateSubCategory();
+    
   }
 
   requestCreateSubCategory(response : string){
@@ -210,4 +220,7 @@ export class FormSubcategoryComponent implements OnInit, OnChanges {
     }
     return true;
   }
+
+
+
 }

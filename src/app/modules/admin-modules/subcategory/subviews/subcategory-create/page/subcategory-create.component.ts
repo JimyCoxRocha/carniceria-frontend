@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, SubCategory } from 'src/app/core/interfaces';
+import { Category, SimpleProductInSubCategory, SubCategory } from 'src/app/core/interfaces';
+import { CategoriesService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-subcategory-create',
@@ -8,15 +9,26 @@ import { Category, SubCategory } from 'src/app/core/interfaces';
 })
 export class SubcategoryCreateComponent implements OnInit {
 
-  subCategory : SubCategory = {} as SubCategory;
+  subCategory : SubCategory = { idSubcategoria: undefined } as any;
   selectedCategories : Category[] = [];
   isExistPhoto : boolean = false;
   isEdit : boolean = false;
   labelButton : string = "Crear"
+  products: SimpleProductInSubCategory[] = [];
 
-  constructor() { }
+  constructor(
+    private categoryService : CategoriesService
+  ) {
+    this.getProductsToSubCategory();
+  }
 
   ngOnInit(): void {
   }
 
+  getProductsToSubCategory(){
+    console.log("this.subCategory",this.subCategory);
+    this.categoryService.getProductsStatusInSubcategory(this.subCategory.idSubcategoria).subscribe((response : SimpleProductInSubCategory[]) =>{
+      this.products = response;
+    })
+  }
 }

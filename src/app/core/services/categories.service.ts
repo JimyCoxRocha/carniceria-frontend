@@ -241,10 +241,9 @@ export class CategoriesService {
     );
   }
 
-  getProductsStatusInSubcategory(idSubcategory : number) : Observable<any>{
-    console.log("GET");
+  getProductsStatusInSubcategory(idSubcategory : number | undefined) : Observable<any>{
     return this.http.get<ApiResponse<SimpleProductInSubCategory[]>>
-    (`${this.apiUrl}Producto/product-to-subcategory/${idSubcategory}`)
+    (`${this.apiUrl}Producto/product-to-subcategory${idSubcategory ? '/' + idSubcategory : ''}`)
     .pipe(
       map((x: ApiResponse<SimpleProductInSubCategory[]>) => {
         return x.data

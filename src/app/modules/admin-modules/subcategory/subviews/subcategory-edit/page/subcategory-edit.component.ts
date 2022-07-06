@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, SubCategory } from 'src/app/core/interfaces';
+import { Category, SimpleProductInSubCategory, SubCategory } from 'src/app/core/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { CategoriesService } from 'src/app/core/services';
@@ -13,7 +13,7 @@ export class SubcategoryEditComponent implements OnInit {
 
   subCategory : SubCategory = {} as SubCategory;
   selectedCategories : Category[] = [];
-  
+  products: SimpleProductInSubCategory[] = [];
 
   isLoadingDetail : boolean;
   isLoadingProducts : boolean;
@@ -39,11 +39,20 @@ export class SubcategoryEditComponent implements OnInit {
     
   }
 
+  getProductsToSubCategory(idSubCategory: number){
+    console.log("this.subCategory",idSubCategory);
+    this._categoryService.getProductsStatusInSubcategory(idSubCategory).subscribe((response : SimpleProductInSubCategory[]) =>{
+      console.log(response);
+      this.products = response;
+    })
+  }
+
   getIdSubcategory(){
     console.log("Sub Categoria");
     this._route.params.subscribe((param : any) =>{
       this.idSubcategory = param['id'];
 
+      this.getProductsToSubCategory(param['id']);
       this.getDetailSubcategory();
     })
   }

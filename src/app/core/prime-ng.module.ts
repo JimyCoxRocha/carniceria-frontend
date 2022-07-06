@@ -31,6 +31,7 @@ import {KeyFilterModule} from 'primeng/keyfilter';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -66,7 +67,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     KeyFilterModule,
     MessagesModule,
     MessageModule,
-    ProgressBarModule
+    ProgressBarModule,
+    ToastModule
   ],
   exports: [
     SidebarModule,
@@ -99,7 +101,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     KeyFilterModule,
     MessagesModule,
     MessageModule,
-    ProgressBarModule
+    ProgressBarModule,
+    ToastModule
   ]
 })
 export class PrimeNgModule { }
